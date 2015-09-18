@@ -55,20 +55,36 @@ After a 2:1 signal splitter, 1/3 of an amplified APD signal is fed to a single c
 \part{Shift Takers Instructions}
 
 \vspace*{\stretch{1}}      
-Most ECal controls are accessible through EPICS, from the main window (figure~\ref{EPICSmain}). From there you can access {\bf Temperature monitoring} in {\it Miscellaneous} then {\it ECal Temperature}, the {\bf ECal chiller} in {\it Devices} then {\it Chiller (ECAL)}, the {\bf Scalers} in {\it ECal Scaler GUI}, the {\bf ECal high voltage} in {\it Voltages} then {\it ECal HV} and the {\bf LED control panel} in {\it Devices} then {\it Flasher}.  
+All ECal controls are accessible through EPICS, from the main HPS\_EPICS window (figure~\ref{EPICSmain}).  If not already open, it should be opened as user \texttt{hpsrun} on \texttt{clonsl1}, \texttt{clonsl2}, or \texttt{clonsl3}, with the command \begin{center}\texttt{hps\_epics}\end{center}
 
-If not already open, HPS's main EPICS window is opened as user \texttt{hpsrun} on \texttt{clonsl1}, \texttt{clonsl2}, or \texttt{clonsl3}, with the command \begin{center}\texttt{hps\_epics}\end{center}
+    {\em   All shift workers should be using user \texttt{hpsrun} for instructions in this document.}
 
-    {\em   In general, all shift workers should be using user \texttt{hpsrun} for instructions in this document.}
+    The primary ECal screen is shown in figure~\ref{fig:ecal_all} and opened via the ``ECAL'' button in the right side of the main HPS EPICS screen (figure~\ref{EPICSmain}).
+
+From the main HPS\_EPICS window you can also access individual screens with more controls and details, {\bf Temperature monitoring} in {\it Miscellaneous} then {\it ECal Temperature}, the {\bf ECal chiller} in {\it Devices} then {\it Chiller (ECAL)}, the {\bf Scalers} in {\it ECal Scaler GUI}, the {\bf ECal high voltage} in {\it Voltages} then {\it ECal HV} and the {\bf LED control panel} in {\it Devices} then {\it Flasher}.  
+
+
 \vspace*{\stretch{1}}      
 
 \begin{figure}[h!]
 \center
-\includegraphics[width=0.38\textwidth]{pics/hps_epics_2014_12_15.png}
+%\includegraphics[width=0.38\textwidth]{pics/hps_epics_2014_12_15.png}
+\includegraphics[width=0.38\textwidth]{pics/hps_epics_2015_09_18.png}
 \caption{\small \label{EPICSmain} View of the Hall-B EPICS main window.}
 \end{figure}
 
  \onecolumn
+
+ \section{Primary ECal EPICS Screen}
+This one screen combines all basic ECal EPICS monitoring into one window.  It is accessible from the ``ECAL'' button in figure~\ref{EPICSmain}.  This includes embedded versions of the dedicated screens in the following sections:  temperature sensors, chiller, and low and high voltage.  This screen provides the only ECal controls shift workers should need, which is to turn HV on and off via the red and green buttons.
+
+However, this should be supplemented by the strip charts for temperature and HV current, as well as cctv webcams, in the following sections.
+
+\begin{figure}[htbp]\centering
+    \includegraphics[width=15.5cm]{pics/epics_ecal_all.png}
+    \caption{The primary EPICS screen needed for shift workers to monitor ECal.\label{fig:ecal_all}}
+\end{figure}
+
 
       \section{Temperature}
 
