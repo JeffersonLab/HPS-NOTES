@@ -7,7 +7,7 @@
 \makeatother
 
 
-\title{Manual for HPS ECal v1.8}
+\title{Manual for HPS ECal v1.9}
 
 \author{ECal On-Call Cell Phone: 757-810-1489 \\ 
 Authors: \\
@@ -122,7 +122,9 @@ However, this should be supplemented by the strip charts for temperature and HV 
 
       \subsection{Low Voltage Controls}
 
-      The low voltage power supply must be on before HV is turned on.  The LV supply is controlled manually in the hall and should be monitored using its webcam (figures~\ref{LVCam}). Call the ECal expert if this appears not to be ON or shows an abnormal current.  Normal current is between 4.0 and 4.2 A.
+      The low voltage power supply must be on before HV is turned on, and changing its settings requires contact with an ECal-expert.
+      
+LV should be monitored using its webcam (figures~\ref{LVCam}), stripcharts (figure~\ref{lvstrips}), and the main ECAL EPICS screen (figure~\ref{EPICSmain}). Call the ECal expert if this appears not to be ON or shows an abnormal current.  Normal current is between 4.0 and 4.2 A.
 
          A webcam is focused on the LV supply, accessible either by the url \texttt{cctv11.jlab.org} in a web browser, or via the ``Monitoring'' tab on the main {\bf HPS Run Wiki}.
 
@@ -353,8 +355,47 @@ Don't leave a terminal open connected to this telnet session.
 
 
 
-   \section{Changing LV settings}
-      Low voltage power supply should be set at $\pm5$V. The low voltage supply might have difficulties to get at this level because of the high current. If that was the case check, with all power supplies off, that all connection are goods. Then contact run coordinator to see if LV power supply addition is possible. 
+   \section{LV Supply}
+      The low voltage power supply is an Agilent 6621.  It should be set with both channels at $+5$V (with their current limits at 6 A), while external wiring inverts one channel to create a bipolar $\pm5$V supply. 
+      
+The low voltage supply might have difficulties to get to full voltage because of high current. If that was the case check, with all power supplies off, that all connection are goods. Then contact run coordinator to see if LV power supply addition is possible. 
+
+\subsection{Changing LV Settings}
+The LV supply can be controlled via its EPICS expert screen (figure~\ref{lvexpert}), accessible from the grey button in the top left of the LV section of the main ECAL EPICS screen (figure~\ref{EPICSmain}). In general the only necessary changes are powering on/off, while voltage and current setpoints are never changed from 5V/6A.
+      
+The LV supply can also be controlled manually in the hall.  However, when in remote mode (denoted by the ``RMT'' marker in its LCD display), local operations require pressing the ``LCL'' button first immediately before pressing the desired operation button.  To completely remove remote control abilities requires stopping the IOC (see section~\ref{lviocstop}).
+
+\begin{figure}[htbp]\centering
+    \includegraphics[width=9cm]{pics/lvexpert}
+    \caption{The LV expert EPICS screen in normal operation.\label{lvexpert}}
+\end{figure}
+
+\subsection{Restarting the LV IOC}
+   To restart the IOC:
+   {\footnotesize
+   \begin{enumerate}
+       \item \texttt{`ssh hpsrun@clonsl1'}
+       \item \texttt{`softioc\_console iocA6621'} and type user's password if necessary.
+       \item \texttt{`ctrl-x'} to restart the IOC
+       \item \texttt{`ctrl-]'} to quit to telnet
+       \item \texttt{`quit'} to exit telnet
+   \end{enumerate}
+   }
+Don't leave a terminal open connected to this telnet session.
+
+\subsection{Disabling the LV IOC}\label{lviocstop}
+   To disable the IOC:
+   {\footnotesize
+   \begin{enumerate}
+       \item \texttt{`ssh hpsrun@clonsl1'}
+       \item \texttt{`softioc\_console iocA6621'} and type user's password if necessary.
+       \item \texttt{`ctrl-t'} to toggle auto-restart
+       \item \texttt{`ctrl-x'} to kill the IOC
+       \item \texttt{`ctrl-]'} to quit to telnet
+       \item \texttt{`quit'} to exit telnet
+   \end{enumerate}
+   }
+Don't leave a terminal open connected to this telnet session.
 
    \section{High Voltage}
    \subsection{Restarting the HV IOC}
