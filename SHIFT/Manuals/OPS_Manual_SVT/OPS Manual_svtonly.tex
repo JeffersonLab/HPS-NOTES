@@ -428,39 +428,7 @@ Below is a description of each of the GUI's in the list.
 \caption{High voltage bias GUI. \label{fig:svtBias}}
 \end{figure}
 
-\section{SVT Cooling}
-
-\begin{figure*}[h!b]
-	\begin{center}
-		\includegraphics[width=0.5\textwidth]{svt_plc.png}
-		\caption{SVT PLC GUI, accessed through the \textbf{Devices} menu in \textbf{hps\_epics}.}
-		\label{fig:ctrl_cooling_plc}
-	\end{center}
-\end{figure*}
-
-\begin{figure*}[h!t]
-	\begin{center}
-		\includegraphics[width=0.4\textwidth]{svt_softinterlocks.png}
-		\caption{SVT software interlocks GUI, accessed through the \textbf{Devices} menu in \textbf{hps\_epics}.}
-		\label{fig:ctrl_cooling_softinterlocks}
-	\end{center}
-\end{figure*}
-
-\begin{figure*}[h!b]
-	\begin{center}
-		\includegraphics[width=4cm]{figures/svt_svtChiller.png}
-		\caption{SVT chiller GUI, accessed through the \textbf{Devices} menu in \textbf{hps\_epics}.}
-		\label{fig:ctrl_cooling_svtchiller}
-	\end{center}
-\end{figure*}
-
-\begin{figure*}[t]
-	\begin{center}
-		\includegraphics[width=0.3\textwidth]{figures/svt_febChiller.png}
-		\caption{FEB chiller GUI, accessed through the \textbf{Devices} menu in \textbf{hps\_epics}.}
-		\label{fig:ctrl_cooling_febchiller}
-	\end{center}
-\end{figure*}
+\input{svt_chiller_controls.tex}
 
 \section{Motion}
 
@@ -668,103 +636,7 @@ If not, call the SVT expert.
 
 \end{enumerate}
 
-\section{Cooling and Interlocks}
-\label{sec:proc_cooling}
-\subsection{Start FEB chiller}
-\begin{enumerate}
-\item Disable the FEB flow interlock.
-\item Verify that the temperature setpoint is 20 C. If not, call the SVT expert.
-\item Check the RTD temperature limits. The low limits should be set at 15 C and the high limits at 25 C. If not, call the SVT expert.
-\item Verify that all PLC alarms that affect the FEB chiller loop (supply RTD, return RTD, and vacuum) are in ``Ok'' state.
-\item Verify that the FEB valve is open.
-\item Start the chiller.
-\item Wait for the flow switch value to change, then enable the FEB flow interlock.
-If the flow switch does not trigger, call the SVT expert.
-\item At this point, the FEBs can be powered.
-\item The \textbf{current temperature} shown in the FEB chiller GUI should converge to the setpoint in a few minutes.
-\item When the temperature has reached the setpoint, lower the high limits in the interlock to their final values.
-\end{enumerate}
-
-\subsection{Start SVT chiller}
-\begin{enumerate}
-\item Change the chiller temperature setpoint to 20 C. (This assumes the SVT cooling loop is at room temperature to start. If it is cold, call the SVT expert for permission to use a lower starting setpoint.)
-\item Check the RTD temperature limits in the PLC GUI. The low limits should be set at -25 C. Change the high limits to 25 C.
-\item Verify that of the PLC alarms that affect the SVT chiller loop (flow, supply RTD, return RTD, and vacuum), the first (flow) is in ``Fault'' state, and the rest are in ``Ok'' state.
-\item Verify that of the software interlocks that affect the SVT chiller loop (supply RTD, return RTD, and vacuum), all are in ``Ok'' state.
-\item Disable the SVT flow interlock.
-Now all PLC alarms and software interlocks should be in ``Ok'' state, and the SVT valve should be open.
-If not, call the SVT expert.
-\item Start the chiller.
-\item Wait for the flow switch value to change, then enable the SVT flow interlock.
-If the flow switch does not change, call the SVT expert.
-\item Wait for the chiller temperature to stabilize at the setpoint.
-Some oscillation is normal in the short term, and the chiller may trip off (most likely if the chiller has been off for a while).
-If this happens, call the SVT expert to have the chiller reset, and start over from the beginning of the procedure.
-\item At this point (once temperature stabilizes), the hybrids can be powered.
-\item Lower the chiller temperature setpoint by 10 C (to 10 C).
-Wait 20 minutes for temperatures to equalize in the system (chiller temperature and RTDs should stabilize in about 10 minutes). If at the end of this time the chiller temperature is more than 0.5 C away from setpoint, or either RTD is more than 3 C away from setpoint, call the SVT expert.
-\item Repeat the previous step (lower setpoint by 10 C, wait for 20 minutes)  until the setpoint reaches its final value of -20 C.
-\item After the final waiting period, change the high limits in the PLC GUI to -15 C.
-\end{enumerate}
-
-\subsection{Stop FEB chiller}
-\begin{enumerate}
-\item Verify that hybrid bias, FEB power, and flange board power are off.
-\item Press the \textbf{Stop} button in the FEB chiller GUI. The interlocks will close the FEB valve and trip the MPOD.
-\end{enumerate}
-
-\subsection{Stop SVT chiller}
-\begin{enumerate}
-\item Verify that hybrid bias, FEB power, and flange board power are off.
-\item Press the \textbf{Stop} button in the SVT chiller GUI. The interlocks will close the SVT valve and trip the MPOD.
-\end{enumerate}
-
-\subsection{Draining SVT chiller (experts only)}
-\begin{enumerate}
-\item Disable the PLC interlocks for flow, supply RTD, and return RTD.
-\item Put the chiller in manual mode using the touchscreen.
-\item Follow the instructions in the chiller manual to drain the chiller. Use the big plastic jug and the two short pieces of rubber tube.
-
-\item When you disconnect a fitting in the chiller loop, drain both connections into a beaker.
-\item Purge both connections using the nitrogen line (use a Swagelok-to-VCR adapter with a used gasket), with the reservoir drain valve (the ball valve with a plastic handle) open.
-Be sure to cap the connection not being purged using a VCR cap and a used gasket. 
-\end{enumerate}
-
-\subsection{Filling SVT chiller (experts only)}
-\begin{enumerate}
-\item Disable the PLC interlocks for flow, supply RTD, and return RTD.
-\item Follow the instructions in the chiller manual to fill the chiller. Use the metal funnel.
-\item If the final level of the chiller is below 1/4, add a full jug of HFE 7000.
-\end{enumerate}
-
-\subsection{Response to unexpected HV loss}
-\label{sec:proc_cooling_HVloss}
-If the beam software interlock is enabled, and the beam is off, EPICS will turn off all HV channels.
-
-\begin{enumerate}
-\item Verify that all HV channels are off (check the SVT HV bias GUI), but LV channels are on (check the FEB power and flange power GUIs). If LV channels are also off, stop following this procedure. Go to procedure \ref{sec:proc_cooling_mpodtrip}.
-\item Check the BPMs (see the scaler GUI or strip charts). If there has not been a beam trip recently, call the SVT expert.
-\item If there has been a beam trip, follow the procedure for recovering from a beam trip, \ref{sec:proc_general_beamtrip}.
-\end{enumerate}
-
-\subsection{Response to unexpected MPOD trip}
-\label{sec:proc_cooling_mpodtrip}
-If the MPOD's interlock input is disabled by the PLC, all HV and LV channels will turn off. This should always be accompanied by other trips, which will indicate the cause of the problem.
-
-\begin{enumerate}
-\item If all HV channels are off (check the SVT HV bias GUI), but LV channels are on (check the FEB power and flange power GUIs), stop following this procedure. Go to the procedure for recovering from HV loss, \ref{sec:proc_cooling_HVloss}.
-\item Look at the MPOD status web page (\texttt{http://hpsmpod}). At the top, next to \textbf{Mainframe Status}, it should read \textbf{\color{red} FAST\_OFF}. If it does not, the MPOD is not tripped (or it tripped momentarily). Call the SVT expert.
-\item Check the status of both chillers (second line of each chiller's EPICS screen). If either chiller is stopped, stop following this procedure. Go to the procedure for recovering from a chiller trip, \ref{sec:proc_cooling_chillertrip}.
-\item Call the SVT expert if none of the previous steps resolved the problem.
-\end{enumerate}
-
-\subsection{Response to unexpected chiller trip}
-\label{sec:proc_cooling_chillertrip}
-
-\begin{enumerate}
-\item Look at the EPICS screens for the PLC. Check the alarm status fields for any PLC alarms. Also look at the software interlock screen and check the interlock status fields for any interlock faults. Call the SVT expert with the list of alarms.
-\item If the expert tells you to restart the chiller: Disable all PLC alarms that have tripped. Bypass and reset all software interlocks that have tripped. Start the chiller from its EPICS screen. As alarms clear, re-enable all alarms and interlocks that you disabled. If any alarm does not clear, call the SVT expert.
-\end{enumerate}
+\input{svt_chiller_procedures.tex}
 
 \section{Motion}
 

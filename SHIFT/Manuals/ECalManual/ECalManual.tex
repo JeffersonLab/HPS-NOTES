@@ -7,7 +7,7 @@
 \makeatother
 
 
-\title{Manual for HPS ECal v1.7}
+\title{Manual for HPS ECal v1.9}
 
 \author{ECal On-Call Cell Phone: 757-810-1489 \\ 
 Authors: \\
@@ -55,20 +55,36 @@ After a 2:1 signal splitter, 1/3 of an amplified APD signal is fed to a single c
 \part{Shift Takers Instructions}
 
 \vspace*{\stretch{1}}      
-Most ECal controls are accessible through EPICS, from the main window (figure~\ref{EPICSmain}). From there you can access {\bf Temperature monitoring} in {\it Miscellaneous} then {\it ECal Temperature}, the {\bf ECal chiller} in {\it Devices} then {\it Chiller (ECAL)}, the {\bf Scalers} in {\it ECal Scaler GUI}, the {\bf ECal high voltage} in {\it Voltages} then {\it ECal HV} and the {\bf LED control panel} in {\it Devices} then {\it Flasher}.  
+All ECal controls are accessible through EPICS, from the main HPS\_EPICS window (figure~\ref{EPICSmain}).  If not already open, it should be opened as user \texttt{hpsrun} on \texttt{clonsl1}, \texttt{clonsl2}, or \texttt{clonsl3}, with the command \begin{center}\texttt{hps\_epics}\end{center}
 
-If not already open, HPS's main EPICS window is opened as user \texttt{hpsrun} on \texttt{clonsl1}, \texttt{clonsl2}, or \texttt{clonsl3}, with the command \begin{center}\texttt{hps\_epics}\end{center}
+    {\em   All shift workers should be using user \texttt{hpsrun} for instructions in this document.}
 
-    {\em   In general, all shift workers should be using user \texttt{hpsrun} for instructions in this document.}
+    The primary ECal screen is shown in figure~\ref{fig:ecal_all} and opened via the ``ECAL'' button in the right side of the main HPS EPICS screen (figure~\ref{EPICSmain}).
+
+From the main HPS\_EPICS window you can also access individual screens with more controls and details, {\bf Temperature monitoring} in {\it Miscellaneous} then {\it ECal Temperature}, the {\bf ECal chiller} in {\it Devices} then {\it Chiller (ECAL)}, the {\bf Scalers} in {\it ECal Scaler GUI}, the {\bf ECal high voltage} in {\it Voltages} then {\it ECal HV} and the {\bf LED control panel} in {\it Devices} then {\it Flasher}.  
+
+
 \vspace*{\stretch{1}}      
 
 \begin{figure}[h!]
 \center
-\includegraphics[width=0.38\textwidth]{pics/hps_epics_2014_12_15.png}
+%\includegraphics[width=0.38\textwidth]{pics/hps_epics_2014_12_15.png}
+\includegraphics[width=0.38\textwidth]{pics/hps_epics_2015_09_18.png}
 \caption{\small \label{EPICSmain} View of the Hall-B EPICS main window.}
 \end{figure}
 
  \onecolumn
+
+ \section{Primary ECal EPICS Screen}
+This one screen combines all basic ECal EPICS monitoring into one window.  It is accessible from the ``ECAL'' button in figure~\ref{EPICSmain}.  This includes embedded versions of the dedicated screens in the following sections:  temperature sensors, chiller, and low and high voltage.  This screen provides the only ECal controls shift workers should need, which is to turn HV on and off via the red and green buttons.
+
+However, this should be supplemented by the strip charts for temperature and HV current, as well as cctv webcams, in the following sections.
+
+\begin{figure}[htbp]\centering
+    \includegraphics[width=15.5cm]{pics/epics_ecal_all.png}
+    \caption{The primary EPICS screen needed for shift workers to monitor ECal.  This should be supplemented by the strip charts for temperature and HV current, as well as cctv webcams, in the following sections.\label{fig:ecal_all}}
+\end{figure}
+
 
       \section{Temperature}
 
@@ -106,7 +122,9 @@ If not already open, HPS's main EPICS window is opened as user \texttt{hpsrun} o
 
       \subsection{Low Voltage Controls}
 
-      The low voltage power supply must be on before HV is turned on.  The LV supply is controlled manually in the hall and should be monitored using its webcam (figures~\ref{LVCam}). Call the ECal expert if this appears not to be ON or shows an abnormal current.  Normal current is between 4.0 and 4.2 A.
+      The low voltage power supply must be on before HV is turned on, and changing its settings requires contact with an ECal-expert.
+      
+LV should be monitored using its webcam (figures~\ref{LVCam}), stripcharts (figure~\ref{lvstrips}), and the main ECAL EPICS screen (figure~\ref{EPICSmain}). Call the ECal expert if this appears not to be ON or shows an abnormal current.  Normal current is between 4.0 and 4.2 A.
 
          A webcam is focused on the LV supply, accessible either by the url \texttt{cctv11.jlab.org} in a web browser, or via the ``Monitoring'' tab on the main {\bf HPS Run Wiki}.
 
@@ -180,9 +198,6 @@ Shift takers are requested to operate the system in ``Sequence mode'' only. To d
 \subsection{Automatic LED Monitoring}
 A monitoring app is setup to record all channels successfully registered during an LED run.  It should be started before the LED sequence is started and viewed afterwards, with the command: \begin{center}\$HOME/hps\_software/scripts/startECalLEDSequenceMonitoring.csh\end{center} Make sure to use the hpsrun account before using this command.
   
-  {\bf\it ? TODO: Make pedestal viewer app accessible from EPICS gui, and make it save ped files to an absolute path.}
-
-    
 \subsection{Taking an LED sequence run}
 The following instructions must be followed to take an LED sequence run. This involves setting the DAQ, starting the LED sequence run, and configure the hps-java monitoring app to monitor the data. At the end of the run, the user can upload the relevant information to the hps conditions database, as well as post a log-entry to the HallB electronic logbook.
 
@@ -220,7 +235,7 @@ An automatic log entry in the Hall B logbook will also be made, with the Sequenc
 {\bf {\it TODO: print a reference map and aks the user to compare with that}}
 
 \subsection{Quick 2-Minute LED Run for Simple Channel Status Check}
-This just counts threshold crossings in the discriminators, which is sufficient for checking that all channels are alive with LEDs.  This full test of all 442 channels requires only 2 minutes, requires no changes to the DAQ configuration, and is completetely independent of the hps-java monitoring app.
+This just counts threshold crossings in the discriminators, which is sufficient for checking that all channels are alive with LEDs.  This full test of all 442 channels requires only 2 minutes, requires no changes to the DAQ configuration, and is completetely independent of the hps-java monitoring app.  If all LEDs and all channels are working, the result should be similar to Figure~\ref{fig:quickledscanresult}
 
   \begin{enumerate}
       \item With a quiet detector, execute the command \texttt{runEcalLedTest.sh}.  This will open a gui showing accumulated scaler rates in all 442 ECal channels.  
@@ -228,17 +243,22 @@ This just counts threshold crossings in the discriminators, which is sufficient 
       \item Check that all channels are uniformly populated to within a factor of 2 after the sequence is finished.
   \end{enumerate}
 
+  \begin{figure}[htbp]\centering
+      \includegraphics[width=14cm]{pics/ledScanBlue_2015_04_17_10-45-53.png}
+      \caption{The accumulated discriminator counts after a successfull ``Quick 2-Minute LED Run''.  The absolulte counts will depend on LED pulser rate and duration, but the important aspect is uniformity from channel to channel.  \label{fig:quickledscanresult}}
+  \end{figure}
+
+
    \section{Making a cosmic calibration run}
 
-   In addition to the calorimeter, the cosmic PMTs should be powered on.  Their HV control is under ``beam'' in the main EPICS gui's HV section.  They are named \texttt{ECal\_cosm1} and \texttt{ECal\_cosm2} and their voltages should be set at 1650 V.  The DAQ configuration should be set to \begin{center}\texttt{hps\_cosmic\_mode1\_thresh0.cfg}\end{center}  It takes at least one full day of data to acquire sufficient statistics for a cosmic calibration.
+   In addition to the calorimeter, the cosmic PMTs should be powered on.  Their HV control is under ``Beav HV'' in the main EPICS gui's HV section.  They are named \texttt{ECal\_cosm1} and \texttt{ECal\_cosm2} and their voltages should be set at 1650 V.  The DAQ configuration should be set to \begin{center}\texttt{hps\_cosmic.trg}\end{center}  It takes at least one full day of data to acquire sufficient statistics for a cosmic calibration.
 
    \section{Taking a Pedestal Run}
 
-   Pedestals are calculated at running luminosity with DAQ configuration \begin{center}\texttt{hps\_ecal\_pedestal\_mode7\_thresh50.cfg}\end{center} and monitored and analyzed with HPS's hps-java monitoring app via the command:
-   \begin{center}\$HOME/scripts/ECalCalculatePedestals.sh\end{center}
-Once the user deems the statistics sufficient in the monitoring plots, the app should be disconnected from the ET-ring and then output will be files \texttt{fadc37.ped} and \texttt{fadc39.ped} in the current working directory.  An expert should place them in the proper location for the DAQ to read.
+   Pedestals are calculated at running luminosity with DAQ configuration \begin{center}\texttt{ecalPedestal.trg}\end{center} and monitored and analyzed with HPS's hps-java monitoring app via the command:
+       \begin{center}\texttt{startEcalPedestalCalculator}\end{center}
+       In this monitoring app you can click on the event display to view the different channels' pedestal histograms as the data is acquired.  Once the statistics are sufficient, the app should be disconnected from the ET-ring and then output files for the DAQ and database will be generated in the directory:\begin{center}\texttt{\$HOME/EcalPedestals}\end{center}  The user will be asked if they want them put in the database automatically, and it requires two consecutive ``YES'' responses to make it happen.  An expert should make the trigger configuration use the new pedestal file.
 
-{\bf\it ? TODO: Make pedestal viewer app accessible from EPICS gui, and make it save ped files to an absolute path.}
 
       \section{Scalers}
 
@@ -295,6 +315,8 @@ The FADC crates and calorimeter signal splitters occupy the rack furthest from t
 
    {\noindent\footnotesize\url{http://www.nist.gov/ncnr/upload/Circulating-Bath\_Thermo-Scientific\_NESLAB-RTE-7.pdf}}
      \subsection{Rebooting the Chiller After Power Failure}
+     {\em This section applies to the old chiller that was replaced in April 2015.}
+
      If the chiller loses power while in local mode, the ``power'' button must be pressed manually to restart it after power is restored.  In case it loses power while in remote mode, a procedure is necessary to reset it after power is restored:
    {\footnotesize
      \begin{enumerate}
@@ -333,8 +355,47 @@ Don't leave a terminal open connected to this telnet session.
 
 
 
-   \section{Changing LV settings}
-      Low voltage power supply should be set at $\pm5$V. The low voltage supply might have difficulties to get at this level because of the high current. If that was the case check, with all power supplies off, that all connection are goods. Then contact run coordinator to see if LV power supply addition is possible. 
+   \section{LV Supply}
+      The low voltage power supply is an Agilent 6621.  It should be set with both channels at $+5$V (with their current limits at 6 A), while external wiring inverts one channel to create a bipolar $\pm5$V supply. 
+      
+The low voltage supply might have difficulties to get to full voltage because of high current. If that was the case check, with all power supplies off, that all connection are goods. Then contact run coordinator to see if LV power supply addition is possible. 
+
+\subsection{Changing LV Settings}
+The LV supply can be controlled via its EPICS expert screen (figure~\ref{lvexpert}), accessible from the grey button in the top left of the LV section of the main ECAL EPICS screen (figure~\ref{EPICSmain}). In general the only necessary changes are powering on/off, while voltage and current setpoints are never changed from 5V/6A.
+      
+The LV supply can also be controlled manually in the hall.  However, when in remote mode (denoted by the ``RMT'' marker in its LCD display), local operations require pressing the ``LCL'' button first immediately before pressing the desired operation button.  To completely remove remote control abilities requires stopping the IOC (see section~\ref{lviocstop}).
+
+\begin{figure}[htbp]\centering
+    \includegraphics[width=9cm]{pics/lvexpert}
+    \caption{The LV expert EPICS screen in normal operation.\label{lvexpert}}
+\end{figure}
+
+\subsection{Restarting the LV IOC}
+   To restart the IOC:
+   {\footnotesize
+   \begin{enumerate}
+       \item \texttt{`ssh hpsrun@clonsl1'}
+       \item \texttt{`softioc\_console iocA6621'} and type user's password if necessary.
+       \item \texttt{`ctrl-x'} to restart the IOC
+       \item \texttt{`ctrl-]'} to quit to telnet
+       \item \texttt{`quit'} to exit telnet
+   \end{enumerate}
+   }
+Don't leave a terminal open connected to this telnet session.
+
+\subsection{Disabling the LV IOC}\label{lviocstop}
+   To disable the IOC:
+   {\footnotesize
+   \begin{enumerate}
+       \item \texttt{`ssh hpsrun@clonsl1'}
+       \item \texttt{`softioc\_console iocA6621'} and type user's password if necessary.
+       \item \texttt{`ctrl-t'} to toggle auto-restart
+       \item \texttt{`ctrl-x'} to kill the IOC
+       \item \texttt{`ctrl-]'} to quit to telnet
+       \item \texttt{`quit'} to exit telnet
+   \end{enumerate}
+   }
+Don't leave a terminal open connected to this telnet session.
 
    \section{High Voltage}
    \subsection{Restarting the HV IOC}
@@ -415,10 +476,6 @@ The product should be a plot like figure~\ref{HVhistory}.
 \caption{\small \label{HVhistory} Expert HV current history.}
 \end{figure}
 
-   \section{Disconnection of a Channel and Preamplifier Replacement}
-     
-      In last resort, to recover a HV group that is tripping one can disconnect the faulty channel causing trouble. To do so, you need to find exactly which channel is involved! It might be obvious from data, if the channel was already very noisy, else you will have to test the channels of the group one by one. This is a lengthy operation and should only be attempted with the authorization of the run coordinator and in coordination with the ECal Group. It necessitates that the Hall-B crew moves the ECal out of the beam line and to open it.
-
 \section{Channel Mapping GUI}
 Channel mapping is available in a spreadsheet in the annex pdf on the run wiki. It is also available in a GUI, and a script to run it is in \texttt{/home/hpsrun/scripts} on the clon machines.  To run it just enter in a terminal on one of the \texttt{clonpcN} machines:
 {\center{\texttt{kylesGui.sh}}}\newline\newline
@@ -428,6 +485,27 @@ Hover over a crystal with the mouse to see all its channel numberings in the tab
     \includegraphics[width=16cm]{pics/kylesGui.png}
     \caption{The ECal event display can be used to get channel mappings.  The blue highlighted channel's mappings are shown in the table.\label{fig:kylesGui}}
 \end{figure}
+
+\section{Opening the Calorimeter}
+
+This requires 2 people.  Care must be taken for all cabling during this process, including LV, HV, signal, and thermocouples.  The required tools are shown in Table ~\ref{tab:tools}.  The wenches and metric crescent wrenches should be in the HPS cabinet on the pie tower.  The rest should be retrieved from the toolboxes on the Hall-B floor.  While one can get by with only half the number of wrenches of each type, it is fastest to have the full list. 
+
+\begin{table}[htbp]\centering
+    \begin{tabular}{c|l}\hline
+        Count & Type \\\hline
+4&   ECAL-ONLY wenches\\
+4&   15/16" crescent wrenches for rod bolts\\
+2&   11 mm crescent wrenches for lateral cossbar supports (over beampipe)\\
+2&   6 mm hex/allen wrenches for longitudinal crossbar supports (on far left/right)\\
+2&   3/16" hex/allen wrenches for support plates\\
+2&   medium-sized flathead screwdrivers\\\hline
+    \end{tabular}
+    \caption{Items used to open the calorimeter. \label{tab:tools}}
+\end{table}
+
+   \section{Disconnection of a Channel and Preamplifier Replacement}
+     
+      In last resort, to recover a HV group that is tripping one can disconnect the faulty channel causing trouble. To do so, you need to find exactly which channel is involved! It might be obvious from data, if the channel was already very noisy, else you will have to test the channels of the group one by one. This is a lengthy operation and should only be attempted with the authorization of the run coordinator and in coordination with the ECal Group. It necessitates that the Hall-B crew moves the ECal out of the beam line and to open it.
 
    \section{LED system for experts}
 
