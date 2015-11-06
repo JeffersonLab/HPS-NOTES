@@ -40,14 +40,79 @@ $^2$Thomas Jefferson National Accelerator Facility, Newport News, VA, USA}
 
 \section{Overview}
 
+Description of the FADC~\cite{fadc250}?
 
 The SVT DAQ consists of multiple data processing daughter boards (DPMs) with two processing nodes (RCEs) per DPM. 
 Each RCE is accessing data from between two and four hybrids that each carry five APV25 readout ASICs. Each RCE 
 runs a CODA Readout Controller  (ROC) to transfer data to the CODA event builder. 
 
-%\section{ECal Data Format}
+\section{ECal Data Format}
+The ECal data is recorded in a ``bank of banks'' format, with one top level bank per real hardware crate.  The top level banks are distinguished by the crate id\# in table~\ref{tab:ecal-headerBank}.
+
+\begin{table}[h]
+  \begin{center}
+    \caption{ECal crates descriptions.}
+    \label{tab:ecal-crates}
+    \begin{tabular}{llll}
+   	\hline
+    	\bf Name & \bf Id & \bf ECal & \bf Other \\\hline
+        hps1 & 37  & Top FADC & \\
+        hps2 & 39  & Bottom FADC & LED Pulser \& Cosmic PMT FADCs\\
+        hps11 & 46 & Bottom DISC & RF FADC, SSP \\
+        hps12 & 58 & TDC, Top DISC & \\
+	\hline
+      \end{tabular}
+  \end{center}
+\end{table}
+
+\begin{table}[h]
+  \begin{center}
+    \caption{ECal mother bank description.}
+    \label{tab:ecal-headerBank}
+    \begin{tabular}{lccccc}
+   	\hline
+    	\bf Content & \bf Data Type & \bf Tag & \bf Number \\\hline
+        ``bank'' & 0xe & \texttt{crate\_id} & 0 \\
+	\hline
+      \end{tabular}
+  \end{center}
+\end{table}
+
+\subsection{FADC}
+The calorimeter was readout in the FADC250's Mode-1 for the entire 2015 Engineering Run.  This records the full 250 kHz waveform for all channels passing threshold in triggered events.  The bank has a tag of 0xe101 to denote FADC250 Mode-1.  
+
+The bank format is composite, as recorded in the xml description tag:  $(c,i,l,N(C,Ns))$, where $c$ is \texttt{char} (1 byte), $i$ is \texttt{unsigned int} (2 bytes), $l$ is \texttt{long} (4 bytes), $s$ is \texttt{short} (1 byte), and $N$ is a CODA \texttt{NValue} (4 bytes). 
+
+%The window size was set to 200 ns, or 50 samples, and the leading edge threshold was set to 12 ADC.  The pulse integration range used by the trigger was from 5 samples before threshold crossing to 20 samples after threshold crossing.
 
 
+\begin{table}[h]
+  \begin{center}
+      \caption{ECal Mode-1 bank (tag 0xe101) description in terms of words and bytes.}
+    \label{tab:ecal-fadcMode1}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+   	\hline
+        \hline
+        \ \ 1\ \  &\ \ 2\ \  &\ \ 3\ \  &\ \ 4\ \  &\ \ 5\ \  &\ \ 6\ \  &\ \ 7\ \  &\ \ 8\ \  &\ \ 9\ \  &\ 10\ \  &\ 11\ \  \\
+        \hline
+        SLOT & \multicolumn{2}{c}{TRIG} & \multicolumn{4}{|c}{TIME} & \multicolumn{4}{|c|}{NCHANNELS} \\
+        \hline
+        \hline
+        \ 12\ \  &\ 13\ \  &\ 14\ \  &\ 15\ \  &\ 16\ \  &\ 17\ \  &\ 18\ \  &\ 19\ \  &\ 20\ \  &\ 21\ \  &\ldots \\
+        \hline
+        CHAN & \multicolumn{4}{c|}{NSAMPLES} & ADC1 & ADC2 & \multicolumn{4}{c|}{\ldots} \\
+        \hline
+        \hline
+        $i$&$i+1$&$i+2$&$i+3$&$i+4$&$i+5$&$i+6$&$i+7$&$i+8$&$i+9$&\ldots \\
+        \hline
+        CHAN & \multicolumn{4}{c|}{NSAMPLES} & ADC1 & ADC2 & \multicolumn{4}{c|}{\ldots} \\
+        \hline
+        \hline
+      \end{tabular}
+  \end{center}
+\end{table}
+
+\subsection{TDC}
 
 \section{SVT Data Format}
 
@@ -275,10 +340,11 @@ The bank can be identified from the EVIO header information in Tab.~\ref{tab:svt
 
 
 
+\section{RF Signal Data Format}
 
 \subsection{SVT Calibration}
 
-There are three calibration types for the SVT: 1) baseline  (normal run without thresholds), 2) gain and 3) t$_{0}$ calibration. In all cases the data follows the format presented above. For the gain and t$_0$ calibration there is a string bank inserted to signal that the SVT configuration has changed and what it is. These are identified as config/status banks as described in Tab.~\ref{tag:svt-config}. The contain a text string of the form 
+There are three calibration types for the SVT: 1) baseline  (normal run without thresholds), 2) gain and 3) t$_{0}$ calibration. In all cases the data follows the format presented above. For the gain and t$_0$ calibration there is a string bank inserted to signal that the SVT configuration has changed and what it is. These are identified as config/status banks as described in Tab.~\ref{tab:svt-config}. The contain a text string of the form 
 \begin{equation}
 cal\_group\_X\ cal\_level\_Y\ cal\_delay\_Z
 \end{equation}
@@ -336,19 +402,18 @@ where $X$, $Y$ and $Z$ identifies the setting for the particular calibration run
 % BIBLIOGRAPHY AREA
 % ****************************************************************************
 
-%\begin{footnotesize}
-%\begin{thebibliography}{99}
+\begin{footnotesize}
+\begin{thebibliography}{99}
 %\bibitem{pamela}
 %O. Adriani {\it et al.} [PAMELA Collaboration], Nature {\bf 458}, 607 (2009) 
 %[arXiv:0810.4995 [astro- ph]],
 %\bibitem{pamela2} 
 %O. Adriani et al. [PAMELA Collaboration], Phys. Rev. Lett. 106, 201101 (2011) [arXiv:1103.2880 [astro-ph.HE]].
-
-
-%\end{thebibliography}
-
-
-%\end{footnotesize}
+\bibitem{fadc250}
+E.Jastrzembski and H. Dong, https://coda.jlab.org/drupal/content/vme-payload-modules
+%https://coda.jlab.org/drupal/system/files/pdfs/HardwareManual/fADC250/FADC250%20data%20format%20V23.pdf
+\end{thebibliography}
+\end{footnotesize}
 
 
  
