@@ -1,0 +1,438 @@
+\documentclass{desyproc}
+
+%\usepackage{lineno}
+
+\newcommand{\Aprime}{\ensuremath{\mathrm{A}^\prime}}
+
+\begin{document}
+
+
+	%------------------------------------
+\title{The SVT Data Format for the HPS Engineering Run 2015 }
+
+%for single authors the superscripts are optional
+\author{{\slshape Per Hansson Adrian$^1$, Nathan Baltzell$^2$,Sergey Boiarinov$^2$, Ryan Herbst$^1$, Benjamin Reese$^1$}\\
+$^1$SLAC National Accelerator Laboratory, Menlo Park, CA, USA\\
+$^2$Thomas Jefferson National Accelerator Facility, Newport News, VA, USA}
+%\affiliation{SLAC National Accelerator Laboratory, Menlo Park, CA, USA}
+
+% if the proceedings are available online (e.g. at Indico)
+% please enter the contribution ID or file_name below for the DOI
+%\contribID{32}
+\contribID{familyname\_firstname}
+
+% TO THE CONFERENCE EDITORS: 
+% please update the following information      
+% before sending the template to the authors
+% \confID{800}  % if the conference is on Indico uncomment this line
+%\desyproc{DESY-PROC-2012-04}
+%\acronym{Patras 2012} % if you want the Acronym in the page footer uncomment this line
+%\doi  % if there is an online version we will register DOIs
+
+\maketitle
+
+%\linenumbers
+
+
+
+
+
+
+\section{Overview}
+
+Description of the FADC~\cite{fadc250}?
+
+The SVT DAQ consists of multiple data processing daughter boards (DPMs) with two processing nodes (RCEs) per DPM. 
+Each RCE is accessing data from between two and four hybrids that each carry five APV25 readout ASICs. Each RCE 
+runs a CODA Readout Controller  (ROC) to transfer data to the CODA event builder. 
+
+\section{ECal Data Format}
+The ECal data is recorded in a ``bank of banks'' format, with one top level bank per real hardware crate.  The top level banks are distinguished by the crate id\# in table~\ref{tab:ecal-headerBank}.
+
+\begin{table}[h]
+  \begin{center}
+    \caption{ECal crates descriptions.}
+    \label{tab:ecal-crates}
+    \begin{tabular}{llll}
+   	\hline
+    	\bf Name & \bf Id & \bf ECal & \bf Other \\\hline
+        hps1 & 37  & Top FADC & \\
+        hps2 & 39  & Bottom FADC & LED Pulser \& Cosmic PMT FADCs\\
+        hps11 & 46 & Bottom DISC & RF FADC, SSP \\
+        hps12 & 58 & TDC, Top DISC & \\
+	\hline
+      \end{tabular}
+  \end{center}
+\end{table}
+
+\begin{table}[h]
+  \begin{center}
+    \caption{ECal mother bank description.}
+    \label{tab:ecal-headerBank}
+    \begin{tabular}{lccccc}
+   	\hline
+    	\bf Content & \bf Data Type & \bf Tag & \bf Number \\\hline
+        ``bank'' & 0xe & \texttt{crate\_id} & 0 \\
+	\hline
+      \end{tabular}
+  \end{center}
+\end{table}
+
+\subsection{FADC}
+The calorimeter was readout in the FADC250's Mode-1 for the entire 2015 Engineering Run.  This records the full 250 kHz waveform for all channels passing threshold in triggered events.  The bank has a tag of 0xe101 to denote FADC250 Mode-1.  
+
+The bank format is composite, as recorded in the xml description tag:  $(c,i,l,N(C,Ns))$, where $c$ is \texttt{char} (1 byte), $i$ is \texttt{unsigned int} (2 bytes), $l$ is \texttt{long} (4 bytes), $s$ is \texttt{short} (1 byte), and $N$ is a CODA \texttt{NValue} (4 bytes). 
+
+%The window size was set to 200 ns, or 50 samples, and the leading edge threshold was set to 12 ADC.  The pulse integration range used by the trigger was from 5 samples before threshold crossing to 20 samples after threshold crossing.
+
+
+\begin{table}[h]
+  \begin{center}
+      \caption{ECal Mode-1 bank (tag 0xe101) description in terms of words and bytes.}
+    \label{tab:ecal-fadcMode1}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+   	\hline
+        \hline
+        \ \ 1\ \  &\ \ 2\ \  &\ \ 3\ \  &\ \ 4\ \  &\ \ 5\ \  &\ \ 6\ \  &\ \ 7\ \  &\ \ 8\ \  &\ \ 9\ \  &\ 10\ \  &\ 11\ \  \\
+        \hline
+        SLOT & \multicolumn{2}{c}{TRIG} & \multicolumn{4}{|c}{TIME} & \multicolumn{4}{|c|}{NCHANNELS} \\
+        \hline
+        \hline
+        \ 12\ \  &\ 13\ \  &\ 14\ \  &\ 15\ \  &\ 16\ \  &\ 17\ \  &\ 18\ \  &\ 19\ \  &\ 20\ \  &\ 21\ \  &\ldots \\
+        \hline
+        CHAN & \multicolumn{4}{c|}{NSAMPLES} & ADC1 & ADC2 & \multicolumn{4}{c|}{\ldots} \\
+        \hline
+        \hline
+        $i$&$i+1$&$i+2$&$i+3$&$i+4$&$i+5$&$i+6$&$i+7$&$i+8$&$i+9$&\ldots \\
+        \hline
+        CHAN & \multicolumn{4}{c|}{NSAMPLES} & ADC1 & ADC2 & \multicolumn{4}{c|}{\ldots} \\
+        \hline
+        \hline
+      \end{tabular}
+  \end{center}
+\end{table}
+
+\subsection{TDC}
+
+\section{SVT Data Format}
+
+The SVT data from each of Readout Controllers (ROCs) is stored in a SVT evio bank of type "bank-of-banks" as 
+described in Tab.~\ref{tab:svt-bank}. During normal data taking there are 14 SVT data banks. The SVT evio bank 
+contains information distributed by the master trigger interface (TI) board and the SVT DAQ itself. These are described in 
+detail in Sec.~\ref{sec:svt-ti-data} and~\ref{sec:svt-data}, respectively.
+
+\begin{table}[]
+  \begin{center}
+    \caption{SVT EVIO bank description.}
+    \label{tab:svt-bank}
+    \begin{tabular}{|l|c|l|}
+    \hline
+    \bf Content & \bf Type & \bf Description\\
+      \hline
+      TI Data & UINT32 bank & TI information\\
+      \hline
+      SVT Data & UINT32 bank & SVT data\\
+      \hline
+      \end{tabular}
+  \end{center}
+\end{table}
+
+
+\subsection{SVT TI Data}
+\label{sec:svt-ti-data}
+Each of the SVT RCEs (one per ROC) obtain TI information from the DTM over the COB. This information is 
+attached to each of the events. The TI data contains the event number and trigger time stamp broadcasted by the 
+master TI. Table~\ref{tab:svt-ti-header} and Tab.~\ref{tab:svt-ti-data} describes the TI bank header and the TI data, respectively.
+\begin{table}[]
+  \begin{center}
+    \caption{SVT TI bank header description.}
+    \label{tab:svt-ti-header}
+    \begin{tabular}{|l|c|c|c|c|c|}
+   	\hline
+    	\bf Word & \bf Desc. & \multicolumn{4}{|c|}{\bf 32-bits}\\
+      	\hline
+    	 0 &  Type & \multicolumn{4}{|c|}{Exclusive length}\\
+	\hline
+    	 0 &  Bits & \multicolumn{4}{|c|}{[31:0]}\\
+	\hline
+    	 1 &  Type & tag & pad & type & num\\
+	\hline
+    	 1 &  Bits & "0xe10A" [31:16] & "00" [15:14] & "000001" [13:8] &  "roc id" [7:0]\\
+	\hline
+      \end{tabular}
+  \end{center}
+\end{table}
+
+
+\begin{table}[]
+  \begin{center}
+    \caption{SVT TI  data.}
+    \label{tab:svt-ti-data}
+    \begin{tabular}{|l|c|c|c|c|}
+   	\hline
+    	\bf Word & \bf Desc. & \multicolumn{3}{|c|}{\bf 32-bits}\\
+      	\hline
+    	 0 &  Type & EVENT TYPE &  & EVENT WORD COUNT\\
+	\hline
+    	 0 &  Bits & [31:24] & "0x0F" [23:16] & [15:0]\\
+	\hline
+    	 1 &  Type & \multicolumn{3}{|c|}{ EVENT NUMBER LOW 32}\\
+	\hline
+    	 1 & Bits &  \multicolumn{3}{|c|}{ [31:0]}\\
+	\hline
+    	 2 &  Type & \multicolumn{3}{|c|}{ TIME STAMP LOW 32 BITS}\\
+	\hline
+    	 2 &  Bits & \multicolumn{3}{|c|}{ [31:0]}\\
+	\hline
+    	 3 &  Type & \multicolumn{3}{|c|}{ TIME STAMP HIGH 16 BITS}\\
+	\hline
+    	 3 &  Bits & \multicolumn{3}{|c|}{ [31:0]}\\
+	\hline
+      \end{tabular}
+  \end{center}
+\end{table}
+
+
+
+\subsection{SVT Data}
+\label{sec:svt-data}
+An event from the SVT consists of data from hybrids attached to a single RCE or one ROC. The 
+SVT data is contained in an EVIO bank described in Tab.~\ref{tab:svt-data-bank-header}. \begin{table}[]
+  \begin{center}
+    \caption{SVT Data bank header description.}
+    \label{tab:svt-data-bank-header}
+    \begin{tabular}{|l|c|c|c|c|c|}
+   	\hline
+    	\bf Word & \bf Desc. & \multicolumn{4}{|c|}{\bf 32-bits}\\
+      	\hline
+    	 0 &  Type & \multicolumn{4}{|c|}{Exclusive length}\\
+	\hline
+    	 0 &  Bits & \multicolumn{4}{|c|}{[31:0]}\\
+	\hline
+    	 1 &  Type & tag & pad & type & num\\
+	\hline
+    	 1 &  Bits & "3" [31:16] & "00" [15:14] & "000001" [13:8] &  "roc id" [7:0]\\
+	\hline
+      \end{tabular}
+  \end{center}
+\end{table}
+The data itself consists of a header with an event counter and a type indicator, a number of so-called multisamples, and 
+a tail with information about the number of multisamples and any errors encountered. This is 
+described in Tab.~\ref{tab:svt-data}.
+\begin{table}[]
+  \begin{center}
+    \caption{SVT data.}
+    \label{tab:svt-data}
+    \begin{tabular}{|l|c|c|c|c|c|c|c|}
+   	\hline
+    	\bf Word & \bf Desc. & \multicolumn{6}{|c|}{\bf 32-bits}\\
+      	\hline
+    	 0 &  Type & \multicolumn{3}{|c|}{type} & \multicolumn{3}{|c|}{event counter}\\
+	\hline
+    	 0 &  Bits & \multicolumn{3}{|c|}{"0x01" [31:24]} & \multicolumn{3}{|c|}{[23:0]}\\
+      	\hline
+	\multicolumn{8}{|c|}{multisamples}\\
+	\multicolumn{8}{|c|}{...}\\
+	\multicolumn{8}{|c|}{multisamples}\\
+	\hline
+	 'n' &  Type & zero & OverflowError & SyncError & zero & \#skipped multisamples & \# multisamples\\
+      	\hline
+    	 'n' &  Bits & [31:28] & [27] & [26] & [25:24] & [23:12] & [11:0]\\
+	\hline
+      \end{tabular}
+  \end{center}
+\end{table}
+The four 32-bit word long multisample contains the ADC converted data, six 14-bit samples from each ASIC channel for each trigger 
+packed into three 32-bit words as described in Tab.~\ref{tab:ms}. The third 32-bit word contains the channel identification and any errors. 
+In addition to the data, each front end ASIC attached to a ROC has a "header" and "tail" multisample for each trigger. These are identified 
+in the third word "head" and "tail" bits. The header multisample contains information regarding the system synchronization and multiplexing data. 
+\begin{table}[]
+  \begin{center}
+    \caption{SVT multisample.}
+    \label{tab:ms}
+    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
+   	\hline
+    	\bf Word & \bf Desc. & \multicolumn{9}{|c|}{\bf 32-bits}\\
+      	\hline
+    	 0-2 &  Type &  \multicolumn{4}{|c|}{ADC samples} &   \multicolumn{5}{|c|}{ADC samples}\\
+      	\hline
+    	 0 &  Bits &  \multicolumn{4}{|c|}{SAMPLE1[31:16]} &   \multicolumn{5}{|c|}{SAMPLE0[15:0]}\\
+      	\hline
+    	 1 &  Bits &  \multicolumn{4}{|c|}{SAMPLE3[31:16]} &   \multicolumn{5}{|c|}{SAMPLE2[15:0]}\\
+      	\hline
+    	 2 &  Bits &  \multicolumn{4}{|c|}{SAMPLE5[31:16]} &   \multicolumn{5}{|c|}{SAMPLE4[15:0]}\\
+      	\hline
+    	 3 &  Type & zero & Head & Tail & Err. & Hybrid & APV & Ch. & FEB & RCE \\
+      	\hline
+    	 3 &  Bits & [31] & [30] & [29] & [28] & [27:26] & [25:23] & [22:16] & [15:8] & [7:0] \\
+	\hline
+      \end{tabular}
+  \end{center}
+\end{table}
+The information is packed into six 16-bit words, one for each APV25 sample, and reported in place of the ADC samples in the multisample header. 
+The 16-bit word is described in detail in Tab.~\ref{tab:header}. 
+\begin{table}[]
+  \begin{center}
+    \caption{APV25 debug sample.}
+    \label{tab:header}
+    \begin{tabular}{|c|c|c|c|c|}
+   	\hline
+    	\bf Desc. & \multicolumn{4}{|c|}{\bf 16-bits}\\
+      	\hline
+    	 \bf Type &  ApvId &   ApvFrameCount &  ApvBufferAddress &  ApvReadError \\
+      	\hline
+    	 \bf Bits & [15:13] &   [12:9] & [8:1] & [0] \\
+	\hline
+      \end{tabular}
+  \end{center}
+\end{table}
+The "tail" multisample is not used at the moment and stripped out in firmware.
+
+
+
+\subsubsection{Error classification}
+The SVT data contains information about a number of different errors that may occur in the system. Table.~\ref{tab:errors} contains a summary 
+of the different errors.
+\begin{table}[]
+  \begin{center}
+    \caption{Error classification.}
+    \label{tab:errors}
+    \begin{tabular}{p{3cm}p{8cm}p{2cm}}
+   	\hline
+    	\bf Error & \bf Description & \bf Where \\
+	\hline
+    	SyncError & Indicates that APV25 event frames built on this RCE had at least two APV chips with inconsistent APV25 buffer addresses.  & SVT tail  \\
+	\hline
+	OverflowError & Buffer overflow in the RCE event builder. & SVT tail \\ 
+	\hline
+	Multisample header error & Inserted empty APV25 frames to complete an event. & multisample header error bit \\ 
+	\hline
+	ApvReadError & If '0', the APV25 reported latency or pipeline overflow. & multisample header  \\ 
+	\hline
+	ApvBufferAddress error & The APV25 buffer addresses are not identical. & APVFrameCount, SyncError  \\ 
+	\hline
+	ApvFrameCount error & The APV25 frame count are inconsistent (should increase by 1). & APVBufferAddressError, SyncError  \\ 	
+	\hline
+      \end{tabular}
+  \end{center}
+\end{table}
+
+
+\subsection{SVT Configuration and Status Bank}
+
+At regular intervals the configuration and status of the SVT DAQ was injected into the data stream as a string bank. Throughout most of the run the data was obtained from a  single data DPM and the control DPM to avoid duplication. In the latter part of the runs this was done every few hundred thousand events, coinciding with sync events.
+
+The bank can be identified from the EVIO header information in Tab.~\ref{tab:svt-config}.
+
+\begin{table}[]
+  \begin{center}
+    \caption{SVT config and status bank.}
+    \label{tab:svt-config}
+    \begin{tabular}{|c|c|c|c|}
+   	\hline
+    	 type & tag & padding & num \\
+	 \hline
+    	 0x3 & 57614 & 0 & "ROC id" \\
+	 \hline
+      \end{tabular}
+  \end{center}
+\end{table}
+
+
+
+\section{RF Signal Data Format}
+
+\subsection{SVT Calibration}
+
+There are three calibration types for the SVT: 1) baseline  (normal run without thresholds), 2) gain and 3) t$_{0}$ calibration. In all cases the data follows the format presented above. For the gain and t$_0$ calibration there is a string bank inserted to signal that the SVT configuration has changed and what it is. These are identified as config/status banks as described in Tab.~\ref{tab:svt-config}. The contain a text string of the form 
+\begin{equation}
+cal\_group\_X\ cal\_level\_Y\ cal\_delay\_Z
+\end{equation}
+where $X$, $Y$ and $Z$ identifies the setting for the particular calibration run that was taken. 
+
+
+%\section{Slow Control Data Format}
+%\subsection{EPICS and scaler Bank}
+
+
+
+
+%\hline
+%Layer $\rightarrow$& 1-3 & 4-6 \\ 
+%\hline
+%$z$ pos. (cm)  & 10-30 & 50-90  \\
+%Stereo angle  & $90^{\circ}$ & 50~mrad  \\
+%Bend res. ($\mu$m)  & $\approx 6$ & $\approx6$  \\
+%Stereo res. ($\mu$m)  & $\approx 6$ & $\approx130$  \\
+%\hline
+%\end{tabular}}
+%\caption{\footnotesize Main tracker parameters.}
+%\label{tab:svtparams}
+%\end{wraptable}
+
+
+%\begin{figure}[]
+%\centerline{
+%\includegraphics[width=0.4\textwidth]{occupancy.pdf}
+%\includegraphics[width=0.4\textwidth]{PastedGraphic-1.png}
+%\includegraphics[width=0.4\textwidth]{IMG_1618.jpg}
+%}
+%\caption{\footnotesize Occupancy per strip ($60~\mu$m readout pitch) in Layer 1 of the SVT for 
+%8~ns of beam at 400~nA (left). View of the SVT from upstream before installation of the target and final cabling (right).}
+%\label{fig:occupancy_and_reach}
+%\end{figure}
+
+%\begin{wraptable}{r}{0.39\textwidth}
+%\centerline{\begin{tabular}{|lcc|}
+%\hline
+%Layer $\rightarrow$& 1-3 & 4-6 \\ 
+%\hline
+%$z$ pos. (cm)  & 10-30 & 50-90  \\
+%Stereo angle  & $90^{\circ}$ & 50~mrad  \\
+%Bend res. ($\mu$m)  & $\approx 6$ & $\approx6$  \\
+%Stereo res. ($\mu$m)  & $\approx 6$ & $\approx130$  \\
+%\hline
+%\end{tabular}}
+%\caption{\footnotesize Main tracker parameters.}
+%\label{tab:svtparams}
+%\end{wraptable}
+
+ 
+% ****************************************************************************
+% BIBLIOGRAPHY AREA
+% ****************************************************************************
+
+\begin{footnotesize}
+\begin{thebibliography}{99}
+%\bibitem{pamela}
+%O. Adriani {\it et al.} [PAMELA Collaboration], Nature {\bf 458}, 607 (2009) 
+%[arXiv:0810.4995 [astro- ph]],
+%\bibitem{pamela2} 
+%O. Adriani et al. [PAMELA Collaboration], Phys. Rev. Lett. 106, 201101 (2011) [arXiv:1103.2880 [astro-ph.HE]].
+\bibitem{fadc250}
+E.Jastrzembski and H. Dong, https://coda.jlab.org/drupal/content/vme-payload-modules
+%https://coda.jlab.org/drupal/system/files/pdfs/HardwareManual/fADC250/FADC250%20data%20format%20V23.pdf
+\end{thebibliography}
+\end{footnotesize}
+
+
+ 
+% ****************************************************************************
+% BIBLIOGRAPHY AREA
+% ****************************************************************************
+
+%\begin{footnotesize}
+%\begin{thebibliography}{99}
+%\bibitem{pamela}
+%O. Adriani {\it et al.} [PAMELA Collaboration], Nature {\bf 458}, 607 (2009) 
+%[arXiv:0810.4995 [astro- ph]],
+%\bibitem{pamela2} 
+%O. Adriani et al. [PAMELA Collaboration], Phys. Rev. Lett. 106, 201101 (2011) [arXiv:1103.2880 [astro-ph.HE]].
+%\end{thebibliography}
+%\end{footnotesize}
+
+% ****************************************************************************
+% END OF BIBLIOGRAPHY AREA
+% ****************************************************************************
+
+\end{document}
