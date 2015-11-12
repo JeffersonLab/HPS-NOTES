@@ -8,10 +8,10 @@
 
 
 	%------------------------------------
-\title{The Data Format for the HPS Engineering Run 2015 }
+\title{The SVT Data Format for the HPS Engineering Run 2015 }
 
 %for single authors the superscripts are optional
-\author{{\slshape Per Hansson Adrian$^1$, Benjamin Reese$^1$, Ryan Herbst$^1$, Sergey Boiarinov$^2$}, Nathan Baltzell$^2$\\
+\author{{\slshape Per Hansson Adrian$^1$, Nathan Baltzell$^2$,Sergey Boiarinov$^2$, Ryan Herbst$^1$, Benjamin Reese$^1$}\\
 $^1$SLAC National Accelerator Laboratory, Menlo Park, CA, USA\\
 $^2$Thomas Jefferson National Accelerator Facility, Newport News, VA, USA}
 %\affiliation{SLAC National Accelerator Laboratory, Menlo Park, CA, USA}
@@ -41,7 +41,6 @@ $^2$Thomas Jefferson National Accelerator Facility, Newport News, VA, USA}
 \section{Overview}
 
 Description of the FADC~\cite{fadc250}?
-
 
 The SVT DAQ consists of multiple data processing daughter boards (DPMs) with two processing nodes (RCEs) per DPM. 
 Each RCE is accessing data from between two and four hybrids that each carry five APV25 readout ASICs. Each RCE 
@@ -298,21 +297,21 @@ of the different errors.
   \begin{center}
     \caption{Error classification.}
     \label{tab:errors}
-    \begin{tabular}{p{2cm}p{6cm}p{2cm}p{2cm}}
+    \begin{tabular}{p{3cm}p{8cm}p{2cm}}
    	\hline
-    	\bf Error & \bf Description & \bf Where & \bf Correlated with\\
+    	\bf Error & \bf Description & \bf Where \\
 	\hline
-    	SyncError & Indicates that APV25 event frames built on this RCE had at least two APV chips with inconsistent APV25 buffer addresses.  & SVT tail & multisample header error, ApvFrameCount error. \\
+    	SyncError & Indicates that APV25 event frames built on this RCE had at least two APV chips with inconsistent APV25 buffer addresses.  & SVT tail  \\
 	\hline
-	OverflowError & Buffer overflow in the RCE event builder. & SVT tail & \\ 
+	OverflowError & Buffer overflow in the RCE event builder. & SVT tail \\ 
 	\hline
-	Multisample header error & Inserted empty APV25 frames to complete an event. & multisample header error bit & SyncError, ApvFrameCount\\ 
+	Multisample header error & Inserted empty APV25 frames to complete an event. & multisample header error bit \\ 
 	\hline
-	ApvReadError & If '0', the APV25 reported latency or pipeline overflow. & multisample header  & \\ 
+	ApvReadError & If '0', the APV25 reported latency or pipeline overflow. & multisample header  \\ 
 	\hline
-	ApvBufferAddress error & The APV25 buffer addresses are not identical. & APVFrameCount, SyncError  & \\ 
+	ApvBufferAddress error & The APV25 buffer addresses are not identical. & APVFrameCount, SyncError  \\ 
 	\hline
-	ApvFrameCount error & The APV25 frame count are inconsistent (should increase by 1). & APVBufferAddressError, SyncError  & \\ 	
+	ApvFrameCount error & The APV25 frame count are inconsistent (should increase by 1). & APVBufferAddressError, SyncError  \\ 	
 	\hline
       \end{tabular}
   \end{center}
@@ -321,16 +320,39 @@ of the different errors.
 
 \subsection{SVT Configuration and Status Bank}
 
-\subsection{SVT Calibration}
+At regular intervals the configuration and status of the SVT DAQ was injected into the data stream as a string bank. Throughout most of the run the data was obtained from a  single data DPM and the control DPM to avoid duplication. In the latter part of the runs this was done every few hundred thousand events, coinciding with sync events.
+
+The bank can be identified from the EVIO header information in Tab.~\ref{tab:svt-config}.
+
+\begin{table}[]
+  \begin{center}
+    \caption{SVT config and status bank.}
+    \label{tab:svt-config}
+    \begin{tabular}{|c|c|c|c|}
+   	\hline
+    	 type & tag & padding & num \\
+	 \hline
+    	 0x3 & 57614 & 0 & "ROC id" \\
+	 \hline
+      \end{tabular}
+  \end{center}
+\end{table}
+
 
 
 \section{RF Signal Data Format}
 
+\subsection{SVT Calibration}
 
-\section{Slow Control Data Format}
+There are three calibration types for the SVT: 1) baseline  (normal run without thresholds), 2) gain and 3) t$_{0}$ calibration. In all cases the data follows the format presented above. For the gain and t$_0$ calibration there is a string bank inserted to signal that the SVT configuration has changed and what it is. These are identified as config/status banks as described in Tab.~\ref{tab:svt-config}. The contain a text string of the form 
+\begin{equation}
+cal\_group\_X\ cal\_level\_Y\ cal\_delay\_Z
+\end{equation}
+where $X$, $Y$ and $Z$ identifies the setting for the particular calibration run that was taken. 
 
 
-\subsection{EPICS and scaler Bank}
+%\section{Slow Control Data Format}
+%\subsection{EPICS and scaler Bank}
 
 
 
@@ -381,10 +403,9 @@ of the different errors.
 % ****************************************************************************
 
 \begin{footnotesize}
-
 \begin{thebibliography}{99}
-\bibitem{pamela}
-O. Adriani {\it et al.} [PAMELA Collaboration], Nature {\bf 458}, 607 (2009) 
+%\bibitem{pamela}
+%O. Adriani {\it et al.} [PAMELA Collaboration], Nature {\bf 458}, 607 (2009) 
 %[arXiv:0810.4995 [astro- ph]],
 %\bibitem{pamela2} 
 %O. Adriani et al. [PAMELA Collaboration], Phys. Rev. Lett. 106, 201101 (2011) [arXiv:1103.2880 [astro-ph.HE]].
@@ -392,8 +413,6 @@ O. Adriani {\it et al.} [PAMELA Collaboration], Nature {\bf 458}, 607 (2009)
 E.Jastrzembski and H. Dong, https://coda.jlab.org/drupal/content/vme-payload-modules
 %https://coda.jlab.org/drupal/system/files/pdfs/HardwareManual/fADC250/FADC250%20data%20format%20V23.pdf
 \end{thebibliography}
-
-
 \end{footnotesize}
 
 

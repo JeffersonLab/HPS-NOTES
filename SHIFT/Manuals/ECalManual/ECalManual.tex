@@ -7,7 +7,7 @@
 \makeatother
 
 
-\title{Manual for HPS ECal v1.9}
+\title{Manual for HPS ECal v1.91}
 
 \author{ECal On-Call Cell Phone: 757-810-1489 \\ 
 Authors: \\
@@ -203,30 +203,76 @@ The following instructions must be followed to take an LED sequence run. This in
 
 \subsubsection{Setup}
 Follow these instructions to setup the system before takin the LED sequence run.
+It is critical they are followed in the \textbf{exact} order as they are here reporter.
 
-\begin{description}
-\item[Start the DAQ system: ]{Use the run-control to CONFIGURE the DAQ with the proper setting file. Click on ``DOWNLOAD'', then on ``PRESTART''. Wait until the ``GO'' button appears, but {\bf do not click on it yet.}
-\bf\it ? TODO: Describe this better: which file to use?
+\begin{enumerate}
+\item{\textbf{Start the DAQ system: }
+\begin{itemize}
+\item Identify the machine where the DAQ RunControl is running. If you can't find it anywhere, it is possible the DAQ system has to be initialized from scratch. To do so, refer to the HPS DAQ manual, or contact the DAQ expert.
+\item Depending on the DAQ state, different buttons may be visible in the ``Transition'' area. If the ``Configure'' button is not visible, click on ``Reset'', then on ``OK''.
+\item Click on ``Configure'' to properly set up the run.
+A ``Run Type Configuration'' dialog will show up.
+
+Use the scroll-down menu to select as RunType: HPS3ECAL\_NOER\_NOTDC. This configuration will not save any data on tape (only online analysis will be performed)
+
+Use instead: HPS3\_ECAL\_NOTDC to save data on tape.
+
+Then, click on ``Config'' button. A file-chooser menu will show up.
+
+Select: /usr/clas12/release/0.2/parms/trigger/HPS $\rightarrow$ ECAL $\rightarrow$  HPS\_ECAL\_LED\_RUN.trg. 
+
+Click on ``OK'' to close the file-choose menu.
+
+Click on ``OK'' in the Run type dialog.
+
+{\bf \it TODO: Update this section if DAQ configuration changes}
+
+\item{Click on ``Download'', then on ``Prestart''.  Wait until the ``GO'' button appears, but {\bf do not click on it yet.}
+
  }
-\item[Start the monitoring app: ]{Use the command outlined in the previous section to start the monitoring app.\textcolor{red}{Do this after the run-control shows the ``GO'' button.} When the main gui window shows up, click on the ``Connect button''. The Ecal event display will show up.}
-\item[Initialize the LED monitoring sequence:]{In the EPICS gui, click on ``Initialise Flasher'', then on ``!Stop All Seq'' (to ensure there are no previous sequences running). For both controllers, ensure the LED ON/OFF button is set to OFF (you will turn it ON later).} 
-\end{description}
+\end{itemize}
+}
+\item{\textbf{Start the monitoring app: }Use the command outlined in the previous section to start the monitoring app.
+
+\textcolor{red}{\bf Do this after the run-control shows the ``GO'' button.}
+
+When the main gui window shows up, click on the ``Connect button''. The Ecal event display will show up.}
+\item{\textbf{Initialize the LED monitoring sequence:}In the EPICS gui, click on ``Initialise Flasher'', then on ``!Stop All Seq'' (to ensure there are no previous sequences running). 
+
+For both controllers, ensure the LED ON/OFF button is set to OFF (RED square). If not, click on OFF.}
+\end{enumerate}
       
 \subsubsection{Run start, data taking, and run stop}
-To start data taking, FIRST click on the ``GO'' button in the run-control gui. Wait 10~s (until the message ``transiction go succeded'' is displayed in the log window and the ``END'' button displays). Then click on ``Start Blue Seq'' or ``Start Red Seq'' in the EPICS gui. Default sequence to take is the BLUE one. Take a RED sequence only if the Ecal expert ask you to do so.
+To start data taking follow these instructions, in the exact order they are reported here.
+\begin{enumerate}
+\item In the RunControl GUI, click on the ``GO'' button. Wait 10~s, until the message ``transiction go succeded'' is displayed in the log window and the ``END'' button displays. 
+\item In the EPICS gui, click on ``Start Blue Seq'' or ``Start Red Seq''.
+
+By default, take a BLUE sequence. 
+
+Take a RED sequence only if the Ecal expert ask you to do so.
+\end{enumerate}
 
 While the LED sequence is running, you can look at the monitoring application to check data being recorded. The event display will show 8 crystals at time with a signal. A full sequence will take $\simeq$ 10 minutes to complete.
 
-{\bf  The DAQ system is not set up to end the run when the LED sequence is completed.} 
+{\bf  The DAQ system is not set up to end the run when the LED sequence is completed.} When the sequence is complete:
+\begin{itemize}
+\item The LED system automatically turns off. As a direct consequence of this, no further triggers are sent to the DAQ system
+\item The data-taking run is \textbf{not} ended. This means the DAQ will stay in RUN mode, but no events will be recorded, since there are no triggers.
+\end{itemize}
+{\bf
+Use the EPICS gui to periodically check the sequence status, looking at the Sequence Control section (RED is OFF, GREEN is ON). Tipically, a sequence will take $\simeq$ 10 minutes to complete.}
 
-Therefore, use the EPICS gui to check the sequence status (RED is OFF, GREEN is ON). The user can confirm the sequence has actually ended by looking at the ECal Event display: no crystals are ON at this stage.
-When both sequences are OFF, first turn OFF both controllers (LED ON/OFF, click on OFF), then use the DAQ run control to END the run.
+The user can confirm the sequence has actually ended by looking at the ECal Event display: no crystals have signal when the sequence is off.
+
+When both sequences are OFF, first turn OFF both controllers (LED ON/OFF, click on OFF), 
+then use the DAQ run control to END the run, by clicking on the ``End'' button.
 
 
 
 \subsubsection{Analysis at the run end}
 
-When the run ends, the monitoring application automatically will recognize this, and the analysis of the measured data will start. 
+When the run ends, the monitoring application automatically recognizes this, and the online analysis of the measured data starts. 
 
 A pop-up will appear, asking the user if he wants to upload the LED data that has been measured to the HPS conditions database: uploaded quantities are the average channel response to LED pulses and the RMS. Before confirming this, the user is required to have a look at the average charge per LED, displayed in the monitoring app: tab Ecal Led Sequence, sub-tab Sequence Map. The average channel response should be in the range $\simeq 20 \div 30$. 
 
