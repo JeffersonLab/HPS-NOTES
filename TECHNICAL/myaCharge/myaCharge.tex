@@ -22,23 +22,26 @@
 
 Shell scripts, crawler output and MYA dumps (gzipped; gunzip before using) are in SVN at \texttt{/java/sandbox/biascrawling/crawler}.
 
-
 \subsection{Commands}
-Look at ranges (display plots of run ranges, calculate run efficiencies and per-run charge integrals):
+Display plots of run ranges:
 
-\texttt{java -cp hps-distribution-bin.jar org.hps.conditions.svt.SvtBiasConditionsLoader -tc parsed.csv -dm biasdump -p motordump -b fcupdump -s}
+\texttt{java -cp hps-distribution-bin.jar org.hps.conditions.svt.SvtBiasConditionsLoader -tc runcrawleroutput.csv -dm biasdump -p motordump -s}
 
 Load ranges to conditions DB (dev.prop is a connection properties file for the conditions DB):
 
-\texttt{java -Dorg.hps.conditions.connection.file=dev.prop -cp hps-distribution-bin.jar org.hps.conditions.svt.SvtBiasConditionsLoader -tc parsed.csv -dm biasdump -p motordump -g}
+\texttt{java -Dorg.hps.conditions.connection.file=dev.prop -cp hps-distribution-bin.jar org.hps.conditions.svt.SvtBiasConditionsLoader -tc runcrawleroutput.csv -dm biasdump -p motordump -g}
 
 Calculate per-run charge integrals:
 
-\texttt{java -cp hps-distribution-bin.jar org.hps.users.meeg.SvtChargeIntegrator -r parsed.csv fcupdump}
+\texttt{java -cp hps-distribution-bin.jar org.hps.users.meeg.SvtChargeIntegrator -r runcrawleroutput.csv fcupdump}
 
 Calculate per-file charge integrals:
 
-\texttt{java -cp hps-distribution-bin.jar org.hps.users.meeg.SvtChargeIntegrator filecrawleroutput.txt fcupdump}
+\texttt{java -cp hps-distribution-bin.jar org.hps.users.meeg.SvtChargeIntegrator -t filecrawleroutput.csv fcupdump}
+
+(For charge integrals, \texttt{-t} uses TI timestamps instead of head bank timestamps for better precision, and \texttt{-c} uses the TI time offset estimates in the CSV file instead of the run DB so runs without run DB information will still work.
+The commands listed here duplicate what appears in the run spreadsheet.)
+
 \section{Relevant features of MYA, dumping MYA}
 MYA archives EPICS variables (PVs).
 See MYA documentation at \url{http://devweb.acc.jlab.org/controls_web/certified/mya/}.
@@ -91,7 +94,7 @@ As a test, the bias time ranges were checked for run 5785, which is unblinded (f
 We found that the EPICS events are consistent with the MYA values, and that noise hits in the SVT show the bias was off only outside of the SVT-good time range.
 Limitations of this test: EPICS events are only every 2 seconds, and noise hits only become significant at low bias (below 20 V or so).
 
-The run start/end times (based on \texttt{GO} and \texttt{END} events, or head bank timestamps) have 1 second precision (this can be improved).
+The run start/end times (based on \texttt{GO} and \texttt{END} events, or head bank timestamps) have 1 second precision (we can use TI timestamps instead).
 The file start/end times (based on TI timestamps) have nanosecond precision for the file duration, and absolute time precision limited by the TI time offset (millisecond precision).
 There is some time between the last event of one file and the first event of the next, but at 17 kHz this gap is negligible, even if events are recorded out of order (which happens rarely and is not a large effect).
 
