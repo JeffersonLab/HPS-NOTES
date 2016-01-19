@@ -7,7 +7,7 @@
 \makeatother
 
 
-\title{Manual for HPS ECal v2.0}
+\title{Manual for HPS ECal v2.1}
 
 \author{ECal On-Call Cell Phone: 757-810-1489 \\ 
 Authors: \\
@@ -77,7 +77,7 @@ From the main HPS\_EPICS window you can also access individual screens with more
  \section{Primary ECal EPICS Screen}
  This one screen combines all basic ECal EPICS controls and monitoring into one window.  It is accessible from the {\bf ECAL} button in figure~\ref{EPICSmain}.  This includes embedded versions of the dedicated screens in the following sections:  temperature sensors, chiller, and low and high voltage.  
  
- This screen provides the only ECal {\em controls} shift workers should need, which is to turn HV on and off via the red and green buttons.  However, this should be supplemented by the strip charts for temperature and HV current, as well as cctv webcams, for additional {\em monitoring} in the following sections.
+ This screen provides the only ECal {\em controls} shift workers should need, which is to turn HV on and off via the red and green {\bf ALL ON} and {\bf ALL OFF} buttons.  However, this should be supplemented by the strip charts for temperature and HV current, as well as cctv webcams, for additional {\em monitoring} in the following sections.
 
 The grey square buttons in the top right of each section of this main ECal screen provide
 access to more detailed or expert screens for the corresponding subsystem.
@@ -135,10 +135,14 @@ LV should be monitored using its webcam and its portion of the main ECAL EPICS s
 \section{High Voltage}
       \subsection{Turning ON/OFF High Voltages}
 
-      The high voltage supply of the ECal is controlled and monitored using the main ECal EPICS window (Figure ~\ref{fig:ecal_all}).  It has buttons to ramp up and down the entire calorimeter's high voltages (labeled ``ALL ON'' and ``ALL OFF''), open windows for individual channel control (figure~\ref{HVControl}), and open more detailed expert views (e.g. figure ~\ref{HV}).
+      The high voltage supply of the ECal is controlled and monitored using the main ECal
+EPICS window (Figure ~\ref{fig:ecal_all}).  It has buttons to ramp up and down the entire 
+calorimeter's high voltages (labeled {\bf ALL ON} and {\bf ALL OFF}), open windows for
+individual channel control (figure~\ref{HVControl}), and open more detailed expert views 
+(e.g. figure ~\ref{HV}).
 
    \subsection{HV Current Monitoring}
-   Individual channels' currents can be monitoring in figure~\ref{HVControl}, and strip charts should be open for long term monitoring.  The strip charts are accessible from the main ECal screen (figure ~\ref{fig:ecal_all}) under the HV sections' ``Monitors'' button (and also from the HPS\_EPICS screen (figure~\ref{EPICSmain}) via the ``Strip-Tool'' button).  An example is shown in figure~\ref{fig:hvcurrentstrips}.  Jumps or drifts in current of more than 1 A should be noted in the logbook.
+   Individual channels' currents can be monitoring in figure~\ref{HVControl}, and strip charts should be open for long term monitoring.  The strip charts are accessible from the main ECal screen (figure ~\ref{fig:ecal_all}) under the HV sections' {\bf Monitors} button (and also from the HPS\_EPICS screen (figure~\ref{EPICSmain}) via the {\bf Strip-Tool} button).  An example is shown in figure~\ref{fig:hvcurrentstrips}.  Jumps or drifts in current of more than 1 A should be noted in the logbook.
 
    \begin{figure}[htbp]\centering
        \includegraphics[width=16cm]{pics/hvcurrentstrip.png}
@@ -148,15 +152,14 @@ LV should be monitored using its webcam and its portion of the main ECAL EPICS s
 
    \subsection{Responding to HV trips}
 
-   HV problems, in particular trips, are indicated by a red group in the main ECal EPICS GUI (figure~\ref{fig:ecal_all}).  HV trips will also be announced by the alarm handler.  During normal operations with HV ON, there should be no red groups in Figure \ref{fig:ecal_all} and no ECAL HV alarms.  Contact the ECAL expert on-call in case of uncertainty.
-     
-In case of an HV trip, or a red region in Figure \ref{fig:ecal_all}:
+   HV problems, in particular trips, are indicated by a red group in the main ECal EPICS GUI (figure~\ref{fig:ecal_all}).  HV trips will also be announced by the alarm handler.  During normal operations with HV ON, there should be no red groups in Figure \ref{fig:ecal_all} and no ECAL HV alarms.  In case of an HV trip, or a red region in Figure \ref{fig:ecal_all}:
 \begin{itemize}
-    \item Try to reenable the HV group by turning it back on in the EPICS HV control screen (figure~\ref{HVControl}) accessed via the ``Controls'' button in the main ECal EPICS screen (Figure \ref{fig:ecal_all}).  (An alternative is just pressing the ``ALL ON'' button in the 
-main ECal EPICS screen, which will effectively turn all channels on.)
+    \item Try to reenable the tripped HV group by turning it back on in the EPICS HV control screen (figure~\ref{HVControl}) accessed via the {\bf Controls} button in the main ECal EPICS screen (Figure \ref{fig:ecal_all}).  (An easier alternative is just pressing the {\bf ALL ON}
+button in the main ECal EPICS screen.)
     \item Record the trip in the log book with precise indication of the group and run
         number concerned. 
 \end{itemize}
+Contact the ECAL expert on-call in case of uncertainty.
       
       {\em Note, the HV can take up to 3 minutes to turn back on so you should end the current run and begin a new one when the high voltage is back on. If you cannot get a HV group to work contact the ECal expert on call.}
 
@@ -172,7 +175,7 @@ main ECal EPICS screen, which will effectively turn all channels on.)
 \newpage
       \section{Scalers}
 
-      Rates seen by the ECal are available in the ROOT-based GUI shown in Figure \ref{Scalers}, which represent the rates as seen by the FADC electronics.  This display is accessible via the main HPS\_EPICS window under the {\bf ECAL Scaler GUIs} button, and also by running \texttt{hps\_ecal\_scalers} in a terminal.  {\em As of 2016, the discriminators are disconnected and only the FADC rates are accessible.}
+      Rates seen by the ECal are available in the ROOT-based GUI shown in Figure \ref{Scalers}, which represent the rates as seen by the FADC electronics.  This display is accessible via the main HPS\_EPICS window under the {\bf ECAL Scaler GUIs} button, and also by running the command \texttt{hps\_ecal\_scalers} in a terminal.  {\em As of 2016, the discriminators are disconnected and only the FADC rates are accessible.}
       
       One can also see clustering scalers from the DAQ ``diaggui'' screen (figure~\ref{DAQscalers}), accessible also by the {\bf ECAL Scaler GUIs} button or by executing \texttt{diaggui.sh} in a terminal.  This GUI indicates the rates of clusters reconstructed by the trigger electronics. 
       
@@ -191,7 +194,7 @@ main ECal EPICS screen, which will effectively turn all channels on.)
 
 \newpage
   \section{Strip Charts}
-      The most import quantities to monitor with strip charts are temperature and HV current.  There are two programs to view strip charts of ECal EPICS variables.  The older StripTool shown in figure~\ref{temp2} can be started from the HPS\_EPICS gui.  The newer MyaViewer (which adds the ability to retrieve archive information), must be run locally on one of the computers in the counting room (\texttt{clonpcN}, where \texttt{N} is one of the numbers from 11 to 19).  The scripts to run it are in {\it hpsrun}'s path, so in a terminal enter one of:
+      The most import quantities to monitor with strip charts are temperature and HV current.  There are two programs to view strip charts of ECal EPICS variables.  The older StripTool shown in figure~\ref{temp2} can be started from the HPS\_EPICS gui.  The newer MyaViewer (which adds the ability to retrieve archive information) can be run by executing the following scripts in a terminal:
       
       \begin{itemize}
           \item \texttt{mya\_ecal\_all.sh}
@@ -220,7 +223,7 @@ Shift takers are requested to operate the system in ``Sequence mode'' only. To d
 \end{figure}
 
 \subsection{Automatic LED Monitoring}
-A monitoring app is setup to record all channels successfully registered during an LED run.  It should be started before the LED sequence is started and viewed afterwards, with the command: \begin{center}\$HOME/hps\_software/scripts/startECalLEDSequenceMonitoring.csh\end{center} Make sure to use the hpsrun account before using this command.
+A monitoring app is setup to record all channels successfully registered during an LED run.  It should be started before the LED sequence is started and viewed afterwards, with the command: \begin{center}\texttt{\$HOME/hps\_software/scripts/startECalLEDSequenceMonitoring.csh}\end{center} Make sure to use the hpsrun account before using this command.
   
 \subsection{Taking an LED sequence run}
 The following instructions must be followed to take an LED sequence run. This involves setting the DAQ, starting the LED sequence run, and configure the hps-java monitoring app to monitor the data. At the end of the run, the user can upload the relevant information to the hps conditions database, as well as post a log-entry to the HallB electronic logbook.
@@ -243,7 +246,7 @@ Use instead: HPS3\_ECAL\_NOTDC to save data on tape.
 
 Then, click on ``Config'' button. A file-chooser menu will show up.
 
-Select: /usr/clas12/release/0.2/parms/trigger/HPS $\rightarrow$ ECAL $\rightarrow$  HPS\_ECAL\_LED\_RUN.trg. 
+Select: /usr/clas12/release/0.3/parms/trigger/HPS $\rightarrow$ ECAL $\rightarrow$  HPS\_ECAL\_LED\_RUN.trg. 
 
 Click on ``OK'' to close the file-choose menu.
 
@@ -326,7 +329,7 @@ This just counts threshold crossings in the discriminators, which is sufficient 
 
    \section{Taking a Cosmic Calibration Run}
 
-   In addition to the calorimeter's HV, the cosmic PMTs should be powered on.  Their HV control is under ``Cosmic PMTs'' in the ``Controls'' button of the main ECal EPICS gui's HV section (Figure ~\ref{fig:ecal_all}) and shown in Figure~\ref{fig:cosmicPMTs}.  They are named \texttt{ECal\_cosm1} and \texttt{ECal\_cosm2} and their voltages should be set at 1650 V.  The DAQ configuration should be set to \begin{center}\texttt{hps\_cosmic.trg}\end{center}.
+   In addition to the calorimeter's HV, the cosmic PMTs should also be powered on.  Their HV control is under {\bf Cosmic PMTs} in the {\bf Controls} button of the main ECal EPICS screen's HV section (Figure ~\ref{fig:ecal_all}) and shown in Figure~\ref{fig:cosmicPMTs}.  They are named \texttt{ECal\_cosm1} and \texttt{ECal\_cosm2} and their voltages should be set at 1650 V.  The DAQ configuration should be set to \begin{center}\texttt{hps\_cosmic.trg}\end{center} and a normal cosmic trigger rate is about 5 Hz.
        \begin{figure}[htbp]\centering
            \includegraphics[width=0.8\textwidth]{pics/cosmicPMTs.png}
            \caption{Controls for PMTs for cosmic trigger.\label{fig:cosmicPMTs}}
@@ -339,6 +342,8 @@ This just counts threshold crossings in the discriminators, which is sufficient 
        \begin{center}\texttt{startEcalPedestalCalculator}\end{center}
        In this monitoring app you can click on the event display to view the different channels' pedestal histograms as the data is acquired.  Once the statistics are sufficient, the app should be disconnected from the ET-ring and then output files for the DAQ and database will be generated in the directory:\begin{center}\texttt{\$HOME/EcalPedestals}\end{center}  The user will be asked if they want them put in the database automatically, and it requires two consecutive ``YES'' responses to make it happen.  An expert should make the trigger configuration use the new pedestal file.
 
+    \section{Taking a FEE Run for Gain Calibration}
+    {\bf TODO.  Uses new trigger mask.}
 
 \newpage
 
@@ -362,7 +367,7 @@ The FADCs and patch panels occupy the rack furthest from the beamline in the Alc
 \item
     The LV supply is on the Pie Tower at the top of the middle rack. See figure~\ref{fig:LVPHOTO}.
 \end{itemize}
-
+}
 \begin{figure}[htbp]\centering
     \includegraphics[width=7cm]{pics/ECALLVPHOTO2.png}
     \includegraphics[width=7cm]{pics/ECALLVPHOTO.png}
@@ -398,7 +403,7 @@ The FADCs and patch panels occupy the rack furthest from the beamline in the Alc
     Chiller IOC runs in ``procserv'', a wrapper that automatically runs and restarts services and provides access to them via telnet.  To restart the chiller's IOC:
    {\footnotesize
    \begin{enumerate}
-       \item \texttt{`ssh hpsrun@clonsl1'}
+       %\item \texttt{`ssh hpsrun@clonsl1'}
        \item \texttt{`softioc\_console iocchiller'} and type user's password if necessary.
        \item \texttt{`ctrl-x'} to restart the IOC
        \item \texttt{`ctrl-]'} to quit to telnet
@@ -411,7 +416,7 @@ The FADCs and patch panels occupy the rack furthest from the beamline in the Alc
    Thermocouples are used to monitor the temperature inside and outside the calorimeter.  To restart the IOC that reads these:
    {\footnotesize
    \begin{enumerate}
-       \item \texttt{`ssh hpsrun@clonsl1'}
+       %\item \texttt{`ssh hpsrun@clonsl1'}
        \item \texttt{`softioc\_console ioctempSens'} and type user's password if necessary.
        \item \texttt{`ctrl-x'} to restart the IOC
        \item \texttt{`ctrl-]'} to quit to telnet
@@ -435,22 +440,22 @@ The LV supply can be controlled via its EPICS expert screen (figure~\ref{lvexper
 \end{figure}
 
 {\em Note, as a safeguard, if one currently tries to use EPICS to set the voltage greater than 5 V or the current greater than 6 A, the request will be ignored by the IOC.}  Overriding these limits can currently only be done either via local control (Section \ref{sec:lvlocalops}), or by setting new values for the limits via \texttt{caput}.  The corresponding PVs are:
+{\footnotesize
 \begin{itemize}
     \item\texttt{HPSECALLV:i1set:DRVH}
     \item\texttt{HPSECALLV:i2set:DRVH}
     \item\texttt{HPSECALLV:v1set:DRVH}
     \item\texttt{HPSECALLV:v2set:DRVH}
 \end{itemize}
-
+}
 \subsubsection{Local Operation}\label{sec:lvlocalops}
 The LV supply can also be controlled manually in the hall via buttons on its front panel.  However, when in remote mode (denoted by the ``RMT'' marker in its LCD display), local operations require pressing the ``LCL'' button first, then quickly pressing the desired operation button before remote mode is automatically reenabled by the IOC.  Completely disabling this ``feature'' requires stopping the IOC (see section~\ref{lviocstop}).
 
-\newpage
 \subsection{Restarting the LV IOC}
    To restart the IOC:
    {\footnotesize
    \begin{enumerate}
-       \item \texttt{`ssh hpsrun@clonsl1'}
+       %\item \texttt{`ssh hpsrun@clonsl1'}
        \item \texttt{`softioc\_console iocA6621'} and type user's password if necessary.
        \item \texttt{`ctrl-x'} to restart the IOC
        \item \texttt{`ctrl-]'} to quit to telnet
@@ -463,7 +468,7 @@ The LV supply can also be controlled manually in the hall via buttons on its fro
    To disable the IOC:
    {\footnotesize
    \begin{enumerate}
-       \item \texttt{`ssh hpsrun@clonsl1'}
+       %\item \texttt{`ssh hpsrun@clonsl1'}
        \item \texttt{`softioc\_console iocA6621'} and type user's password if necessary.
        \item \texttt{`ctrl-t'} to toggle auto-restart
        \item \texttt{`ctrl-x'} to kill the IOC
@@ -476,12 +481,12 @@ The LV supply can also be controlled manually in the hall via buttons on its fro
 \newpage
    \section{High Voltage}
    \subsection{Restarting the HV IOC}
-   Occaissonaly the soft IOC for the HV needs to be manually restarted.  Symptoms of this condition include errors messages from EPICS when trying to turn on/off voltages and white blocks in the main HV screen (figure~\ref{HV}).  {\em Note, the IOC always needs to be restarted if the HV CAEN mainframe is power cycled.}
-
+   Occaissonaly the soft IOC for the HV needs to be manually restarted.  Symptoms of this condition include errors messages from EPICS when trying to turn on/off voltages and white blocks in the main HV screen (figure~\ref{HV}).  
+   
    To restart the IOC:
    {\footnotesize
    \begin{enumerate}
-       \item \texttt{`ssh hpsrun@clonsl1'}
+       %\item \texttt{`ssh hpsrun@clonsl1'}
        \item \texttt{`softioc\_console iocecalVoltages'} and type user's password if necessary.
        \item \texttt{`ctrl-x'} to restart the IOC
        \item \texttt{`ctrl-]'} to quit to telnet
@@ -489,6 +494,8 @@ The LV supply can also be controlled manually in the hall via buttons on its fro
    \end{enumerate}
    }
 \noindent{\em Don't leave a terminal open connected to this telnet session.}
+
+{\bf\em Note, this IOC always needs to be restarted if the HV CAEN mainframe is power cycled.}
    
    \subsection{Changing HV Settings}
       {\bf NOTE:} Changing voltage settings should be taken care of in coordination with the ECal group (contact R.~Dupre). Current setting can be increased in case of need, please document this change in the log book and notify the ECal expert on call.
@@ -538,7 +545,6 @@ The product should be a plot like figure~\ref{HVhistory}.
 \caption{ \label{HVhistory} Expert HV current history.}
 \end{figure}
 
-\newpage
 \section{Channel Mapping GUI}
 Channel mapping is available in a spreadsheet in the annex pdf on the HPS Run Wiki. It is also available in an interactive GUI (shown in Figure \ref{fig:kylesGui}) which can be run by executing \begin{center}\texttt{kylesGui.sh}\end{center} in a terminal.
 
@@ -551,7 +557,6 @@ There is also a filtering option in the {\bf View} menu to highlight all channel
     \caption{The ECal event display can be used to get channel mappings.  The blue-highlighted channel's mappings are shown in the table.  The white-highlighted channels correspond to the filtering applied via the {\bf View} menu, in this case HV group 25 on bottom.\label{fig:kylesGui}}
 \end{figure}
 
-\newpage
 \section{Opening the Calorimeter}
 
 This requires 2 people.  Care must be taken for all cabling during this process, including LV, HV, signal, and thermocouples.  The required tools are shown in Table ~\ref{tab:tools}.  The blue-handled chain-winches and metric crescent wrenches should be in the HPS cabinet on the pie tower.  The rest should be retrieved from the toolboxes on the Hall-B floor.  While one can get by with only half the number of wrenches of each type, it is fastest to have the full list. 
@@ -569,7 +574,7 @@ This requires 2 people.  Care must be taken for all cabling during this process,
     \caption{Items used to open the calorimeter. \label{tab:tools}}
 \end{table}
 
-{\bf\em PLEASE return ALL tools back to where you found them.}}
+{\bf\em PLEASE return ALL tools back to where you found them.}
 
    \section{Disconnection of a Channel and Preamplifier Replacement}
      
