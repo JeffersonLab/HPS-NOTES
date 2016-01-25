@@ -2,7 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{epsfig}
 %opening
-%\title{HPS Slow Controls Operational Manual v0.1}
+%\title{HPS Slow Controls Operational Manual v0.2}
 %\date{October 20, 2014}
 %\author{Author: Hovanes Egiyan}
 %\maketitle
@@ -11,7 +11,7 @@
 \begin{document}
 
 \begin{center}
-\Large HPS Slow Controls Operational Manual v0.1
+\Large HPS Slow Controls Operational Manual v0.2
 
 \vskip 1.cm
 \today
@@ -23,7 +23,7 @@
 \end{center}
 
 \section{Contacts}
-Slow controls cell phone (xxx) xxx-xxxx. \newline 
+Slow controls cell phone  (757) 748-6922. \newline 
 
 The people listed in Table~\ref{tab:controls_contact} should be called whenever there is a problem beyond the on-hand
 expertise. The slow controls expert is the main source for help.
@@ -33,7 +33,8 @@ expertise. The slow controls expert is the main source for help.
 	  Who 			& Expertise		&  Cell phone	&   Office  	&		Home    \\  \hline
 \hline
          Hovanes Egiyan		& Slow controls		& 660-1198	&  5356		& 			\\  \hline
-         Nerses Gevorgyan	& Slow controls		&		& 		& 			\\  \hline 
+         Nathan Baltzel		& Slow controls		&		&  5902		& 			\\  \hline 
+         Wesley Moore		& Slow controls		&		&  6033		& 			\\  \hline          
 \end{tabular}
 \end{center}
 \caption{The slow controls call list.}
@@ -48,8 +49,8 @@ while the EPICS Alarm Handler (ALH) package is used for alarm notifications. The
 
 \section{Control screens}
 \label{sec:control_screens}
-The control screens for the HPS experiment can be brought up by typing ''hps\_epics'' on the command line on the \textit{clon01} computer 
-in the Hall B counting house. This will launch the MEDM executable and will start the  
+The control screens for the HPS experiment can be brought up by typing ''hps\_epics'' on the command line on the \textit{clonpc\*} desktop 
+computers in the Hall B counting house. This will launch the MEDM executable and will start the  
 main control screen such as shown in Fig.~\ref{fig:hps_epics_screen} that allows one to bring up other control screen for 
 different HPS subsystems. 
 Each button on the main control screen will launch another window which either will have a set of buttons to pop GUI-s for subsystems or will 
@@ -59,7 +60,7 @@ needs to find the the X-window called ``medm'' and select \textit{File}$\rightar
 To find the main MEDM window one needs to right-click on one of the MEDM screens and select \textit{Main MEDM Window} menu item. 
  \begin{figure}
   \centering
-  \epsfig{file=hps_epics.eps,height=7cm}
+  \epsfig{file=hps_epics.eps,height=14cm}
   \caption{The main HPS EPICS startup screen.} 
   \label{fig:hps_epics_screen}
  \end{figure}
@@ -74,16 +75,10 @@ HPS uses StripTool extension package to view the stripcharts of the EPICS variab
 in Fig.~\ref{fig:strip_chart}. 
 The program allows one to create a file describing which EPICS variables need to be plotted. Then one 
 can open the desired file by selecting one of the previously configured StripTool files.
-In order to open one of the preconfigured stripcharts for HPS one needs to:
-\begin{enumerate}
- \item login to the \textit{clon02} console machines in the Hall B counting house,
- \item if there is a MEDM session running on \textit{clon02} computer then skip to Item~\ref{item:stripchart_panels} of this list,
- \item at the Linux prompt type \textit{hps\_epics.adl}. This will bring up a start-up screen somewhat 
-       similar to the one described in Sec.~\ref{sec:control_screens} but with less action buttons, 
- \item \label{item:stripchart_panels} click on the action button with \textbf{Strip Charts} label. This will 
-        open another panel with menu buttons for different subsystems where one could select which set of EPICS 
-        variables to plot. 
-\end{enumerate}
+In order to open one of the preconfigured stripcharts for HPS one needs to open the main control screen using instructions 
+in Section~\ref{sec:control_screens}. If there is already an MEDM session with the main HPS control screen, there is no need to open 
+a new one. On the main control screen find the menu button labeled ``StripTool/MyaViewer'' and select ``StripTool'' option, and then 
+click on one of the menu buttons to select the desired strip charts. 
 
  \begin{figure}
   \centering
@@ -104,14 +99,15 @@ The archiving of the HPS EPICS (http://www.aps.anl.gov/epics/) variables is done
 developed and maintained by the controls group of the accelerator divisions. The EPICS variables for 
 the HPS experiment will be kept in the MYA groups that start with ``HB\_''. The archived data from MYA 
 cannot be displayed using the \textbf{StripTool} utility, but there is a dedicated graphical tool for 
-displaying the history of the archived process variables. 
+displaying the history of the archived process variables called \textbf{MyaViewer}. This tool can be started 
+from the main HPS EPICS screen by finding the menu button labeled ``StripTool/MyaViewer'' and select ``MyaViewer'' option. 
+\textbf{MyaViewer} utility can also be started from the command line by typing at Unix prompt \textit{MyaViewer}.
 In order to view the history of an EPICS variables one needs to:
 \begin{enumerate}
  \item Determine the name(s) of the EPICS variables that one wants to view. A convenient way of determining the variable name 
        if the variable is present in an MEDM screens is to right-click on the screen where that variable is displayed, 
        select \textit{PV Info} menu item, point the white dot to the widget for that variable and left-click on it. 
        The variable name will be shown above the line of ``='' symbols. 
- \item Open the graphical viewer for MYA archiver called MyaViewer by typing at Unix prompt \textit{MyaViewer},
  \item Setup the axes and traces on MyaViewer to view the history of desired EPICS variables. For instructions 
        how to use MyaViewer please refer to the MyaViwer User's
        Guide at \newline http://devweb.acc.jlab.org/controls\_web/certified/MyaViewer/doc/myaviewer\_ug.pdf .
@@ -187,7 +183,7 @@ http://www.aps.anl.gov/epics/EpicsDocumentation/ExtensionsManuals/ \newline Alar
 
  \begin{figure}
   \centering
-  \epsfig{file=alh_selection.eps,height=4cm}
+  \epsfig{file=alh_selection.eps,height=8cm}
   \caption{Hall B controls screen for launching alarm handlers for individual subsystems.}
   \label{fig:alarm_handler_selection}
  \end{figure}
@@ -209,7 +205,7 @@ should page the EPICS expert.
 
  \begin{figure}
   \centering
-  \epsfig{file=ioc_live.eps,height=6cm}
+  \epsfig{file=ioc_live.eps,width=12cm}
   \caption{EPICS screen to monitor Hall B IOC-s hartbeat and to reboot the problematic IOC-s.}
   \label{fig:alarm_heartbeat}
  \end{figure}
