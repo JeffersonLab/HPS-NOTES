@@ -32,7 +32,6 @@ expertise. The slow controls expert is the main source for help.
 \begin{tabular}{|c|c|c|c|c|}   \hline
 	  Who 			& Expertise		&  Cell phone	&   Office  	&		Home    \\  \hline
 \hline
-         Hovanes Egiyan		& Slow controls		& 660-1198	&  5356		& 			\\  \hline
          Nathan Baltzel		& Slow controls		&		&  5902		& 			\\  \hline 
          Wesley Moore		& Slow controls		&		&  6033		& 			\\  \hline          
 \end{tabular}
@@ -50,7 +49,7 @@ while the EPICS Alarm Handler (ALH) package is used for alarm notifications. The
 \section{Control screens}
 \label{sec:control_screens}
 The control screens for the HPS experiment can be brought up by typing ''hps\_epics'' on the command line on the \textit{clonpc\*} desktop 
-computers in the Hall B counting house. This will launch the MEDM executable and will start the  
+computers in the Hall B counting house. This will launch a process using the MEDM executable and will start the  
 main control screen such as shown in Fig.~\ref{fig:hps_epics_screen} that allows one to bring up other control screen for 
 different HPS subsystems. 
 Each button on the main control screen will launch another window which either will have a set of buttons to pop GUI-s for subsystems or will 
@@ -65,7 +64,7 @@ To find the main MEDM window one needs to right-click on one of the MEDM screens
   \label{fig:hps_epics_screen}
  \end{figure}
 
-If there is already an instance of MEDM already running on the desktop but the main HPS start-up screen window cannot be found it would be more 
+If there is an instance of MEDM already running on the desktop but the main HPS start-up screen window cannot be found it would be more 
 desirable not to start another instance but to open the window within the existing MEDM session. To open the new startup window, find the main 
 MEDM window and select the \textit{File}$\rightarrow$\textit{Open} menu of that window to open the file called \textit{hps\_epics.adl}. This should 
 bring up the main startup GUI with the buttons for the daughter subsystem screens. 
@@ -90,7 +89,7 @@ click on one of the menu buttons to select the desired strip charts.
 One can also start a StripTool instance from a command line by typing \textit{StripTool} at the Unix prompt. 
 StripTool allows the user to create new stripchart on the fly or to add more EPICS 
 variables to the existing stipcharts by right-clicking on the plotting area of the stripchart and selecting 
-Configure menu. This should allow one to configure the properties of the stripchart, such as the axis limits, 
+``Configure Menu``. This should allow one to configure the properties of the stripchart, such as the axis limits, 
 autoscrolling enable/disable, colors et.
 
 
@@ -98,11 +97,11 @@ autoscrolling enable/disable, colors et.
 The archiving of the HPS EPICS (http://www.aps.anl.gov/epics/) variables is done using MYA archiver
 developed and maintained by the controls group of the accelerator divisions. The EPICS variables for 
 the HPS experiment will be kept in the MYA groups that start with ``HB\_''. The archived data from MYA 
-cannot be displayed using the \textbf{StripTool} utility, but there is a dedicated graphical tool for 
-displaying the history of the archived process variables called \textbf{MyaViewer}. This tool can be started 
-from the main HPS EPICS screen by finding the menu button labeled ``StripTool/MyaViewer'' and select ``MyaViewer'' option. 
-\textbf{MyaViewer} utility can also be started from the command line by typing at Unix prompt \textit{MyaViewer}.
-In order to view the history of an EPICS variables one needs to:
+cannot be displayed using the StripTool utility, but there is a dedicated graphical tool for 
+displaying the history of the archived process variables called MyaViewer. This tool can be started 
+from the main HPS EPICS screen by finding the menu button labeled ``StripTool/MyaViewer'' and selecting ``MyaViewer'' option. 
+MyaViewer utility can also be started from the command line by typing at Unix prompt \textit{MyaViewer}.
+In order to view the history of an EPICS variables in  MyaViewer one needs to:
 \begin{enumerate}
  \item Determine the name(s) of the EPICS variables that one wants to view. A convenient way of determining the variable name 
        if the variable is present in an MEDM screens is to right-click on the screen where that variable is displayed, 
@@ -140,14 +139,14 @@ alarms fields for the currently open alarm configuration file.
  \begin{figure}
   \centering
   \epsfig{file=alhRunWindow.eps,width=5cm}
-  \caption{An example of EPICS Alarm Handler's runtime window.}
+  \caption{An example of EPICS Alarm Handler's runtime window for the SVT detector subsystem.}
   \label{fig:alarm_runtime}
  \end{figure}
 
  \begin{figure}
   \centering
   \epsfig{file=alhMainWindowAlarms.eps,width=12cm}
-  \caption{An example of EPICS Alarm Handler's main window.}
+  \caption{An example of EPICS Alarm Handler's main window for the SVT detector subsystem.}
   \label{fig:alarm_main_window}
  \end{figure}
 
@@ -161,19 +160,18 @@ guidance on the possible actions required to solve the problem. The related acti
 
 To start the alarm handler for a particular HPS subsystem one needs to :
 \begin{enumerate}
- \item login to the \textit{clon02} console machines in the Hall B counting house,
- \item if there is a MEDM session running on \textit{clon02} computer then skip to Item~\ref{item:alarm_panels} of this list,
- \item at the Linux prompt type \textit{hps\_epics.adl}. This will bring up a start-up screen somewhat 
-       similar to the one described in Sec.~\ref{sec:control_screens} but with less action buttons, 
- \item \label{item:alarm_panels} click on the small red button with \textbf{Alarm Handlers} label. This will open another panel 
+ \item login to one of the \textit{clonpc} console machines in the Hall B counting house,
+ \item if there is a MEDM session with main EPICS GUI running on that computer then skip to Item~\ref{item:alarm_panels} of this list,
+ \item at the Linux prompt type \textit{hps\_epics.adl}. This will bring up a start-up screen described in Sec.~\ref{sec:control_screens}, 
+ \item \label{item:alarm_panels} click on the  button with \textbf{Alarm Handlers} label. This will open another panel 
        with red square buttons, see Fig.~\ref{fig:alarm_handler_selection}.
- \item click on the red square action button next to the subsystem for which to launch the alarm handler. This will 
+ \item click on the red square action button next to the subsystem for which one wants to launch the alarm handler. This will 
        launch an instance of the ALH and the runtime window will show up on the screen.
 \end{enumerate}
 
 Shift personnel should take actions suggested by the information buttons and after that should acknowledge the alarm by clicking the 
 appropriate acknowledge button on the left side of the alarming group name or the alarming variables name. That should change  
-the color of the acknowledgement button but may leave the color coded severity status present until the alarming condition goes away. 
+the color of the acknowledgment button but may leave the color coded severity status present until the alarming condition goes away. 
 If the same EPICS variable alarms again, the acknowledge button color and the severity status character will show up, in which case 
 the shift personnel should repeat the actions suggested by the guidance unless the information screen explicitly suggest different set of 
 action for repeated alarms.
@@ -193,12 +191,12 @@ All of the HPS EPICS variables are served by the Input/Output Controllers (IOC-s
 various computers in Hall B and in the counting house. If one of the IOC-s stops communicating and there is at 
 least one EPICS variable present in the running alarm handler configuration then there will be an alarm indicating 
 a  disconnected channel (a so called ``white alarm''). In addition, there is a separate EPICS screen to monitor the 
-heartbeat of all HPS IOC-s that displays a circle that periodically changes its color. A static color next to the name of 
-any of the IOC indicates a problem with that IOC. 
+heartbeat of all HPS IOC-s that displays a continuously incrementing number. A static number in the ``Heartbeat'' column 
+indicates a problem with that IOC. 
 
 If a white alarm condition lasts for more than one minutes, the shift personnel needs to page the EPICS expert. 
 If there is a problem with any of the IOC heartbeats the first action for shift personnel to take is to reboot that particular IOC 
-by clicking on the red square next to the heartbeat circle. This will most likely lead to a ``white alarm`` condition on a 
+by clicking on the ``Reboot'' button next to that IOC. This will most likely lead to a ``white alarm`` condition on a 
 all the EPICS variables served by that particular IOC, but after the IOC reboots the white alarms should go away. If the 
 ''white alarm`` persists for more than one minute or after rebooting the heartbeat problem continues, the shift personnel
 should page the EPICS expert. 
