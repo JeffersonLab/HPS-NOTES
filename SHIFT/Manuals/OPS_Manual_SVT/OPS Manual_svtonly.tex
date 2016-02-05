@@ -501,14 +501,46 @@ Once these conditions have been met, power to the SVT may be restored to prepare
 %\item Set the beam interlock: {\color{red} doesn't exist yet}
 %\end{enumerate}
 
-\subsection{Starting a run with beam}
+\subsection{Starting a Run with Beam}
 \label{sec:proc_general_startrun}
-If this is the first run after setting up beam for HPS, the SVT will be open and the SVT Expert will need to be called in order to move the SVT into position. The experts-only procedure for establishing 0.5 mm running with the SVT may be found in Appendix~XXX.  To begin a run:
+If this is the first run after setting up beam for HPS, the SVT will be open and the SVT Expert will need to be called in order to move the SVT into position. The experts-only procedure for establishing 0.5 mm running with the SVT may be found in Section~\ref{sec:proc_svt_0.5mm}.  To begin a run:
 \begin{enumerate}
 \item Reset the beam interlock: go to the SVT software interlocks GUI, push the \textbf{Bypass} button, the \textbf{Reset} button, then the \textbf{Normal} button.
 \item To turn on HV (if the HV interlock was enabled): follow the \textbf{Turn on SVT High Voltage Bias} portion of the \textbf{Turning the SVT power and bias ON} procedure, \ref{sec:proc_voltages_allon}.
 \item Start a run with the DAQ (see the DAQ manual).
 \end{enumerate}
+
+\subsection{Moving the SVT to 0.5 mm for Physics Running - \textbf{EXPERT ONLY}}
+\label{sec:proc_svt_0.5mm}
+
+If this is the first run after setting up beam for HPS, follow this procedure for moving the SVT to 0.5 mm.
+\begin{enumerate}
+\item Get acceptable beam delivered to Faraday cup.  $\sigma_y < 50$ $\mu$m, $\sigma_x < 400$ $\mu$m.
+\item Perform SVT wire scans and correct if mean of top and bottom measurements give $|y_{beam}| > 50$ $\mu$m or $|x_{beam}| > 300$ $\mu$m. 
+\item Establish running with SVT at +/-1.5mm, as usual.  Verify good data with monitoring plots.
+\item Start new run.  Move in Bottom SVT 0.1 mm at a time.  Watch strip charts and record with each move:
+\begin{itemize}
+\item	Counter rates
+\item Trigger rates
+\item SVT L1b HV currents
+\item Peak occupancy in L1b
+\end{itemize}
+\item Stop if FSD trips, peak occupancy exceeds 4\%, or any SVT HV currents exceed 1 uA.
+\item Retract Bottom SVT to 1.5mm
+\item Repeat previous steps for Top SVT
+\end{enumerate}
+
+If both top and bottom come all the way to 0.5mm acceptably, then bring bottom back to 0.5mm and begin running with a new run. If not, then consultation will be required in order to decide whether to move the beam slightly and where exactly we should run the SVT.  If necessary, running at 0.6 mm or 0.7 mm may be acceptable.
+
+\subsection{Running the SVT}
+
+When running the SVT at 0.5 mm:
+\begin{itemize}
+\item Check the counter strip charts often
+\item Check the L1 HV currents often.  Call expert if they exceed the levels indicated in the shift instructions.
+\item Check the occupancy plots at the beginning of each run and at least once per hour.  Call the SVT expert if they exceed 4\% anywhere in L1.
+\item For beam trips, follow the special procedure in Section~\ref{sec:proc_general_beamtrip} that applies to running with the SVT at 0.5 mm.
+\end{itemize}
 
 \subsection{Response to beam trip}
 \label{sec:proc_general_beamtrip}
@@ -524,13 +556,26 @@ If the beam is lost, the SVT software interlock may (depending on settings) turn
 
 \textbf{When taking physics runs with the SVT in  the nominal position, 0.5 mm from the beam plane, the silicon in Layer 1 is not fully protected by the collimator.  In this case, the following procedure must be followed for beam trips:}
 \begin{enumerate}
-\item Check the FSD GUI to determine if the HPS halo counters generated the trip.\item If the beam trip was not caused by the HPS halo counter:
-\begin {enumerate}\item The MCC will restore the beam as usual.\item When it is restored, check that the BPM x and y values at 2H02 are as desired and that beam current is stable.\item Then reset the SVT HV and resume the run.\end{enumerate}
+\item Check the FSD GUI to determine if the HPS halo counters generated the trip.
+\item If the beam trip was not caused by the HPS halo counter:
+\begin {enumerate}
+\item The MCC will restore the beam as usual.
+\item When it is restored, check that the BPM x and y values at 2H02 are as desired and that beam current is stable.
+\item Then reset the SVT HV and resume the run.
+\end{enumerate}
 \item If the HPS halo counters initiated the trip:
 \begin{enumerate}
-\item Tell the MCC not to restore the beam. We will inform them when we want it.\item Retract the SVT to 1.5 mm, both top and bottom.\item Tell the MCC we are ready for beams\item When restored, check that the BPM x and y values at 2H02 are as desired and that halo counter rates are as expected.\item Reset the SVT HV\item Move SVT in by steps ( to 1.0, then 0.7, then 0.5 mm). \item At each step, watch the FSD signal scaler and the bias currents. If the FSD signal scaler rate rises by more than 10\% or any bias current rises by more than 1 uA above the levels at 1.5 mm, call the SVT expert.\item Resume data taking
+\item Tell the MCC not to restore the beam. We will inform them when we want it.
+\item Retract the SVT to 1.5 mm, both top and bottom.
+\item Tell the MCC we are ready for beams
+\item When restored, check that the BPM x and y values at 2H02 are as desired and that halo counter rates are as expected.
+\item Reset the SVT HV
+\item Move SVT in by steps ( to 1.0, then 0.7, then 0.5 mm). 
+\item At each step, watch the FSD signal scaler and the bias currents. If the FSD signal scaler rate rises by more than 10\% or any bias current rises by more than 1 uA above the levels at 1.5 mm, call the SVT expert.
+\item Resume data taking
 \end{enumerate}
-\end{enumerate}
+\end{enumerate}
+
 
 \section{Response to Alarms}
 
@@ -738,5 +783,7 @@ When the status shows ``Done'', click ``Analyze'' button.
 \caption{SVT Wire Scanner GUI}
 \label{scannergui}
 \end{figure}
+
+\appendix
 
 \end{document}
