@@ -1,22 +1,45 @@
-\contentsline {chapter}{\numberline {1}Description of the HPS Experiment}{3}
-\contentsline {section}{\numberline {1.1}The SVT}{3}
-\contentsline {chapter}{\numberline {2}SVT Controls, Monitoring and Alarms}{6}
-\contentsline {section}{\numberline {2.1}SVT Power Supplies}{6}
-\contentsline {subsection}{\numberline {2.1.1}System Description}{6}
-\contentsline {subsection}{\numberline {2.1.2}Control}{6}
-\contentsline {subsubsection}{Turning the SVT power and bias ON}{7}
-\contentsline {subsection}{\numberline {2.1.3}Monitoring, Alarms and Interlocks}{9}
-\contentsline {subsubsection}{Interlocks}{9}
-\contentsline {subsubsection}{Power and high voltage bias monitoring}{9}
-\contentsline {subsubsection}{Alarms}{11}
-\contentsline {section}{\numberline {2.2}SVT Cooling}{15}
-\contentsline {subsection}{\numberline {2.2.1}System Description}{15}
-\contentsline {subsection}{\numberline {2.2.2}Control and Operations}{17}
-\contentsline {subsection}{\numberline {2.2.3}Monitoring, Alarms and Interlocks}{19}
-\contentsline {section}{\numberline {2.3}SVT Position}{20}
-\contentsline {subsection}{\numberline {2.3.1}System Description}{20}
-\contentsline {subsection}{\numberline {2.3.2}Control}{20}
-\contentsline {subsection}{\numberline {2.3.3}Monitoring, Alarms and Interlocks}{20}
-\contentsline {section}{\numberline {2.4}SVT Beam Conditions}{21}
-\contentsline {subsection}{\numberline {2.4.1}System Description}{21}
-\contentsline {subsection}{\numberline {2.4.2}Monitoring, Alarms, and Interlocks}{21}
+\contentsline {section}{\numberline {0.1}Contact List}{3}
+\contentsline {chapter}{\numberline {1}System Description}{4}
+\contentsline {section}{\numberline {1.1}Voltages}{6}
+\contentsline {subsection}{\numberline {1.1.1}Control and Monitoring}{7}
+\contentsline {section}{\numberline {1.2}Cooling and Interlocks}{7}
+\contentsline {subsection}{\numberline {1.2.1}Sensors and inputs}{9}
+\contentsline {subsection}{\numberline {1.2.2}Control outputs}{10}
+\contentsline {subsection}{\numberline {1.2.3}Interlocks}{10}
+\contentsline {subsection}{\numberline {1.2.4}Potential accidents}{11}
+\contentsline {subsection}{\numberline {1.2.5}Interlocks for operation with beam}{12}
+\contentsline {subsubsection}{Cooling loop failure (high or low temperature on either RTD, or flow switch trip)}{12}
+\contentsline {subsubsection}{Bad vacuum (vacuum gauge)}{13}
+\contentsline {subsubsection}{Beam off (BPM signal)}{13}
+\contentsline {section}{\numberline {1.3}Motion}{13}
+\contentsline {chapter}{\numberline {2}Controls and monitoring}{16}
+\contentsline {section}{\numberline {2.1}Voltages}{16}
+\contentsline {section}{\numberline {2.2}SVT Cooling}{22}
+\contentsline {section}{\numberline {2.3}Motion}{23}
+\contentsline {section}{\numberline {2.4}Online Monitoring}{25}
+\contentsline {subsection}{\numberline {2.4.1}Occupancies}{25}
+\contentsline {subsection}{\numberline {2.4.2}SVT Hits}{25}
+\contentsline {subsection}{\numberline {2.4.3}Samples}{25}
+\contentsline {chapter}{\numberline {3}Procedures}{27}
+\contentsline {section}{\numberline {3.1}General Procedures}{27}
+\contentsline {subsection}{\numberline {3.1.1}Bringing Beam to the Tagger Dump}{27}
+\contentsline {subsection}{\numberline {3.1.2}Bringing Beam through the Chicane}{27}
+\contentsline {subsection}{\numberline {3.1.3}Starting a run with beam}{28}
+\contentsline {subsection}{\numberline {3.1.4}Response to beam trip}{28}
+\contentsline {section}{\numberline {3.2}Response to Alarms}{29}
+\contentsline {section}{\numberline {3.3}Voltages}{30}
+\contentsline {subsection}{\numberline {3.3.1}Turning the SVT power and bias ON}{30}
+\contentsline {subsection}{\numberline {3.3.2}Turning the SVT power and bias OFF}{31}
+\contentsline {section}{\numberline {3.4}Cooling and Interlocks}{32}
+\contentsline {subsection}{\numberline {3.4.1}Start FEB chiller}{32}
+\contentsline {subsection}{\numberline {3.4.2}Start SVT chiller}{33}
+\contentsline {subsection}{\numberline {3.4.3}Stop FEB chiller}{33}
+\contentsline {subsection}{\numberline {3.4.4}Stop SVT chiller}{33}
+\contentsline {subsection}{\numberline {3.4.5}Draining SVT chiller (experts only)}{34}
+\contentsline {subsection}{\numberline {3.4.6}Filling SVT chiller from empty (experts only)}{34}
+\contentsline {subsection}{\numberline {3.4.7}Changing SVT chiller temperature}{34}
+\contentsline {subsection}{\numberline {3.4.8}Adding fluid to SVT chiller}{34}
+\contentsline {subsection}{\numberline {3.4.9}Response to unexpected chiller trip}{35}
+\contentsline {section}{\numberline {3.5}Motion}{35}
+\contentsline {subsection}{\numberline {3.5.1}SVT Mover Operations}{35}
+\contentsline {subsection}{\numberline {3.5.2}SVT Wire Scanner Operations}{37}
