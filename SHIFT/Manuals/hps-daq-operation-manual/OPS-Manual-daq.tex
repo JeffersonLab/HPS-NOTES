@@ -1,6 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage{graphicx}
-\usepackage{subfigure}
+%\usepackage{subfigure}
 \usepackage{color}
 
 \addtolength{\textwidth}{3cm}
@@ -73,17 +73,15 @@ Beamline checklist
 \item
 Beam conditions are ready for running (see beam line manual for more details).
 \end{enumerate}
+\item    ECal Checklist
+\begin{enumerate}
 \item
-ECal Checklist
-\begin{verbatim}THIS NEEDS TO BE UPDATED.\end{verbatim}
-%\begin{enumerate}
-%\item
-%All HV are on.
-%\item
-%ECal monitoring app is running.
-%\item
-%ECal FADC and DISC2 scaler displays are running.
-%\end{enumerate}
+All HV are on.
+\item
+ECal monitoring app is running.
+\item
+ECal FADC scaler display is running and rates are reasonable.
+\end{enumerate}
 \item
 \label{item:svt-checklist}
 SVT Checklist \newline
@@ -173,7 +171,7 @@ Press \texttt{Download}.
 \begin{enumerate}
 
 \item
-A popup window should appear: choose configuration \texttt{trigger/HPS/Run2016/v0.trg} 
+A popup window should appear to choose the trigger file, which should be defined in the run plan in the short term schedule on the HPS Run Wiki and/or the whiteboard in the counting house.
 
 \item
 Wait until the \texttt{Prestart} button appears and  \texttt{RunControl} GUI reports that Download was completed.\newline 
