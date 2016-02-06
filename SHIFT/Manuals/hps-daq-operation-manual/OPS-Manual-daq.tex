@@ -42,7 +42,7 @@ For the ECal, every VXS crate contains a Readout Controller (ROC) that collects 
 Log into \texttt{clondaq3} as \texttt{clasrun}.
 \item 
 To start all DAQ processes, open a terminal and run:\newline
-\texttt{> runcontrol --rocs}\newline
+\texttt{> runcontrol -rocs}\newline
 This opens up all windows needed on the current workspace. The workspace should look like Fig.~\ref{fig:coda}.
 \end{enumerate}
 %=======================
@@ -57,8 +57,9 @@ This opens up all windows needed on the current workspace. The workspace should 
 %=======================
 
 \subsection{Killing the DAQ}\label{sec:daqexit}
-In the runcontrol GUI, click ``File''$\to``$Exit''.  You may have to do that twice.
-To be sure that all underlying processes are gone, log into \texttt{clondaq3} as \texttt{clasrun}, be sure you are on the correct host, and then execute the two commands:\newline
+First, in the runcontrol GUI, click ``File''$\to``$Exit''.  You may have to do that twice.
+
+Then, to ensure that all underlying processes are gone, log into \texttt{clondaq3} as \texttt{clasrun}, {\em being sure you are on the correct host}, and then execute the two commands:\newline
 \texttt{> killall rcServer}\newline
 \texttt{> killall rocs}\newline
 %\texttt{> hps\_exit}\newline
