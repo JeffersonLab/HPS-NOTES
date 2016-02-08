@@ -10,7 +10,7 @@
 \usepackage{hypcap}
 \usepackage[small,compact]{titlesec}
 \begin{document}
-\title{HPS Chicane Operations Manual v1.0}
+\title{HPS Chicane Operations Manual v1.1}
 \author{N. Baltzell}
 \affiliation{Jefferson Lab}
 \date{\today}
@@ -26,10 +26,11 @@
 
 \section{Overview}
 The new chicane screen is accessiable from the main HPS-EPICS screen, under {\em Magnets}$ \to$ {\em Chicane}, and shown in Figure~\ref{fig:guiChicaneOff}.  It contains a few buttons and many readbacks describe in the following subsections.  Displayed numbers are in units Amps, Gauss, or MeV. 
-\begin{figure}[htbp]\centering
-    \includegraphics[width=6cm]{pics/gui2}
-    \includegraphics[width=6cm]{pics/guiON}
-    \caption{The new chicane screen with both magnets' power supplies completely off and interlocked (left), and with chicane energized and ready for 2.306 GeV beam (right).\label{fig:guiChicaneOff}}
+\begin{figure}[htbp]
+    \centering\includegraphics[width=12cm]{pics/gui2}
+
+    \centering\includegraphics[width=12cm]{pics/guiON}
+    \caption{The new chicane screen with both magnets' power supplies completely off and interlocked (top), and with chicane energized and ready for 2.306 GeV beam (bottom).\label{fig:guiChicaneOff}}
 \end{figure}
 \subsection{Buttons}
 This GUI contains five buttons:
@@ -44,13 +45,13 @@ This GUI also contains various readback values:
     \item In the top left is a global status message and a corresponding progress bar.
     \item Below that are setpoints and measured currents from the magnets' power supplies, and our Hall probes' readback values.
     \item In the top right is the beam energy currently being reported from MCC, and the beam energy and magnet current calculations currently being used by this software to set HPS's magnets.
-    \item The bottom portion of the screen is status readbacks from the power supplies.
+    \item The bottom portion of the screen is status readbacks from the power supplies.  These are a summary from the magnets' two expert screens.
 \end{enumerate}
 
 \section{Shifters Operations}
 This is all that shift workers need to operate the chicane:  ``On'' and ``Off''.
 \subsection{On}
-To turn the chicane on, press the green {\em ON} button.  That will begin a sequence to energize the magnets and eventually bring them to the desired ``calculated'' setpoints shown in the top right of the GUI.  After that is accomplished the main message bar will display ``Ready'' and you are then ready for beam.  This will take a total of about 40 minutes between the time {\em ON} is pressed and ``Ready'' is achieved.  The details of the {\em ON} sequence are described in the next section.
+To turn the chicane on, press the green {\em ON} button.  That will begin a sequence to energize the magnets and eventually bring them to the desired ``calculated'' setpoints shown in the top right of the GUI.  After that is accomplished the main message bar will display ``Chicane Ready'' and you are then ready for beam.  This will take a total of about 40 minutes between the time {\em ON} is pressed and ``Chicane Ready'' is achieved.  The details of the {\em ON} sequence are described in the next section.
 \subsection{Off}
 To turn the chicane off, press the red {\em OFF} button.  That will begin a sequence to ramp the magents down to zero current and then switch the power supplies off.  Then the main message box should dislay ``OFF''.  This will take a total of about 10 minutes.  The details of the ``OFF'' sequence are described in the next section.
 
@@ -68,6 +69,7 @@ The ``On'' button will intiate the procedure to go from chicane off to beam read
     \subitem the progress meter will display the progress towards zero
     \item display ``Ready'' in the main message box
 \end{enumerate}
+{\em Currently the countdown for saturation time begins when the PairSpec magnet reaches max current.  This was done to conserve time, because Frascati magnets ramp more slowly than the PairSpec but require much less soak time (7 minutes) compared to the PairSpec (30 minutes).}
 \subsection{Off}
 The ``Off'' button will initiate the procedure to turn the chicane off.  This would normally be done any time the magnets need to be set to zero.
 \begin{enumerate}
