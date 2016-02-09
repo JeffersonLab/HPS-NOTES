@@ -1,7 +1,7 @@
-ChicaneManual.aux
-ChicaneManual.bbl
-ChicaneManual.blg
-ChicaneManual.log
-ChicaneManual.out
-ChicaneManual.toc
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
 ChicaneManualNotes.bib
