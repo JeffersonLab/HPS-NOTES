@@ -1,4 +1,4 @@
-\documentclass[amsmath,amssymb,notitlepage,12pt]{revtex4-1}
+\documentclass[amsmath,amssymb,notitlepage,11pt]{revtex4-1}
 %\documentclass[12pt]{article}
 \usepackage{graphicx}
 \usepackage{bm}% bold math
@@ -6,11 +6,14 @@
 \usepackage{booktabs}
 \usepackage{verbatim}
 \usepackage{hyperref}
+\usepackage{enumitem}
 \hypersetup{pdftex,colorlinks=true,allcolors=blue}
 \usepackage{hypcap}
 \usepackage[small,compact]{titlesec}
+\setlist[enumerate]{itemsep=0mm}
+
 \begin{document}
-\title{HPS Chicane Operations Manual v1.2}
+\title{HPS Chicane Operations Manual v1.3}
 \author{N. Baltzell}
 \affiliation{Jefferson Lab}
 \date{\today}
@@ -49,34 +52,56 @@ This GUI also contains various readback values:
 \end{enumerate}
 
 \section{Shifters Operations}
-This is all that shift workers need to operate the chicane:  ``On'' and ``Off''.
+This is all that shift workers need to operate the chicane:  ``On'' and ``Off''.  {\bf\em At the beginning of the sequences, it is advised to confirm the main message box and setpoint and measured current have reasonable behavior.  Particularly, that the measured magnet currents begin to ramp up/down within a minute after pressing the ON/OFF buttons.}
 \subsection{On}
-To turn the chicane on, press the green {\em ON} button.  That will begin a sequence to energize the magnets and eventually bring them to the desired ``calculated'' setpoints shown in the top right of the GUI.  After that is accomplished the main message bar will display ``Chicane Ready'' and you are then ready for beam.  This will take a total of about 40 minutes between the time {\em ON} is pressed and ``Chicane Ready'' is achieved.  The details of the {\em ON} sequence are described in the next section.
+To turn the chicane on, press the green {\em ON} button.  That will begin a sequence to energize the magnets and eventually bring them to the desired ``calculated'' setpoints shown in the top right of the GUI.  After that is accomplished the main message bar will display ``Chicane Ready'' and you are then ready for beam.  This will take a total of about {\bf 40 minutes} between the time {\em ON} is pressed and ``Chicane Ready'' is achieved.  The details of the {\em ON} sequence are described in the next section.
 \subsection{Off}
-To turn the chicane off, press the red {\em OFF} button.  That will begin a sequence to ramp the magents down to zero current and then switch the power supplies off.  Then the main message box should dislay ``OFF''.  This will take a total of about 10 minutes.  The details of the ``OFF'' sequence are described in the next section.
-
+To turn the chicane off, press the red {\em OFF} button.  That will begin a sequence to ramp the magents down to zero current and then switch the power supplies off.  Then the main message box should dislay ``OFF''.  This will take a total of about {\bf 10 minutes}.  The details of the ``OFF'' sequence are described in the next section.
+\newpage
 \section{Sequence Details}
 \subsection{On}
-The ``On'' button will intiate the procedure to go from chicane off to beam ready.  This would normally be done during operations when preparing for first beam after an extended down time or any time the chicane was turned off.
+The ``On'' button will intiate the procedure to go from chicane off to beam ready.
 \begin{enumerate}
     \item turn both power supplies on
-    \subitem the main message box will display which supply it is turning on
+    \begin{itemize}
+    \item the main message box will display which supply it is turning on
+    \end{itemize}
     \item ramp both power supplies up to their max current
-    \subitem the progress meter will display progress towards max current
+    \begin{itemize}
+    \item the main message box will display ``Ramping up to Max''
+    \item the current setpoints will get updated to 2700A/3500A for the PairSpec/Frascatis
+    \item the progress meter will display progress towards setpoint currents
+    \item the measured currents will gradually increase
+    \end{itemize}
     \item saturate at max current for N minutes
-    \subitem the main message box will display the expected remaining time
+    \begin{itemize}
+    \item the main message box will display ``Saturating for \# seconds''
+    \item the progress meter will display fraction of soak time remaining  
+    \item the setpoint and measured currents should remain stable 
+    \end{itemize}
     \item ramp both power supplies down to their calculated setpoints
-    \subitem the progress meter will display the progress towards zero
-    \item display ``Ready'' in the main message box
+    \begin{itemize}
+    \item the main message will display ``Ramping Down to Setpoint''
+    \item the current setpoints will get updated to the calculated values
+    \item the measured currents will gradually decrease towards the new setpoints
+    \end{itemize}
+    \item display ``Ready'' in the main message box once measured currents match the setpoints
 \end{enumerate}
 {\em Currently the countdown for saturation time begins when the PairSpec magnet reaches max current.  This was done to conserve time, because Frascati magnets ramp more slowly than the PairSpec but require much less soak time (7 minutes) compared to the PairSpec (30 minutes).}
 \subsection{Off}
 The ``Off'' button will initiate the procedure to turn the chicane off.  This would normally be done any time the magnets need to be set to zero.
 \begin{enumerate}
     \item ramp both power supplies down to zero current
-    \subitem the progress meter will display progress towards zero current
+    \begin{itemize}
+    \item the main message box will display ``Ramping to Zero''
+    \item the progress meter will display progress towards zero current
+    \item the setpoints will get updated to 8A/0A for PairSpec/Frascatis
+    \item the measured currents will gradually decrease
+    \end{itemize}
     \item turn both power supplies off
-    \subitem the main message box will display which supply it is turning off
+    \begin{itemize}
+    \item the main message box will display which supply it is turning off
+    \end{itemize}
     \item display ``OFF'' in the main message box
 \end{enumerate}
 
