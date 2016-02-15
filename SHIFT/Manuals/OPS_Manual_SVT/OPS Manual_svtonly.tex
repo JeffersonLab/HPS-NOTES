@@ -10,7 +10,7 @@
 
 % See the ``Article customise'' template for come common customisations
 
-\title{HPS SVT Operations Manual \\ v1.0}
+\title{HPS SVT Operations Manual \\ v1.1}
 \author{SVT On-Call Cell Phone: 757-541-7539 \\ 
 Authors: \\
 Per Hansson, John Jaros, Takashi Maruyama, Omar Moreno,\\ Tim Nelson\footnote{contact person for this document}, Marco Oriunno, Sho Uemura}
@@ -20,6 +20,10 @@ Per Hansson, John Jaros, Takashi Maruyama, Omar Moreno,\\ Tim Nelson\footnote{co
 \begin{document}
 
 \maketitle
+
+\tableofcontents
+
+\newpage
 
 \section{Contact List}
 
@@ -67,7 +71,7 @@ Modules are supported in groups of three by a set of four support plates, as sho
 
 The first stage of readout electronics is located on a hybrid circuit board at the end of each sensor.  Multiplexed analog signals from these boards are digitized by a set of 10 Front End Boards (FEBs) mounted to a separate cooling plate inside the SVT support box. Each FEB can control 4 hybrid/sensor units: a single module in layers 4-6 and either one or two modules in layers 1-3. The FEBs also control the hybrids, provide regulated low-voltage power from a single input, and pass externally generated bias voltages (HV) through to the sensors.   The FEBs communicate with a set of 4 Signal Flange Boards (SFB), up to three per SFB, which transmit digital signals through the vacuum penetration.  The exterior side of each flange board converts digital to optical signals for communication with the RCE DAQ.  Power to the FEB are routed through a pair of Power Flange Boards, one for LV and one for HV, supplied by a Wiener Mpod power supply modules in a crate on the pie-tower.
 
-Cooling for the SVT is provided by a pair of chillers; one for the hybrids and sensors that operates at -10 $^\circ$C and one for the FEBs that operates at room temperature.  The FEBs have a single cooling loop, while the hybrids and sensors have two loops, one for the top and one for the bottom half of the SVT, where each of these loops runs first through the support structure for layers 1-3 and then through the structure for layers 4-6.  There are temperature sensors on every hybrid as well as sensors in the FEBs. The linear shifts, the cooling penetrations, and the signal/power penetrations are all located on a set of flanges on an extension vacuum box mounted to the upstream end of the PS vacuum chamber and which connects to the upstream beam line.
+Cooling for the SVT is provided by a pair of chillers; one for the hybrids and sensors that operate at -20 $^\circ$C and one for the FEBs that operates at room temperature.  The FEBs have a single cooling loop, while the hybrids and sensors have two loops, one for the top and one for the bottom half of the SVT, where each of these loops runs first through the support structure for layers 1-3 and then through the structure for layers 4-6.  There are temperature sensors on every hybrid as well as sensors in the FEBs. The linear shifts, the cooling penetrations, and the signal/power penetrations are all located on a set of flanges on an extension vacuum box mounted to the upstream end of the PS vacuum chamber and which connects to the upstream beam line.
 
 Since the SVT sensors are close to the beam, some attention to beam conditions is required prior to turning the SVT on and taking data. A number of systems provide the information used to assess whether beam conditions allow SVT operation. These systems include beam position monitors along the beamline, wire scanners located upstream of the HPS chicane, the wire attached to the SVT itself, a protection collimator located just upstream of the HPS chicane, and beam halo counters located along the beamline downstream of the collimator and signals from the HPS ECal which serve together as beam background monitors.  A detailed description of these systems and their operation can be found in the Beamline Operations Manual.
 
@@ -133,9 +137,9 @@ Set point, FEB chiller & 20 $^\circ$C & - & - \\
 \end{center}
 \end{figure}
 %=======================
-Since the SVT is in vacuum, the cooling system is key for the safety and performance of the detector. The main heat sources are the sensor modules and their hybrid circuit boards and the Front End Boards (FEBs) which distribute power and DAQ to reduce the number of wires that must penetrate the vacuum flanges. An additional heat load results from the radiative heat exchange between the SVT U-support and the detector vacuum. The sensor modules need to be controlled to a sub-zero temperature, while the FEBs needs to be only thermally managed, removing the heat dissipated and keeping the active components to safe temperature, slightly above room temperature. For this reason it has been decided to have two separate chillers with independent loops and controls. The dew point in Hall B is expected to be at ~18 $^\circ$C. The cold line from the sensor chiller to the vacuum box will be insulated with 1Ó thick, non-flammable Armaflex.
+Since the SVT is in vacuum, the cooling system is key for the safety and performance of the detector. The main heat sources are the sensor modules and their hybrid circuit boards and the Front End Boards (FEBs) which distribute power and DAQ to reduce the number of wires that must penetrate the vacuum flanges. An additional heat load results from the radiative heat exchange between the SVT U-support and the detector vacuum. The sensor modules need to be controlled to a sub-zero temperature, while the FEBs needs to be only thermally managed, removing the heat dissipated and keeping the active components to safe temperature, slightly above room temperature. For this reason it has been decided to have two separate chillers with independent loops and controls. The dew point in Hall B is expected to be at $\sim$18 $^\circ$C. The cold line from the sensor chiller to the vacuum box will be insulated with 1 inch thick, non-flammable Armaflex.
 
-The cooling loop for the sensor modules is connected to a Julabo Chiller, Model Presto A80, which will be set at -30 $^\circ$C. The heat transfer fluid is HFE-7000, a Fluorinert engineered fluid long used as heat transfer media for cooling applications. A bypass valve is placed at the chiller to manually adjust the mass flow. The inlet and the outlet lines pass through flanges on the detector vacuum box, where they are split after the feed trough to provide cooling in series to the top and the bottom parts of the detector. The cooling pipes in vacuum are flexible metal hoses from the vacuum feed through to the detector, while the cooling lines built in the detector are 0.25" rigid copper pipe. The flexible lines are brazed on one end to the rigid copper pipes of the detectors and connected with Swagelok fittings to the vacuum feedthroughs on the other end. The cooling feed through have a ceramic transition spool to insulate electrically the cooling line from the vacuum box. Dielectric fittings to break the electrical continuity of the cooling loop are placed outside the vacuum.  The drain ports are placed in proximity of the cooling feedthroughs together with two release valves, on the main supply and the main return line.
+The cooling loop for the sensor modules is connected to a Julabo Chiller, Model Presto A80, which will be set at -20 $^\circ$C. The heat transfer fluid is HFE-7000, a Fluorinert engineered fluid long used as heat transfer media for cooling applications. A bypass valve is placed at the chiller to manually adjust the mass flow. The inlet and the outlet lines pass through flanges on the detector vacuum box, where they are split after the feed trough to provide cooling in series to the top and the bottom parts of the detector. The cooling pipes in vacuum are flexible metal hoses from the vacuum feed through to the detector, while the cooling lines built in the detector are 0.25" rigid copper pipe. The flexible lines are brazed on one end to the rigid copper pipes of the detectors and connected with Swagelok fittings to the vacuum feedthroughs on the other end. The cooling feed through have a ceramic transition spool to insulate electrically the cooling line from the vacuum box. Dielectric fittings to break the electrical continuity of the cooling loop are placed outside the vacuum.  The drain ports are placed in proximity of the cooling feedthroughs together with two release valves, on the main supply and the main return line.
 In addition to the filter of the chiller, a second filter is located on the main supply line. A check valve is at the end of the main return line, just before the bypass. The estimated operating mass flow of the system without bypass is ~ 10 g/s, providing 5 g/s per cooling channel with a pressure drop ~1 bar.  The cooling loop inside vacuum is pneumatically tested up to 20 bars without showing any sign of failure.
 
 All the instrumentation to control the cooling system will be placed in air, close to the chillers, with an identical layout for the two, as shown in Figures~\ref{fig:cooling_diagram}. 
@@ -228,28 +232,28 @@ A blockage in one half of the SVT cooling manifold would reduce flow to half the
 The SVT HV must be shut off following a trip, to ensure that the HV is not accidentally left on while the beam is being brought back.
 
 \subsection{Interlocks for operation with beam}
-All interlocks are triggered by PLC inputs. Actions are divided into PLC (fast and reliable, since the inputs, logic and outputs are all internal to the PLC) and EPICS (slower, less reliable, less critical)
+All interlock actions are triggered by PLC inputs. Actions are divided into PLC (fast and reliable, since the inputs, logic and outputs are all internal to the PLC) and EPICS (slower, less reliable, less critical)
 \subsubsection{Cooling loop failure (high or low temperature on either RTD, or flow switch trip)}
 Trip points must be adjustable to allow for operation at different temperatures. There must be some sort of interlock bypass for system startup (i.e. it must be possible to start the chiller when temperatures are out of spec and the flow switch is tripped).
 \begin{itemize}
-    \item PLC interlock: Close the valve at the chiller outlet. Disable the MPOD.
-    \item Software interlock: Turn off the chiller.
+    \item PLC interlock action: Close the valve at the chiller outlet. Disable the MPOD.
+    \item Software interlock action: Turn off the chiller.
 \end{itemize}
 
 \subsubsection{Bad vacuum (vacuum gauge)}
 \begin{itemize}
-    \item PLC and software interlocks: Same action as cooling loop failure, for both loops. (so chillers will be valved off and shut off, and the MPOD will be disabled)
+    \item PLC and software interlock actions: Same action as cooling loop failure, for both loops. (so chillers will be valved off and shut off, and the MPOD will be disabled)
 \end{itemize}
 
 \subsubsection{Beam off (BPM signal)}
 %There should be an option to have a PLC interlock that disables the MPOD.
 If the beam is lost, the SVT should automatically go to a safe configuration until beam is restored.
-The specific actions for this interlock depend on how cautious we are being.
+The specific actions for this interlock depend on how cautious we are being.  The possible actions are:
 \begin{itemize}
-\item Software interlock: Turn off all HV channels.
-\item Software interlock: Fully retract both SVT positioners.
+\item Software interlock action: Turn off all HV channels.
+\item Software interlock action: Fully retract both SVT positioners.
 \end{itemize}
-
+The default setup is to trigger the first action only: beam trips disable the SVT HV but do not retract the SVT.
 
 \section{Motion}
 \begin{figure}[ht!]
@@ -263,24 +267,24 @@ Figure~\ref{fig:motion} shows the SVT Motion System schematically. The top/botto
 
 The stepper motor controller is Newport XPS controller, and is different from the stepper motor controllers found in Hall B. The motor control is based on an optical encoder. Stage movement is precisely calibrated, and re-calibration is not necessary. Since the encoder has no knowlege of the actual stage position when the controller power is turned on, the linear stage must move to a reference point to establish its calibration (called ``homing''). A switch is located at the fully retracted position for this purpose. 
 
-Three vertical coordinates are used to locate the stage, the horizontal wire and the layer 1 sensor physical edge. The stage coordinate is y(stage) = 0 mm at the fully retracted position and y(stage) = 18.89 mm at the nominal run position for both top and bottom stages. The wire and sensor edge coordinates are measured relative to the nominal beam position (positive y is up), and are given in terms of y(stage) as,
+Three vertical coordinates are used to locate the stage, the horizontal wire and the layer 1 sensor physical edge. The stage coordinate is y(stage) = 0~mm at the fully retracted position and y(top stage) = 18.136 mm  and y(bottom stage) = 18.212 mm at the nominal run position with the silicon 0.5~mm from the nominal beam plane. The wire and sensor edge coordinates are measured relative to the nominal beam position (positive y is up), and are given in terms of y(stage) as,
 
 \begin{itemize}
 \item
-y(top-wire) = -0.482 $\cdot$ y(stage) + 1.76 mm,
+y(top-wire) = -0.482 $\cdot$ y(stage) + 1.218 mm,
 \item
-y(top-si) = -0.391 $\cdot$ y(stage) + 7.89 mm,
+y(top-si) = -0.391 $\cdot$ y(stage) + 7.472 mm,
 \item
-y(bottom-wire) = +0.463 $\cdot$ y(stage) - 1.39 mm,
+y(bottom-wire) = +0.463 $\cdot$ y(stage) - 0.684 mm,
 \item
-y(bottom-si) = +0.372 $\cdot$ y(stage) - 7.53 mm.
+y(bottom-si) = +0.363 $\cdot$ y(stage) - 6.815 mm.
 \end{itemize}
 
 As the coordinate transformation is done automatically, all you need to specify is the position of the wire or Si sensor edge to operate the SVT Mover and the SVT Wire Scanner. 
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=15cm]{WireFrame2.eps}
+\includegraphics[width=15cm]{WireFrame2.pdf}
 \caption{Beam's eye view of wires and and L1 sensor edge}
 \label{fig:beam}
 \end{figure}
@@ -449,7 +453,7 @@ The button is disabled (red border) if this half of the SVT is already all the w
 
 The \textbf{Move Layer-1 to} text box moves the SVT to user-defined positions.
 Type the desired (signed) value of the layer-1 distance and press \textbf{Enter} to move the stage.
-There is a software limit (a minimum layer-1 distance) to prevent unsafe operation of the SVT; the limit is not displayed on this GUI but should be listed in the shift instructions.
+There is a software limit (a minimum layer-1 distance) to prevent unsafe operation of the SVT. The limits is not displayed on this GUI but are 17.95~mm and 17.54~mm for the top and bottom respectively.  These positions correspond to placing the edge of the Layer 1 sensors 0.45~mm from the beam plane.
 
 \emph{Sometimes there is no response to an input in the text box. If this happens, one workaround is to open the motor expert GUI (click the \textbf{Expert Screens} button), and enter a value in either \textbf{MoveAbs} field. This seems to kick the motor control out of whatever bad state it gets stuck in.}
 
@@ -461,41 +465,117 @@ There is a software limit (a minimum layer-1 distance) to prevent unsafe operati
 
 
 \section{General Procedures}
-\subsection{Checklist: Preparing for beam}
 \label{sec:proc_general_beamchecklist}
-This verifies that the SVT is ready for beam. This checklist should be done before any beam passes through HPS.
+
+\subsection{Bringing Beam to the Tagger Dump}
+Very often the SVT will be operating, running tests or calibration, during periods when there is no beam in Hall B. However, because of the potential for damaging sensitive SVT electronics with beam splash while bringing beam to the tagger dump after downtimes, power to the SVT must be turned off before beam is brought into the hall:  
+\begin{itemize}
+\item flange power off
+\item FEB/hybrid power off
+\item HV off
+\end {itemize}
+In addition, the SVT must be fully retracted from the beam and the SVT collimator should be set up as directed in the shift instructions.  \textbf{Don't assume that just because the SVT expert is present that the SVT is in the correct state. You must ensure that the SVT is in the correct state before bringing beam into the hall.}
+
+\subsection{Bringing Beam through the Chicane}
+%If the run plan calls for moving the SVT in for physics running, the SVT Expert should be called when beam is first brought through the chicane. 
+SVT power should remain off until after beam has been successfully brought through the chicane and wire scans at 2H02 (and with the SVT wires, if so instructed) have been performed that establish that the beam is in the expected position. Before turning on the SVT, the status of the following systems must be checked:
+
+\begin{itemize}
+\item Check that the SVT is fully retracted from the beam
+\item Check that the SVT collimator is set up as described in the shift instructions
+\item Check that all interlocks are enabled.
+\item Check that all temperatures are within limits and that all interlock statuses are clear
+\end{itemize}
+
+Once these conditions have been met, power to the SVT may be restored to prepare for running, following the procedure detailed in Section~\ref{sec:proc_voltages}:
 \begin{enumerate}
-\item Check that the chillers are running.
-\item Check the interlocks.
-\item Check that voltages are on.
-\item Check the SVT soft limits: Open the SVT positioner GUI. For each half of the SVT, open the \textbf{Motor Expert Gui} (under \textbf{Expert Screens}) and check the \textbf{Hi limit} against the shift instructions.
-%\item Check the SVT shift instructions for ``Before Beam'' settings.
-\item Set the beam interlock: {\color{red} doesn't exist yet}
+\item turn on  SVT FEB power
+\item turn on  SVT flange power
+\item check that FEBs are powered correctly
+\item turn on SVT hybrid power
 \end{enumerate}
 
-\subsection{Starting a run with beam}
+%\item Check that voltages are on.
+%\item Check the SVT soft limits: Open the SVT positioner GUI. For each half of the SVT, open the \textbf{Motor Expert Gui} (under \textbf{Expert Screens}) and check the \textbf{Hi limit} against the shift instructions.
+%%\item Check the SVT shift instructions for ``Before Beam'' settings.
+%\item Set the beam interlock: {\color{red} doesn't exist yet}
+%\end{enumerate}
+
+\subsection{Starting a Run with Beam}
 \label{sec:proc_general_startrun}
+If this is the first run after setting up beam for HPS, the SVT will be open and the SVT Expert will need to be called in order to move the SVT into position. The experts-only procedure for establishing 0.5 mm running with the SVT may be found in Section~\ref{sec:proc_svt_0.5mm}.  To begin a run:
 \begin{enumerate}
 \item Reset the beam interlock: go to the SVT software interlocks GUI, push the \textbf{Bypass} button, the \textbf{Reset} button, then the \textbf{Normal} button.
-\item To close the SVT (if the motion interlock was enabled): open the SVT positioner GUI.
-For each half of the SVT, type the required position (see shift instructions) in the \textbf{Move Layer-1 to} box and hit \textbf{Enter}.
-Verify that the positions shown in the scaler GUI match the required position.
 \item To turn on HV (if the HV interlock was enabled): follow the \textbf{Turn on SVT High Voltage Bias} portion of the \textbf{Turning the SVT power and bias ON} procedure, \ref{sec:proc_voltages_allon}.
-\item If the run was stopped: start the run (see the DAQ manual).
+\item Start a run with the DAQ (see the DAQ manual).
 \end{enumerate}
+
+\subsection{Moving the SVT to 0.5 mm for Physics Running - \textbf{EXPERT ONLY}}
+\label{sec:proc_svt_0.5mm}
+
+If this is the first run after setting up beam for HPS, follow this procedure for moving the SVT to 0.5 mm.
+\begin{enumerate}
+\item Get acceptable beam delivered to Faraday cup.  $\sigma_y < 50$ $\mu$m, $\sigma_x < 400$ $\mu$m.
+\item Perform SVT wire scans and correct if mean of top and bottom measurements give $|y_{beam}| > 50$ $\mu$m or $|x_{beam}| > 300$ $\mu$m. 
+\item Establish running with SVT at +/-1.5mm, as usual.  Verify good data with monitoring plots.
+\item Start new run.  Move in Bottom SVT 0.1 mm at a time.  Watch strip charts and record with each move:
+\begin{itemize}
+\item	Counter rates
+\item Trigger rates
+\item SVT L1b HV currents
+\item Peak occupancy in L1b
+\end{itemize}
+\item Stop if FSD trips, peak occupancy exceeds 4\%, or any SVT HV currents exceed 1 uA.
+\item Retract Bottom SVT to 1.5mm
+\item Repeat previous steps for Top SVT
+\end{enumerate}
+
+If both top and bottom come all the way to 0.5mm acceptably, then bring bottom back to 0.5mm and begin running with a new run. If not, then consultation will be required in order to decide whether to move the beam slightly and where exactly we should run the SVT.  If necessary, running at 0.6 mm or 0.7 mm may be acceptable.
+
+\subsection{Running the SVT}
+
+When running the SVT at 0.5 mm:
+\begin{itemize}
+\item Check the counter strip charts often
+\item Check the L1 HV currents often.  Call expert if they exceed the levels indicated in the shift instructions.
+\item Check the occupancy plots at the beginning of each run and at least once per hour.  Call the SVT expert if they exceed 4\% anywhere in L1.
+\item For beam trips, follow the special procedure in Section~\ref{sec:proc_general_beamtrip} that applies to running with the SVT at 0.5 mm.
+\end{itemize}
 
 \subsection{Response to beam trip}
 \label{sec:proc_general_beamtrip}
-If the beam is lost, the SVT software interlock may (depending on settings) turn off all HV channels or open the SVT.
-
+If the beam is lost, the SVT software interlock may (depending on settings) turn off all HV channels or open the SVT.  The current default setup lowers the HV to 5 V and leaves the SVT in place.  In general, for beam trips:
 \begin{enumerate}
 \item Check the SVT shift instructions to see what actions are required.
 \item {\color{red} What should be checked for DAQ?}
-\item If the HV interlock was enabled: Look at the SVT bias GUI, and verify that the \textbf{Measured Voltage} column reads 0 for all channels. If not, call the expert. Continue with the procedure.
-\item If the motion interlock was enabled: Look at the scaler GUI, and verify that the \textbf{Position} of the top and bottom read 0.0000.
+\item If the HV interlock was enabled: Look at the SVT bias GUI, and verify that the \textbf{Measured Voltage} column reads as expected (default is 5V) for all channels. If not, call the expert. Continue with the procedure.
+\item If the motion interlock was enabled (default is disabled): Look at the scaler GUI, and verify that the \textbf{Position} of the top and bottom read 0.0000.
 \item If the run needs to be stopped, see the DAQ manual for instructions.
 \item Wait for good beam to be restored, then follow the procedure for starting a run, \ref{sec:proc_general_startrun}.
 \end{enumerate}
+
+\textbf{When taking physics runs with the SVT in  the nominal position, 0.5 mm from the beam plane, the silicon in Layer 1 is not fully protected by the collimator.  In this case, the following procedure must be followed for beam trips:}
+\begin{enumerate}
+\item Check the FSD GUI to determine if the HPS halo counters generated the trip.
+\item If the beam trip was not caused by the HPS halo counter:
+\begin {enumerate}
+\item The MCC will restore the beam as usual.
+\item When it is restored, check that the BPM x and y values at 2H02 are as desired and that beam current is stable.
+\item Then reset the SVT HV and resume the run.
+\end{enumerate}
+\item If the HPS halo counters initiated the trip:
+\begin{enumerate}
+\item Tell the MCC not to restore the beam. We will inform them when we want it.
+\item Retract the SVT to 1.5 mm, both top and bottom.
+\item Tell the MCC we are ready for beams
+\item When restored, check that the BPM x and y values at 2H02 are as desired and that halo counter rates are as expected.
+\item Reset the SVT HV
+\item Move SVT in by steps ( to 1.0, then 0.7, then 0.5 mm). 
+\item At each step, watch the FSD signal scaler and the bias currents. If the FSD signal scaler rate rises by more than 10\% or any bias current rises by more than 1 uA above the levels at 1.5 mm, call the SVT expert.
+\item Resume data taking
+\end{enumerate}
+\end{enumerate}
+
 
 \section{Response to Alarms}
 
@@ -703,5 +783,7 @@ When the status shows ``Done'', click ``Analyze'' button.
 \caption{SVT Wire Scanner GUI}
 \label{scannergui}
 \end{figure}
+
+\appendix
 
 \end{document}
