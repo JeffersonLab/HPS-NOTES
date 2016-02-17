@@ -43,8 +43,13 @@ Log into \texttt{clondaq3} as \texttt{clasrun}.
 \item 
 To start all DAQ processes, open a terminal and run:\newline
 \texttt{> runcontrol -rocs}\newline
-This opens up all windows needed on the current workspace. The workspace should look like Fig.~\ref{fig:coda}.
 \end{enumerate}
+
+This opens up all windows needed on the current workspace. The workspace should look like Fig.~\ref{fig:coda}.
+
+It is important to be able to see all the roc terminals.  To do so it may be necessary to click on the {\bf rocs} button in the top right corner to make the roc terminals visible.
+
+{\em Note:  if the roc terminals are oddly sized or not displaying properly, try slightly resizing the window.}
 %=======================
 \begin{figure}[htbp]
 \begin{center}
@@ -516,6 +521,14 @@ In \texttt{/SVT/DPM Status} GUI": check that all data DPMs are in the appropriat
 %=======================
 
 \newpage
+
+\appendix
+\section{Chaning Prescale Factors on the Fly}
+This script will change the prescale factors immediately (during a run) and update the EPICS prescales
+such that the trigger GUI always uses the active prescales:\newline
+\centerline{\texttt{hpsTiPrescale.sh TRIGGER PRESCALE}}
+
+
 \appendix
 \section{Rebooting an Individual ROC}\label{sec:rebootaroc}
 Execute this command (where \texttt{ROC} is one of \texttt{hps11, hps12, hps1, hps2}):\newline
