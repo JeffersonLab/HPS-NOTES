@@ -480,17 +480,17 @@ SVT power should remain off until after beam has been successfully brought throu
 \begin{itemize}
 \item Check that the SVT is fully retracted from the beam
 \item Check that the SVT collimator is set up as described in the shift instructions
-\item Check that all PLC and software interlocks are enabled.
+\item Check that all PLC and software interlocks are enabled (in particular, make sure the beam interlock is enabled).
 \item Check that all temperatures are within limits and that all interlock statuses are clear
 \end{itemize}
 
 Once these conditions have been met, power to the SVT may be restored to prepare for running, following the procedure detailed in the DAQ manual.
-\begin{enumerate}
-\item turn on  SVT FEB power
-\item turn on  SVT flange power
-\item check that FEBs are powered correctly
-\item turn on SVT hybrid power
-\end{enumerate}
+%\begin{enumerate}
+%\item turn on  SVT FEB power
+%\item turn on  SVT flange power
+%\item check that FEBs are powered correctly
+%\item turn on SVT hybrid power
+%\end{enumerate}
 
 %\item Check that voltages are on.
 %\item Check the SVT soft limits: Open the SVT positioner GUI. For each half of the SVT, open the \textbf{Motor Expert Gui} (under \textbf{Expert Screens}) and check the \textbf{Hi limit} against the shift instructions.
@@ -498,27 +498,27 @@ Once these conditions have been met, power to the SVT may be restored to prepare
 %\item Set the beam interlock: {\color{red} doesn't exist yet}
 %\end{enumerate}
 
-\subsection{Starting a Run with Beam}
+\subsection{Setting up for running with beam}
 \label{sec:proc_general_startrun}
-If this is the first run after setting up beam for HPS, the SVT will be open and the SVT Expert will need to be called in order to move the SVT into position. The experts-only procedure for establishing 0.5 mm running with the SVT may be found in Section~\ref{sec:proc_svt_0.5mm}.  To begin a run:
-\begin{enumerate}
-\item Reset the beam interlock: go to the SVT software interlocks GUI, push the \textbf{Bypass} button, the \textbf{Reset} button, then the \textbf{Normal} button.
-\item To turn on HV (if the HV interlock was enabled): follow the \textbf{Turn on SVT High Voltage Bias} portion of the \textbf{Turning the SVT power and bias ON} procedure, \ref{sec:proc_voltages_allon}.
-\item Start a run with the DAQ (see the DAQ manual).
-\end{enumerate}
+If this is the first run after setting up beam for HPS, the SVT will be open and the SVT Expert will need to be called in order to move the SVT into position. The experts-only procedure for establishing 0.5 mm running with the SVT may be found in Section~\ref{sec:proc_svt_0.5mm}.
 
 \subsection{Moving the SVT to 0.5 mm for Physics Running - \textbf{EXPERT ONLY}}
 \label{sec:proc_svt_0.5mm}
 
 If this is the first run after setting up beam for HPS, follow this procedure for moving the SVT to 0.5 mm.
 \begin{enumerate}
-\item Get acceptable beam delivered to Faraday cup.  $\sigma_y < 50$ $\mu$m, $\sigma_x < 400$ $\mu$m.
-\item Perform SVT wire scans and correct if mean of top and bottom measurements give $|y_{beam}| > 50$ $\mu$m or $|x_{beam}| > 300$ $\mu$m. 
 \item Establish running with SVT at +/-1.5mm, as usual.  Verify good data with monitoring plots.
+\item Check the following:
+\begin{itemize}
+\item Acceptable beam at Faraday cup (see run plan for the definition of acceptable beam).
+\item Beam is centered with respect to the SVT, either using SVT wire scans (see procedure in Section \ref{sec:wirescan}) or by taking a 2H02 wire scan and comparing with 2H02 wire scan from the last time the beam was centered with respect to the SVT.
+\item Halo counter FSD is unmasked, and trip level is set appropriately for the current halo counter rate.
+\item HPS orbit locks are on, and orbit lock target positions are as specified in the run plan.
+\item MCC has been notified to not restore beam following a halo counter FSD trip.
+\end{itemize}
 \item Start new run.  Move in Bottom SVT 0.1 mm at a time.  Watch strip charts and record with each move:
 \begin{itemize}
-\item Counter rates
-\item Trigger rates
+\item FSD counter rate
 \item SVT L1b HV currents
 \item Peak occupancy in L1b
 \end{itemize}
@@ -533,43 +533,47 @@ If both top and bottom come all the way to 0.5mm acceptably, then bring bottom b
 
 When running the SVT at 0.5 mm:
 \begin{itemize}
-\item Check the counter strip charts often
+\item Check the scaler strip charts often
 \item Check the L1 HV currents often.  Call expert if they exceed the levels indicated in the shift instructions.
 \item Check the occupancy plots at the beginning of each run and at least once per hour.  Call the SVT expert if they exceed 4\% anywhere in L1.
 \item For beam trips, follow the special procedure in Section~\ref{sec:proc_general_beamtrip} that applies to running with the SVT at 0.5 mm.
 \end{itemize}
 
-\subsection{Response to beam trip}
+\subsection{Response to beam trip (general)}
 \label{sec:proc_general_beamtrip}
-If the beam is lost, the SVT software interlock (if enabled) lowers the HV to 5 V.  In general, for beam trips:
+If the beam is lost, the SVT software interlock lowers the HV to 5 V.  In general, for beam trips:
 \begin{enumerate}
-\item Check the SVT shift instructions to see what actions are required.
-\item {\color{red} What should be checked for DAQ?}
-\item If the HV interlock was enabled: Look at the SVT bias GUI, and verify that the \textbf{Measured Voltage} column reads as expected (default is 5V) for all channels. If not, call the expert. Continue with the procedure.
-\item If the run needs to be stopped, see the DAQ manual for instructions.
-\item Wait for good beam to be restored, then follow the procedure for starting a run, \ref{sec:proc_general_startrun}.
+\item Check the SVT shift instructions to see if any special actions are required.
+\item If SVT is at 0.5 mm, check the FSD GUI to see if our halo counters were responsible. If so, follow the FSD trip procedure (below) instead of continuing with this one.
+%\item If the beam interlock was enabled: Look at the SVT bias GUI, and verify that the \textbf{Measured Voltage} column reads as expected (default is 5V) for all channels. If not, call the expert. Continue with the procedure.
+\item When beam is restored, check that the BPM x and y values at 2H02 are as desired and that beam current is stable at our desired value.
+\item Reset the HV: Click the \textbf{RESET} button on the bias GUI to reset the interlock, then the \textbf{180V} button to reset the bias voltage.
 \end{enumerate}
 
-\textbf{When taking physics runs with the SVT in  the nominal position, 0.5 mm from the beam plane, the silicon in Layer 1 is not fully protected by the collimator.  In this case, the following procedure must be followed for beam trips:}
+\subsubsection{Response to beam trip (FSD trip)}
+\label{sec:proc_fsd_beamtrip}
+
+\textbf{When taking physics runs with the SVT in  the nominal position, 0.5 mm from the beam plane, the silicon in Layer 1 is not fully protected by the collimator.  In this case, the following procedure must be followed for beam trips where the halo counter FSD is responsible:}
 \begin{enumerate}
-\item Check the FSD GUI to determine if the HPS halo counters generated the trip.
-\item If the beam trip was not caused by the HPS halo counter:
-\begin {enumerate}
-\item The MCC will restore the beam as usual.
-\item When it is restored, check that the BPM x and y values at 2H02 are as desired and that beam current is stable.
-\item Then reset the SVT HV and resume the run.
-\end{enumerate}
-\item If the HPS halo counters initiated the trip:
-\begin{enumerate}
+%\item Check the FSD GUI to determine if the HPS halo counters generated the trip.
+%\item If the beam trip was not caused by the HPS halo counter:
+%\begin {enumerate}
+%\item The MCC will restore the beam as usual.
+%\item When it is restored, check that the BPM x and y values at 2H02 are as desired and that beam current is stable at our desired value.
+%\item Then reset the SVT HV and resume the run.
+%\end{enumerate}
+%\item If the HPS halo counters initiated the trip:
+%\begin{enumerate}
 \item Tell the MCC not to restore the beam. We will inform them when we want it.
 \item Retract the SVT to 1.5 mm, both top and bottom.
 \item Tell the MCC we are ready for beams
-\item When restored, check that the BPM x and y values at 2H02 are as desired and that halo counter rates are as expected.
-\item Reset the SVT HV
-\item Move SVT in by steps ( to 1.0, then 0.7, then 0.5 mm). 
+\item When restored, check that the BPM x and y values at 2H02 are as defined in the orbit locks and that halo counter rates are the same as before the trip.
+\item Reset the HV: Click the \textbf{RESET} button on the bias GUI to reset the interlock, then the \textbf{180V} button to reset the bias voltage.
+\item Wait until beam current is stable at our desired value.
+\item Move SVT in by steps (to 1.0, then 0.7, then 0.5 mm). 
 \item At each step, watch the FSD signal scaler and the bias currents. If the FSD signal scaler rate rises by more than 10\% or any bias current rises by more than 1 uA above the levels at 1.5 mm, call the SVT expert.
-\item Resume data taking
-\end{enumerate}
+\item Resume data taking.
+%\end{enumerate}
 \end{enumerate}
 
 
@@ -734,10 +738,13 @@ Hit ``STOP'' to abort.
 The positions of the stage, wire and Layer 1 sensor edge will be shown in ``SVT Position:'' in their respective coordinate.  Moving the SVT away from the home position is interlocked by beam conditions, shown by the interlock status light in the GUI.  Lack of safe interlock status will prevent motion of the SVT from the home position and loss of interlock will cause the SVT to return to home automatically.
 
 \subsection{SVT Wire Scanner Operations}
+\label{sec:wirescan}
 
 When the beam is first delivered to Hall B, the vertical position of the beam is known to about 1 mm. Since we want to place the SVT layer 1 physical edge at 0.5 mm from the beam, SVT Wire Scanner is used to measure the beam position relative to the sensor edge with a precision of about 50~$\mu$m. The wire scanner has a 20 $\mu$m diameter gold-plated tungsten horizontal wire and a 30 $\mu$m diameter gold-plated tungsten angled wire. The angled wire is at 8.904 degrees to the horizontal wire, and is separeted by y=1.98 mm at the nominal beam position. The Y position of the beam can be measured directly from the horizontal wire. If $\Delta$Y is the apparent Y position difference of the measured beam ``gaussian'' centers, the X position of the beam can be obtained from X = ($\Delta$Y - 1.98)/tan(8.904).      
 
 Wire scan should be repeated using the top wire and the bottom wire to check consistency. Once the beam offset values ($\Delta$X, $\Delta$Y) from the nominal beam position are measured, request MCC to move the beam using corrector magnets (MBC2H04V/H and MBC2H08V/H). Wire scan should be repeated to confirm the beam position.  As with any motion of the SVT, the ability to perform a wire scan may be interlocked by beam conditions, as shown by the interlock status light in the GUI.
+
+To center the beam, perform SVT wire scans and correct if mean of top and bottom measurements give $|y_{beam}| > 50$ $\mu$m or $|x_{beam}| > 300$ $\mu$m. 
 
 \vskip 0.2 in
 
