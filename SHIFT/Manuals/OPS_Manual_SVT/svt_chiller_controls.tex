@@ -1,6 +1,6 @@
 \section{SVT Cooling}
 
-All the GUIs shown below are accessed through the \textbf{Devices} menu in \textbf{hps\_epics}.
+All the GUIs shown below are accessed through the \textbf{Devices} menu in \textbf{hps\_epics}. Chiller and interlock settings should only be modified under the supervision of an SVT Expert. Table~\ref{tab:cooling_settings} lists the default settings for the SVT and FEB chillers and alarms during running (cold) and between runs when the beam enclosure is open for servicing (warm).
 
 \begin{figure*}[!ht]
     \begin{center}
@@ -33,16 +33,17 @@ All the GUIs shown below are accessed through the \textbf{Devices} menu in \text
 \hline
 Parameter & SVT warm & SVT cold \\
 \hline
-SVT chiller setpoint (C) & 17 & -20 \\
-SVT RTD alarms (C) & 15/16/18/19 & -22/-21/-17/-16 \\
-SVT RTD PLC limits (C) & bypassed & -24/-14 \\
-FEB chiller setpoint (C) & 20 & 20 \\
+SVT chiller setpoint ($^\circ$C) & 17 & -20 \\
+SVT RTD alarms (\textbf{{\color{red} low}/{\color{yellow} low}/{\color{yellow}high}/{\color{red}high}}) ($^\circ$C) & \textbf{{\color{red}15}/{\color{yellow}16}/{\color{yellow}18}/{\color{red}19}} & \textbf{{\color{red}-22}/{\color{yellow}-21}/{\color{yellow}-17}/{\color{red}-16}} \\
+SVT RTD PLC limits ($^\circ$C) & bypassed & -24/-14 \\
+FEB chiller setpoint ($^\circ$C) & 20 & 20 \\
+FEB RTD alarms (\textbf{{\color{red} low}/{\color{yellow} low}/{\color{yellow}high}/{\color{red}high}}) ($^\circ$C) & \textbf{{\color{red}16}/{\color{yellow}17}/{\color{yellow}25}/{\color{red}26}} & \textbf{{\color{red}16}/{\color{yellow}17}/{\color{yellow}25}/{\color{red}26}} \\
+FEB RTD PLC limits ($^\circ$C) & bypassed & 16/26 \\
 \hline
 \end{tabular}
 \end{center}
-\caption{SVT cooling settings.}
+\caption{Default SVT cooling settings.  Minor alarm limits are in yellow and major alarm limits are in red.}
+\label{tab:cooling_settings} 
 \end{table}
 
-Also, there is a webcam (cctv7) pointed at the SVT chiller screen. The webcam can be set to e-mail a snapshot every 24 hours.
-
-Any major (red) ALH alarm under the ``SVT/COOLING'' group will send an e-mail alert.
+Any major (red) ALH alarm under the ``SVT/COOLING'' group will send an e-mail alert. Also, there is a webcam (cctv7) pointed at the SVT chiller screen. The webcam can be set to e-mail a snapshot every 24 hours. 
