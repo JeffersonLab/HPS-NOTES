@@ -523,11 +523,11 @@ If this is the first run after setting up beam for HPS, follow this procedure fo
 \item Peak occupancy in L1b
 \end{itemize}
 \item Stop if FSD trips, peak occupancy exceeds 4\%, or any SVT HV currents exceed 1 uA.
-\item Retract Bottom SVT to 1.5mm
-\item Repeat previous steps for Top SVT
+\item If Bottom SVT makes it to 0.5 mm, retract Bottom SVT to 1.5mm and repeat previous steps for Top SVT.
+\item If both top and bottom come all the way to 0.5mm acceptably, then bring bottom back to 0.5mm and begin running with a new run.
 \end{enumerate}
 
-If both top and bottom come all the way to 0.5mm acceptably, then bring bottom back to 0.5mm and begin running with a new run. If not, then consultation will be required in order to decide whether to move the beam slightly and where exactly we should run the SVT.  If necessary, running at 0.6 mm or 0.7 mm may be acceptable.
+If either half of the SVT does not make it to 0.5 mm, consultation will be required in order to decide whether to move the beam slightly and where exactly we should run the SVT.  If necessary, running at 0.6 mm or 0.7 mm may be acceptable.
 
 \subsection{Running the SVT}
 
@@ -580,7 +580,7 @@ If the beam is lost, the SVT software interlock lowers the HV to 5 V.  In genera
 \section{Response to Alarms}
 
 The alarm handling is handled by the ALH extension to EPICS that is widely used at JLab. The SVT alarm handling GUI is shown in Fig.~\ref{fig:svt_alarm_gui}. It is tree-based with each level showing more detailed info of what alarm has gone off. 
-\begin{figure}
+\begin{figure}[ht]
 \includegraphics[width=12cm]{svt_alarm_gui}
 \caption{SVT alarm handler GUI.\label{fig:svt_alarm_gui}}
 \end{figure}
@@ -599,8 +599,11 @@ More information about the alarm handler can be found in the slow control manual
 
 \section{Voltages}
 \label{sec:proc_voltages}
+\textbf{The SVT summary GUI is the preferred way of turning on the SVT, and is described in the DAQ manual. The procedures in this section are for experts, and for reference only.}
+
 \subsection{Turning the SVT power and bias ON}
 \label{sec:proc_voltages_allon}
+
 To power ON all of the SVT follow this procedure:
 \begin{enumerate}
 
@@ -767,22 +770,18 @@ Downstream Halo Counter is operational.
 \noindent
 \textbf{Scan}
 
-A wire scan can be performed from the SVT Wire Scan GUI (Figure \ref{scannergui}).
+A wire scan can be performed from the SVT wire scan GUI (Figure \ref{scannergui}). To open the GUI, first open the SVT positioners GUI (Figure \ref{mover}). Click the \textbf{Expert Screens} button for the top or bottom half of the SVT, then select the scan GUI from the menu.
 
 \begin{itemize}
-\item 
-Choose either TOP Wire or BOTTOM Wire.
 \item
-Choose either ECal or Halo Counter as the detector.
+Click \textbf{SCAN} to use the default settings.
 \item
-Click ``START'' using the default values for Scan Range.
-\item
-When the status shows ``Done'', click ``Analyze'' button.
+Watch the SVT positioners GUI to see the stage position move. When it reaches the end of the scan and starts moving back to 0, you can click the \textbf{Analyze the data} button to analyze the data. This will pop up some plots and automatically submit a logentry.
 \end{itemize}
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=10cm]{WireScannerGUI.eps}
+\includegraphics[width=10cm]{svt_wirescan_gui}
 \caption{SVT Wire Scanner GUI}
 \label{scannergui}
 \end{figure}
