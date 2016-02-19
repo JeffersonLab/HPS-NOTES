@@ -5,10 +5,10 @@
 \contentsline {section}{\numberline {1.2}Cooling and Interlocks}{7}
 \contentsline {subsection}{\numberline {1.2.1}Sensors and inputs}{9}
 \contentsline {subsection}{\numberline {1.2.2}Control outputs}{10}
-\contentsline {subsection}{\numberline {1.2.3}Interlocks}{10}
+\contentsline {subsection}{\numberline {1.2.3}Interlocks}{11}
 \contentsline {subsection}{\numberline {1.2.4}Potential accidents}{11}
 \contentsline {subsection}{\numberline {1.2.5}Interlocks for operation with beam}{12}
-\contentsline {subsubsection}{Cooling loop failure (high or low temperature on either RTD, or flow switch trip)}{12}
+\contentsline {subsubsection}{Cooling loop failure (high or low temperature on either RTD, or flow switch trip)}{13}
 \contentsline {subsubsection}{Bad vacuum (vacuum gauge)}{13}
 \contentsline {subsubsection}{Beam off (BPM signal)}{13}
 \contentsline {section}{\numberline {1.3}Motion}{13}
@@ -24,24 +24,25 @@
 \contentsline {section}{\numberline {3.1}General Procedures}{27}
 \contentsline {subsection}{\numberline {3.1.1}Bringing Beam to the Tagger Dump}{27}
 \contentsline {subsection}{\numberline {3.1.2}Bringing Beam through the Chicane}{27}
-\contentsline {subsection}{\numberline {3.1.3}Starting a Run with Beam}{28}
+\contentsline {subsection}{\numberline {3.1.3}Setting up for running with beam}{28}
 \contentsline {subsection}{\numberline {3.1.4}Moving the SVT to 0.5 mm for Physics Running - \textbf {EXPERT ONLY}}{28}
 \contentsline {subsection}{\numberline {3.1.5}Running the SVT}{29}
-\contentsline {subsection}{\numberline {3.1.6}Response to beam trip}{29}
-\contentsline {section}{\numberline {3.2}Response to Alarms}{30}
+\contentsline {subsection}{\numberline {3.1.6}Response to beam trip (general)}{29}
+\contentsline {subsubsection}{Response to beam trip (FSD trip)}{30}
+\contentsline {section}{\numberline {3.2}Response to Alarms}{31}
 \contentsline {section}{\numberline {3.3}Voltages}{31}
 \contentsline {subsection}{\numberline {3.3.1}Turning the SVT power and bias ON}{31}
 \contentsline {subsection}{\numberline {3.3.2}Turning the SVT power and bias OFF}{33}
-\contentsline {section}{\numberline {3.4}Cooling and Interlocks}{33}
-\contentsline {subsection}{\numberline {3.4.1}Start FEB chiller}{33}
+\contentsline {section}{\numberline {3.4}Cooling and Interlocks}{34}
+\contentsline {subsection}{\numberline {3.4.1}Start FEB chiller}{34}
 \contentsline {subsection}{\numberline {3.4.2}Start SVT chiller}{34}
-\contentsline {subsection}{\numberline {3.4.3}Stop FEB chiller}{34}
-\contentsline {subsection}{\numberline {3.4.4}Stop SVT chiller}{34}
+\contentsline {subsection}{\numberline {3.4.3}Stop FEB chiller}{35}
+\contentsline {subsection}{\numberline {3.4.4}Stop SVT chiller}{35}
 \contentsline {subsection}{\numberline {3.4.5}Draining SVT chiller (experts only)}{35}
 \contentsline {subsection}{\numberline {3.4.6}Filling SVT chiller from empty (experts only)}{35}
-\contentsline {subsection}{\numberline {3.4.7}Changing SVT chiller temperature}{35}
-\contentsline {subsection}{\numberline {3.4.8}Adding fluid to SVT chiller}{35}
-\contentsline {subsection}{\numberline {3.4.9}Response to unexpected chiller trip}{36}
-\contentsline {section}{\numberline {3.5}Motion}{36}
-\contentsline {subsection}{\numberline {3.5.1}SVT Mover Operations}{36}
+\contentsline {subsection}{\numberline {3.4.7}Changing SVT chiller temperature}{36}
+\contentsline {subsection}{\numberline {3.4.8}Adding fluid to SVT chiller}{36}
+\contentsline {subsection}{\numberline {3.4.9}Response to unexpected chiller trip}{38}
+\contentsline {section}{\numberline {3.5}Motion}{38}
+\contentsline {subsection}{\numberline {3.5.1}SVT Mover Operations}{38}
 \contentsline {subsection}{\numberline {3.5.2}SVT Wire Scanner Operations}{38}
