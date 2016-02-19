@@ -10,11 +10,11 @@
 
 % See the ``Article customise'' template for come common customisations
 
-\title{HPS SVT Operations Manual \\ v1.1}
+\title{HPS SVT Operations Manual \\ v1.2}
 \author{SVT On-Call Cell Phone: 757-541-7539 \\ 
 Authors: \\
 Per Hansson, John Jaros, Takashi Maruyama, Omar Moreno,\\ Tim Nelson\footnote{contact person for this document}, Marco Oriunno, Sho Uemura}
-\date{March 8, 2015} % delete this line to display the current date
+\date{February 30, 2016} % delete this line to display the current date
 
 %%% BEGIN DOCUMENT
 \begin{document}
@@ -33,6 +33,7 @@ Per Hansson, John Jaros, Takashi Maruyama, Omar Moreno,\\ Tim Nelson\footnote{co
 System & Experts \\
 \hline
 General expert & Tim Nelson \\
+Motion and wire scanner & Takashi Maruyama \\
 SVT DAQ & Pelle Hansson \\
 SVT EPICS controls & Pelle Hansson, Wesley Moore \\
 MPOD power supply & Sho Uemura \\
@@ -69,14 +70,11 @@ Modules are supported in groups of three by a set of four support plates, as sho
 \end{figure}
 %=======================
 
-The first stage of readout electronics is located on a hybrid circuit board at the end of each sensor.  Multiplexed analog signals from these boards are digitized by a set of 10 Front End Boards (FEBs) mounted to a separate cooling plate inside the SVT support box. Each FEB can control 4 hybrid/sensor units: a single module in layers 4-6 and either one or two modules in layers 1-3. The FEBs also control the hybrids, provide regulated low-voltage power from a single input, and pass externally generated bias voltages (HV) through to the sensors.   The FEBs communicate with a set of 4 Signal Flange Boards (SFB), up to three per SFB, which transmit digital signals through the vacuum penetration.  The exterior side of each flange board converts digital to optical signals for communication with the RCE DAQ.  Power to the FEB are routed through a pair of Power Flange Boards, one for LV and one for HV, supplied by a Wiener Mpod power supply modules in a crate on the pie-tower.
+The first stage of readout electronics is located on a hybrid circuit board at the end of each sensor.  Multiplexed analog signals from these boards are digitized by a set of 10 Front End Boards (FEBs) mounted to a separate cooling plate inside the SVT support box. Each FEB can control 4 hybrid/sensor units: a single module in layers 4-6 and either one or two modules in layers 1-3. The FEBs also control the hybrids, provide regulated low-voltage power from a single input, and pass externally generated bias voltages (HV) through to the sensors.   The FEBs communicate with a set of 4 Signal Flange Boards (SFB), up to three per SFB, which transmit digital signals through the vacuum penetration.  The exterior side of each flange board converts digital to optical signals for communication with the RCE DAQ.  Power to the FEB are routed through a pair of Power Flange Boards, one for LV and one for HV, supplied by Wiener MPOD power supply modules in a crate on the pie-tower.
 
 Cooling for the SVT is provided by a pair of chillers; one for the hybrids and sensors that operate at -20 $^\circ$C and one for the FEBs that operates at room temperature.  The FEBs have a single cooling loop, while the hybrids and sensors have two loops, one for the top and one for the bottom half of the SVT, where each of these loops runs first through the support structure for layers 1-3 and then through the structure for layers 4-6.  There are temperature sensors on every hybrid as well as sensors in the FEBs. The linear shifts, the cooling penetrations, and the signal/power penetrations are all located on a set of flanges on an extension vacuum box mounted to the upstream end of the PS vacuum chamber and which connects to the upstream beam line.
 
 Since the SVT sensors are close to the beam, some attention to beam conditions is required prior to turning the SVT on and taking data. A number of systems provide the information used to assess whether beam conditions allow SVT operation. These systems include beam position monitors along the beamline, wire scanners located upstream of the HPS chicane, the wire attached to the SVT itself, a protection collimator located just upstream of the HPS chicane, and beam halo counters located along the beamline downstream of the collimator and signals from the HPS ECal which serve together as beam background monitors.  A detailed description of these systems and their operation can be found in the Beamline Operations Manual.
-
-
-
 
 
 
@@ -266,6 +264,8 @@ The stepper motor controller is Newport XPS controller, and is different from th
 
 Three vertical coordinates are used to locate the stage, the horizontal wire and the layer 1 sensor physical edge. The stage coordinate is y(stage) = 0~mm at the fully retracted position and y(top stage) = 18.136 mm  and y(bottom stage) = 18.212 mm at the nominal run position with the silicon 0.5~mm from the nominal beam plane. The wire and sensor edge coordinates are measured relative to the nominal beam position (positive y is up), and are given in terms of y(stage) as,
 
+When the beam is first delivered to Hall B, the vertical position of the beam is known to about 1 mm. Since we want to place the SVT layer 1 physical edge at 0.5 mm from the beam, SVT Wire Scanner is used to measure the beam position relative to the sensor edge with a precision of about 50~$\mu$m. The wire scanner has a 20 $\mu$m diameter gold-plated tungsten horizontal wire and a 30 $\mu$m diameter gold-plated tungsten angled wire. The angled wire is at 8.904 degrees to the horizontal wire, and is separated by y=1.98 mm at the nominal beam position. The Y position of the beam can be measured directly from the horizontal wire. If $\Delta$Y is the apparent Y position difference of the measured beam ``gaussian'' centers, the X position of the beam can be obtained from X = ($\Delta$Y - 1.98)/tan(8.904).   
+
 \begin{itemize}
 \item
 y(top-wire) = -0.482 $\cdot$ y(stage) + 1.218 mm,
@@ -454,6 +454,12 @@ There is a software limit (a minimum layer-1 distance) to prevent unsafe operati
 
 \emph{Sometimes there is no response to an input in the text box. If this happens, one workaround is to open the motor expert GUI (click the \textbf{Expert Screens} button), and enter a value in either \textbf{MoveAbs} field. This seems to kick the motor control out of whatever bad state it gets stuck in.}
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=10cm]{svt_wirescan_gui}
+\caption{SVT wire scan GUI}
+\label{scannergui}
+\end{figure}
 
 \input{svt_online_monitoring.tex}
 
@@ -727,65 +733,54 @@ If not, call the SVT expert.
 
 Figure \ref{mover} shows the SVT Mover GUI.
 
+The SVT motor controller can be accessed directly by pointing a web browser at \url{http://hpsxps/} (SVT expert should know the login). The web interface can be used to initialize and home the stages, or reboot the controller.
+
 \begin{itemize}
 \item
-Hit ``HOME'' button for Homing and confirm ``Homing Done'' in Status. It may take up to 3 minutes.
-\item
-Type in the destination of the layer 1 edge in mm in ``MOVE LAYER-1 TO'', and hit ``MOVE'' button.
-\item
-Type in a relative move value in mm in ``JOG LAYER-1 BY'', and hit either up or down triangle.
-\item
-Hit ``STOP'' to abort.
+Type in the destination of the layer 1 edge in mm in \textbf{Desired Layer-1 Position}, and hit Enter. Alternatively, press one of the buttons below (\textbf{3.0}, \textbf{1.5}, \textbf{1.0}, \textbf{0.7}, \textbf{0.5}).
+\item Press the \textbf{MOVE} button to command the move.
+\item Press \textbf{Retract Stage} at any time to fully retract the SVT (this will also abort a move in progress).
 \end{itemize}
 
-The positions of the stage, wire and Layer 1 sensor edge will be shown in ``SVT Position:'' in their respective coordinate.  Moving the SVT away from the home position is interlocked by beam conditions, shown by the interlock status light in the GUI.  Lack of safe interlock status will prevent motion of the SVT from the home position and loss of interlock will cause the SVT to return to home automatically.
+The positions of the stage, wire and Layer 1 sensor edge, and the angle away from horizontal, are shown in their respective coordinates.
 
 \subsection{SVT Wire Scanner Operations}
 \label{sec:wirescan}
 
-When the beam is first delivered to Hall B, the vertical position of the beam is known to about 1 mm. Since we want to place the SVT layer 1 physical edge at 0.5 mm from the beam, SVT Wire Scanner is used to measure the beam position relative to the sensor edge with a precision of about 50~$\mu$m. The wire scanner has a 20 $\mu$m diameter gold-plated tungsten horizontal wire and a 30 $\mu$m diameter gold-plated tungsten angled wire. The angled wire is at 8.904 degrees to the horizontal wire, and is separeted by y=1.98 mm at the nominal beam position. The Y position of the beam can be measured directly from the horizontal wire. If $\Delta$Y is the apparent Y position difference of the measured beam ``gaussian'' centers, the X position of the beam can be obtained from X = ($\Delta$Y - 1.98)/tan(8.904).      
+To center the beam, perform SVT wire scans (if the top and bottom are known to be consistent, only use the same set of wires that was used in the last good scan in the logbook; otherwise use both top and bottom, and take the mean) and correct if you see $|y_{beam}| > 50$ $\mu$m or $|x_{beam}| > 300$ $\mu$m.
 
-Wire scan should be repeated using the top wire and the bottom wire to check consistency. Once the beam offset values ($\Delta$X, $\Delta$Y) from the nominal beam position are measured, request MCC to move the beam using corrector magnets (MBC2H04V/H and MBC2H08V/H). Wire scan should be repeated to confirm the beam position.  As with any motion of the SVT, the ability to perform a wire scan may be interlocked by beam conditions, as shown by the interlock status light in the GUI.
+Once the beam offset values ($\Delta$X, $\Delta$Y) from the nominal beam position are measured, request MCC to move the beam using corrector magnets (MBC2H04V/H and MBC2H08V/H). Wire scan should be repeated to confirm the beam position.
 
-To center the beam, perform SVT wire scans and correct if mean of top and bottom measurements give $|y_{beam}| > 50$ $\mu$m or $|x_{beam}| > 300$ $\mu$m. 
+A wire scan can be performed from the SVT wire scan GUI (Figure \ref{scannergui}). To open the GUI, first open the SVT positioners GUI (Figure \ref{mover}). Click the \textbf{Expert Screens} button for the top or bottom half of the SVT, then select the scan GUI from the menu.
 
-\vskip 0.2 in
-
-\noindent
-\textbf{Setup}
-
+\begin{itemize}
+\item Check:
 \begin{itemize}
 \item
 MCC is not moving the beam or changing beam conditions.
 \item
 Ask MCC to mask BOM and Downstream Halo Counter in FSD.
+%\item
+%SVT power is turned off.
+%\item
+%ECal is operational.
 \item
-SVT power is turned off.
-\item
-ECal is operational.
-\item
-Downstream Halo Counter is operational.
+Downstream halo counters are operational.
 \end{itemize}
-
-\noindent
-\textbf{Scan}
-
-A wire scan can be performed from the SVT wire scan GUI (Figure \ref{scannergui}). To open the GUI, first open the SVT positioners GUI (Figure \ref{mover}). Click the \textbf{Expert Screens} button for the top or bottom half of the SVT, then select the scan GUI from the menu.
-
-\begin{itemize}
 \item
-Click \textbf{SCAN} to use the default settings.
+Click \textbf{SCAN} to start a scan using the default settings.
 \item
 Watch the SVT positioners GUI to see the stage position move. When it reaches the end of the scan and starts moving back to 0, you can click the \textbf{Analyze the data} button to analyze the data. This will pop up some plots and automatically submit a logentry.
 \end{itemize}
 
+The wire scan analyzer output is shown in Figure \ref{scanneroutput}. The analyzer looks at two halo counters (HPS\_T and HPS\_SC), finds the peaks from the two wires, and does an initial fit to constant background plus Gaussian (solid fit curves), and a second fit to the center of the peak (dotted fit curves). Normally all four sets of fit results (numbers on the right) should be similar. The beam X and Y positions are given in the SVT coordinate system, where (0,0) is the nominal beam position.
+
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=10cm]{svt_wirescan_gui}
-\caption{SVT Wire Scanner GUI}
-\label{scannergui}
+\includegraphics[width=\textwidth]{svt_wirescan_output}
+\caption{SVT wire scan output}
+\label{scanneroutput}
 \end{figure}
-
-\appendix
+%\appendix
 
 \end{document}
