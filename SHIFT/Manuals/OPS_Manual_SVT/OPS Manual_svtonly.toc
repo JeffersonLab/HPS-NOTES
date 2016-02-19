@@ -31,7 +31,7 @@
 \contentsline {section}{\numberline {3.2}Response to Alarms}{30}
 \contentsline {section}{\numberline {3.3}Voltages}{31}
 \contentsline {subsection}{\numberline {3.3.1}Turning the SVT power and bias ON}{31}
-\contentsline {subsection}{\numberline {3.3.2}Turning the SVT power and bias OFF}{32}
+\contentsline {subsection}{\numberline {3.3.2}Turning the SVT power and bias OFF}{33}
 \contentsline {section}{\numberline {3.4}Cooling and Interlocks}{33}
 \contentsline {subsection}{\numberline {3.4.1}Start FEB chiller}{33}
 \contentsline {subsection}{\numberline {3.4.2}Start SVT chiller}{34}
