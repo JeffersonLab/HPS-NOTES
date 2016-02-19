@@ -332,6 +332,19 @@ Beam trips are frequent and in the most normal case the SVT high voltage bias wi
     \item GOTO Step \#9 in Section \ref{sec:startstop}.
 \end{enumerate}
 
+\subsubsection{What to do if you get an Error During Prestart}
+
+\begin{enumerate}
+	\item Try to identify which of the ROCs (in the Runcotrol GUI message window or in the individual ROC windows) has a problem.
+	\item Check specifically in the ROC windows for the 'dtm0' and 'dtm1'. If they are the only ROCs that got killed and they show an error saying that they cannot get "Run state" then
+	\begin{enumerate}
+	    	\item In the ROC xterm window: restart the roc process, typically hit up arrow on keyboard and press enter.
+		 \item In run control GUI: {\em Cancel} and then {\em Download} and continue from there.
+		 \item If it happens more than 3 times in a row, report the status of the roc window in dpm7 and contact SVT expert
+	 \end{enumerate}
+	 \item GOTO Step \#9 in Section \ref{sec:startstop}.
+\end{enumerate}
+
 
 \subsubsection{Full DAQ Reboot}
 \label{fixdaqbig}
@@ -426,7 +439,8 @@ A new x terminal should popup. If it asks for a password it's the same as for us
 
 \item
 The terminal will print out status of the reboot and will not close after finishing. You have to manually close it. \newline
-This may take up to 2 minutes.
+This may take up to 2 minutes.\newline
+\textcolor{red}{While rebooting the SVT crate the ssh process can hang while halting DAQ nodes. If this happens it will get stuck one one or a few nodes in the beginning of the process. If it happens, wait 15 seconds before hitting {\em Cntrl-c} and the process should continue to the next. }
 
 \item 
 After a successful finish, go to the the \texttt{SVT summary GUI}, and look for any errors following the check list starting from item~\ref{item:svt-checklist} in ~Sec~\ref{sec:startstop}.
