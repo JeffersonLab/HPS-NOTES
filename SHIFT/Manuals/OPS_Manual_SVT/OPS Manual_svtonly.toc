@@ -26,22 +26,22 @@
 \contentsline {subsection}{\numberline {3.1.3}Setting up for running with beam}{31}
 \contentsline {subsection}{\numberline {3.1.4}Moving the SVT to 0.5 mm for Physics Running - \textbf {EXPERT ONLY}}{31}
 \contentsline {subsection}{\numberline {3.1.5}Running the SVT}{32}
-\contentsline {subsection}{\numberline {3.1.6}Response to beam trip (general)}{32}
+\contentsline {subsection}{\numberline {3.1.6}Response to beam trip}{32}
 \contentsline {subsubsection}{Response to beam trip (FSD trip)}{33}
 \contentsline {section}{\numberline {3.2}Response to Alarms}{34}
 \contentsline {section}{\numberline {3.3}Voltages}{34}
 \contentsline {subsection}{\numberline {3.3.1}Turning the SVT power and bias ON}{34}
 \contentsline {subsection}{\numberline {3.3.2}Turning the SVT power and bias OFF}{36}
-\contentsline {section}{\numberline {3.4}Cooling and Interlocks}{37}
-\contentsline {subsection}{\numberline {3.4.1}Start FEB chiller}{37}
+\contentsline {section}{\numberline {3.4}Cooling and Interlocks}{36}
+\contentsline {subsection}{\numberline {3.4.1}Start FEB chiller}{36}
 \contentsline {subsection}{\numberline {3.4.2}Start SVT chiller}{37}
-\contentsline {subsection}{\numberline {3.4.3}Stop FEB chiller}{38}
+\contentsline {subsection}{\numberline {3.4.3}Stop FEB chiller}{37}
 \contentsline {subsection}{\numberline {3.4.4}Stop SVT chiller}{38}
 \contentsline {subsection}{\numberline {3.4.5}Draining SVT chiller (experts only)}{38}
 \contentsline {subsection}{\numberline {3.4.6}Filling SVT chiller from empty (experts only)}{38}
-\contentsline {subsection}{\numberline {3.4.7}Changing SVT chiller temperature}{39}
+\contentsline {subsection}{\numberline {3.4.7}Changing SVT chiller temperature}{38}
 \contentsline {subsection}{\numberline {3.4.8}Adding fluid to SVT chiller}{39}
-\contentsline {subsection}{\numberline {3.4.9}Response to unexpected chiller trip}{41}
+\contentsline {subsection}{\numberline {3.4.9}Response to unexpected chiller trip}{39}
 \contentsline {section}{\numberline {3.5}Motion}{41}
 \contentsline {subsection}{\numberline {3.5.1}SVT Mover Operations}{41}
 \contentsline {subsection}{\numberline {3.5.2}SVT Wire Scanner Operations}{41}
