@@ -35,7 +35,7 @@
 \contentsline {section}{\numberline {3.4}Cooling and Interlocks}{36}
 \contentsline {subsection}{\numberline {3.4.1}Start FEB chiller}{36}
 \contentsline {subsection}{\numberline {3.4.2}Start SVT chiller}{37}
-\contentsline {subsection}{\numberline {3.4.3}Stop FEB chiller}{37}
+\contentsline {subsection}{\numberline {3.4.3}Stop FEB chiller}{38}
 \contentsline {subsection}{\numberline {3.4.4}Stop SVT chiller}{38}
 \contentsline {subsection}{\numberline {3.4.5}Draining SVT chiller (experts only)}{38}
 \contentsline {subsection}{\numberline {3.4.6}Filling SVT chiller from empty (experts only)}{38}

@@ -554,9 +554,9 @@ When running the SVT at 0.5 mm:
 If the beam is lost, the SVT software interlock \textbf{may} lower the HV and open the SVT.  In general, for beam trips:
 \begin{enumerate}
 \item Check the SVT shift instructions to see if any special actions are required.
-\item \textit{If the HV interlock was enabled:} \textbf{default is enabled} Look at the SVT Summary GUI and verify that \textbf{BIAS ALL V\_SET} column reads as expected \textbf{(default is 5V)} and the status indicator is red.
+\item \textit{If the HV interlock was enabled:} \textbf{(default is enabled)} Look at the SVT Summary GUI and verify that \textbf{BIAS ALL V\_SET} column reads as expected \textbf{(default is 5V)} and the status indicator is red.
 \item \textit{If the motion interlock was enabled} \textbf{(default is disabled)}: Look at the Scaler GUI, and verify that the \textbf{Position} of the top and bottom read 0.0000.
-\item If SVT is at 0.5 mm, check the FSD GUI to see if our halo counters were responsible. If so, follow the FSD trip procedure (below) instead of continuing with this one.
+\item \textbf{If SVT is at 0.5 mm, check the FSD GUI to see if our halo counters were responsible. If so, follow the FSD trip procedure (below) instead of continuing with this one.}
 \item When beam is restored, check that the BPM x and y values at 2H02 are as desired and that beam current is stable at our desired value.
 \item Reset the beam interlock by pressing the \texttt{BEAM INTERLOCK} \textbf{RESET} button.
 \item Press the \texttt{BIAS ALL V\_SET} \textbf{180V} button to turn on the SVT Sensor HV and wait for the \texttt{ALL SVT BIAS} status indicator to turn green.
@@ -627,7 +627,7 @@ To power ON all of the SVT follow this procedure using the SVT summary GUI, show
 \end{figure}
 %=======================
 \begin{enumerate}
-\item Make sure that the SVT and FEB chillers are \textbf{ON} and \textbf{OK}, and the PLC interlock is enabled and OK. See Sec.~\ref{sec:proc_cooling} for operation of the cooling system.  Check that the SVT and FEB supply and return temperatures under \texttt{Temperature Status} are as expected.
+\item Make sure that the SVT and FEB chillers are \textbf{ON} and \textbf{OK}, and the PLC interlock is \textbf{enabled} and \textbf{OK}. See Sec.~\ref{sec:proc_cooling} for operation of the cooling system.  Check that the SVT and FEB supply and return temperatures under \texttt{Temperature Status} are as expected.
 \item Turn on SVT Flange Power by pressing the \texttt{ALL SVT FLANGE} \textbf{ON} button and wait for the status indicator to turn green.
 \item Turn on the SVT FEB Power by pressing the \texttt{FEB ALL} \textbf{ON} buttong and wait for the status indicators to turn green and the FEB heartbeat to begin.
 \item Turn on the SVT Hybrids Power by pressing the \texttt{ALL HYBRIDS} \textbf{ON} button and wait for the status indicators to turn green.
