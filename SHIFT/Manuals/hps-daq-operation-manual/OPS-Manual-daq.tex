@@ -15,7 +15,7 @@
 
 % See the ``Article customise'' template for come common customisations
 
-\title{HPS DAQ Operations Manual v2.3.4}
+\title{HPS DAQ Operations Manual v2.3.7}
 \author{Per Hansson Adrian, Omar Moreno, Sergey Boiarinov\thanks{Contact person for document.}, Nathan Baltzell, Sho Uemura }
 %\date{} % delete this line to display the current date
 
@@ -207,6 +207,9 @@ Press \texttt{Prestart}
 \begin{enumerate}
 
 \item
+    Fill out the popup GUI for the run log.  See Figure~\ref{fig:runlog}.
+
+\item
 Wait for the message ofl \texttt{Prestart succeeded}  in RunControl GUI\newline
 This can take up to 30 seconds.
 
@@ -238,6 +241,12 @@ In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS} and check 
 
 \end{enumerate}
 
+
+\begin{figure}[htbp]\centering
+    \includegraphics[width=8cm]{runlog}
+    \includegraphics[height=5.4cm,width=8cm]{runlog2}
+    \caption{The gui used for input to the run log database.  This pops up during Prestart (and again during End), and pressing ``Done'' is a requirement before moving forward.  Filling it out appropriately is very useful, but note that it is only entries in a database and does not directly affect what happens to the data.  Appropriate ``Run' Type'' could be production, calibration, etc.  And do complete the ``Comment'' section with anything you might deem relevant.\label{fig:runlog}}
+\end{figure}
 
 
 \item
@@ -285,6 +294,9 @@ Fill out a row in the run spreadsheet. Check the whiteboard and run plan wiki fo
 Press \texttt{End Run} in the \texttt{RunControl}  GUI to stop data taking.
 
 \begin{enumerate}
+
+\item
+    Confirm the run log gui by pressing ``Done'' (see Figure~\ref{fig:runlog}).  Here you have an opportunity to update and overwrite the info given during ``Prestart''.  
 
 \item
 Wait for \texttt{End run succeeded} message in RunControl window. \newline
