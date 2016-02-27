@@ -173,7 +173,7 @@ Press \texttt{Download}.
 Press \texttt{Prestart}.
 
 \begin{enumerate}
-\item A run database dialog box will appear. Fill in the information it asks for, and click OK.
+\item Fill out the popup GUI for the run log.  See Figure~\ref{fig:runlog}.
 \item Wait for the message of \texttt{Prestart succeeded} in Run Control GUI. This can take up to 1 minute.
 \item The \texttt{Go} button should appear.
 
@@ -192,6 +192,12 @@ Press \texttt{Prestart}.
 
 \end{enumerate}
 
+
+\begin{figure}[htbp]\centering
+    \includegraphics[width=8cm]{runlog}
+    \includegraphics[height=5.4cm,width=8cm]{runlog2}
+    \caption{The gui used for input to the run log database.  This pops up during Prestart (and again during End), and pressing ``Done'' is a requirement before moving forward.  Filling it out appropriately is very useful, but note that it is only entries in a database and does not directly affect what happens to the data.  Appropriate ``Run' Type'' could be production, calibration, etc.  And do complete the ``Comment'' section with anything you might deem relevant.\label{fig:runlog}}
+\end{figure}
 
 
 \item
@@ -227,9 +233,9 @@ Press \texttt{End Run} in the \texttt{RunControl}  GUI to stop data taking.
 
 \begin{enumerate}
 \item Wait for \texttt{End run succeeded} message in RunControl window. This can take about 15 seconds.
-\item A run database dialog box will appear, prefilled with the info you entered at Prestart. Select whether the run was good, change anything else you want to change, and click OK.
+\item Confirm the run log gui by pressing ``Done'' (see Figure~\ref{fig:runlog}).  Here you have an opportunity to update and overwrite the info given during ``Prestart''.  
 \item The \texttt{Prestart} button should appear.
-\item In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS} and check that both \texttt{DPM RUNSTATE}  and \texttt{DPM RUNSTATE}  are saying \texttt{Stopped}.
+\item In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS} and check that both \texttt{DPM RUNSTATE}  and \texttt{DTM RUNSTATE}  are saying \texttt{Stopped}.
 \end{enumerate}
 \end{enumerate}
 
