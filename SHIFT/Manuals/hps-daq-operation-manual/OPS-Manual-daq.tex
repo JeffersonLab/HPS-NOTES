@@ -15,7 +15,7 @@
 
 % See the ``Article customise'' template for come common customisations
 
-\title{HPS DAQ Operations Manual v2.3.4}
+\title{HPS DAQ Operations Manual v2.4}
 \author{Per Hansson Adrian, Omar Moreno, Sergey Boiarinov\thanks{Contact person for document.}, Nathan Baltzell, Sho Uemura }
 %\date{} % delete this line to display the current date
 
@@ -118,51 +118,29 @@ High voltage bias is ON and at  180V (unless SVT expert  or run coordinator has 
 \newline {\bf \textcolor{red}{Important: Check that beam conditions for turning on bias voltage is OK before switching on!}}
 
 
-\item 
-FEB Status
-
+\item FEB Status
 \begin{enumerate}
-
-\item
-Under section \texttt{"ALL FEB CONTROL"} check that the status of \texttt{FEB ALL} is GREEN.
-
-\item
-Under section \texttt{"ALL FEB CONTROL"} check that the status of \texttt{FEB Hearbeat} is GREEN.
-
+\item Under section \texttt{"ALL FEB CONTROL"} check that the status of \texttt{FEB ALL} is GREEN.
+\item Under section \texttt{"ALL FEB CONTROL"} check that the status of \texttt{FEB Hearbeat} is GREEN.
 \end{enumerate}
 
-\item 
-IOC status
-
+\item IOC status
 \begin{enumerate}
-
-\item
-Under section \texttt{"IOC Status"} check that the status of \texttt{ALL IOCs} is GREEN.
-
+\item Under section \texttt{"IOC Status"} check that the status of \texttt{ALL IOCs} is GREEN.
 \end{enumerate}
-
 
 \item Hybrid status
-
 \begin{enumerate}
-
-\item
-Under section \texttt{"ALL HYBRID CONTROL"} check that the status of \texttt{ALL HYBRIDS} is GREEN.
-
+\item Under section \texttt{"ALL HYBRID CONTROL"} check that the status of \texttt{ALL HYBRIDS} is GREEN.
 \end{enumerate}
 
 \end{enumerate}
 
+\item \textcolor{red}{ {\bf If continuing with same the same run configuration from a stopped run continue to \ref{item:prestart}.}}
 
+\item In the \texttt{RunControl} GUI: click \texttt{connect}, the GUI should update with new windows. 
 
-\item
- \textcolor{red}{ {\bf If continuing with same the same run configuration from a stopped run continue to \ref{item:prestart}.}}
-
-\item
-In the \texttt{RunControl} GUI: click \texttt{connect}, the GUI should update with new windows. 
-
-\item
-Click on \texttt{Configure} in the transition section, choose configuration \texttt{'HPS35}. Click OK.
+\item Click on \texttt{Configure} in the transition section, choose configuration \texttt{'HPS35}. Click OK.
 \item
 \begin{enumerate}
 \item
@@ -177,63 +155,39 @@ The \texttt{download} button should appear.
 Press \texttt{Download}.
 
 \begin{enumerate}
+\item A popup window should appear to choose the trigger file, which should be defined in the run plan in the short term schedule on the HPS Run Wiki and/or the whiteboard in the counting house.
 
-\item
-A popup window should appear to choose the trigger file, which should be defined in the run plan in the short term schedule on the HPS Run Wiki and/or the whiteboard in the counting house.
-
-\item
-Wait until the \texttt{Prestart} button appears and  \texttt{RunControl} GUI reports that Download was completed.\newline 
-This might take up to 30s to complete.
+\item Wait until the \texttt{Prestart} button appears and Run Control GUI reports that Download was completed. This might take up to 1 minute to complete.
 
 \end{enumerate}
 
-\item
-Check SVT status
+\item Check SVT status
 
 \begin{enumerate}
-
-\item
-In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS} and check that both \texttt{DPM RUNSTATE}  \texttt{DPM RUNSTATE}  are saying \texttt{Download}.
-
-\item
-In the \texttt{SVT summary GUI} under section \texttt{ALL HYBRID CONTROL}, check that \texttt{ALL HYBRIDS} status is \texttt{GREEN}.
-
+\item In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS} and check that both \texttt{DPM(0) RUNSTATE} and \texttt{DTM(0) RUNSTATE}  are saying \texttt{Download}.
+\item In the \texttt{SVT summary GUI} under section \texttt{ALL HYBRID CONTROL}, check that \texttt{ALL HYBRIDS} status is \texttt{GREEN}.
 \end{enumerate}
 
 \item
 \label{item:prestart}
-Press \texttt{Prestart} 
+Press \texttt{Prestart}.
 
 \begin{enumerate}
+\item A run database dialog box will appear. Fill in the information it asks for, and click OK.
+\item Wait for the message of \texttt{Prestart succeeded} in Run Control GUI. This can take up to 1 minute.
+\item The \texttt{Go} button should appear.
 
-\item
-Wait for the message ofl \texttt{Prestart succeeded}  in RunControl GUI\newline
-This can take up to 30 seconds.
-
- \item
- The \texttt{Go} button should appear.
-
-\item 
-Check ECAL status
+\item Check ECAL status
 \begin{enumerate}
 %Push the ``Manual Update'' button in the DIAG GUI a few times. The ``Cluster Latency'' plot should show a single spike. If it shows two spikes, issue the following command on clondaq5:\newline
 %\texttt{> tcpClient hps11 'tiSyncReset()'}\newline
 \item Check that FADC scaler rates are reasonable by comparison with a previous run with a similar trigger.  Sharp, odd patterns are a sign of misconfiguration.
 \end{enumerate}
 
-
-\item
-Check SVT status
-
+\item Check SVT status
 \begin{enumerate}
-
-\item
-In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS} and check that both \texttt{DPM RUNSTATE}  \texttt{DPM RUNSTATE}  are saying \texttt{Prestart}.
-
-\item
-In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS} and check that both \texttt{Hybrid Sync} status is \texttt{GREEN}.
-
-
+\item In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS}, check that both \texttt{DPM(0) RUNSTATE} and \texttt{DTM(0) RUNSTATE}  are saying \texttt{Prestart}.
+\item In the \texttt{SVT summary GUI} under section \texttt{HYBRID SYNC}, check that status is \texttt{GREEN}.
 \end{enumerate}
 
 \end{enumerate}
@@ -246,32 +200,19 @@ Press \texttt{Go} to start the run.
 
 \begin{enumerate}
 
-\item
-Wait for \texttt{transition Go succeeded}' message in the RunControl GUI.\newline
-This can take about 10 seconds.
+\item Wait for \texttt{transition Go succeeded}' message in the Run Control GUI. This can take about 10 seconds.
+\item The \textbf{End Run} button should appear.
 
-\item
-The \texttt{End run} button should appear.
+\item Check that the run status is \texttt{running} and that triggers are issued at the expected rate.
 
-\item
-Check that the run status is \texttt{running} and that triggers are issued at the expected rate.
+\item In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS}, check that both \texttt{DPM(0) RUNSTATE}  and \texttt{DTM(0) RUNSTATE}  are saying \texttt{Go}, and both \texttt{DPM(0) TRIGGERCOUNT} and   \texttt{DTM(0) TRIG1COUNT}  are incrementing.
 
 
-\item
-In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS} and check that both \texttt{DPM RUNSTATE}  and \texttt{DPM RUNSTATE}  are saying \texttt{Go}.
+\item Reset the ECal and SVT monitoring plots (disconnect+connect). 
 
-\item
-In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS} and check that both \texttt{DPM TRIGGERCOUNT} and   \texttt{DTM TRIG1COUNT}  are incrementing.
+\item Check SVT occupancy and max sample plots.
 
-
-\item
-Reset the ECal and SVT monitoring plots (connect). 
-
-\item
-Check SVT occupancy and max sample plots.
-
-\item
-Fill out a row in the run spreadsheet. Check the whiteboard and run plan wiki for any other logging requirements.
+\item Fill out a row in the run spreadsheet. Check the whiteboard and run plan wiki for any other logging requirements.
 
 \end{enumerate}
 \end{enumerate}
@@ -285,78 +226,97 @@ Fill out a row in the run spreadsheet. Check the whiteboard and run plan wiki fo
 Press \texttt{End Run} in the \texttt{RunControl}  GUI to stop data taking.
 
 \begin{enumerate}
-
-\item
-Wait for \texttt{End run succeeded} message in RunControl window. \newline
-This can take about 15 seconds.
-
-\item
-The \texttt{Prestart} button should appear.
-
-\item
-In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS} and check that both \texttt{DPM RUNSTATE}  and \texttt{DPM RUNSTATE}  are saying \texttt{Stopped}.
-
-
+\item Wait for \texttt{End run succeeded} message in RunControl window. This can take about 15 seconds.
+\item A run database dialog box will appear, prefilled with the info you entered at Prestart. Select whether the run was good, change anything else you want to change, and click OK.
+\item The \texttt{Prestart} button should appear.
+\item In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS} and check that both \texttt{DPM RUNSTATE}  and \texttt{DPM RUNSTATE}  are saying \texttt{Stopped}.
 \end{enumerate}
 \end{enumerate}
 
-
-\subsection{Beam trips: actions and recovery for DAQ}
-
-\begin{verbatim} THIS NEEDS TO BE UPDATED \end{verbatim}
-
-Beam trips are frequent and in the most normal case the SVT high voltage bias will trip and will need to be restored before continuing.  If a beam trip happens:
-\begin{enumerate}
-
-\item When beam is back and we are ready (check BPM strip charts/scaler GUI to see that 2H02 position is back to normal) go to the SVT Bias GUI. Push the ``RESET'' button to reset the beam interlock, and push the ``180V'' button to ramp bias up to 180 V.
-
-\item Reset the SVT monitoring plots (disconnect and connect). Check the occupancy and max sample plots.
-
-\end{enumerate}
+%
+%\subsection{Beam trips: actions and recovery for DAQ}
+%
+%\begin{verbatim} THIS NEEDS TO BE UPDATED \end{verbatim}
+%
+%Beam trips are frequent and in the most normal case the SVT high voltage bias will trip and will need to be restored before continuing.  If a beam trip happens:
+%\begin{enumerate}
+%
+%\item When beam is back and we are ready (check BPM strip charts/scaler GUI to see that 2H02 position is back to normal) go to the SVT Bias GUI. Push the ``RESET'' button to reset the beam interlock, and push the ``180V'' button to ramp bias up to 180 V.
+%
+%\item Reset the SVT monitoring plots (disconnect and connect). Check the occupancy and max sample plots.
+%
+%\end{enumerate}
 
 
 \newpage
 \subsection{FIX DAQ}
 
-
-\subsubsection{What to do if you get an Error During Download}
-
+Follow this procedure if:
+\begin{itemize}
+\item Any CODA transition (\textbf{Download}, \textbf{Prestart}, \textbf{Go}, \textbf{End Run}) failed (Run Control GUI says it failed) or timed out (no new message in Run Control GUI for over a minute)
+\item A run was started (\textbf{Go} succeeded) but the trigger rate is 1 Hz or less (either from the beginning, or after the run has been going for some time)
+\item Any of the ROC xterms in the Run Control GUI has died (the xterm is showing a command prompt)
+\end{itemize}
 \begin{enumerate}
-    \item In run control GUI: {\em Cancel} and then {\em Download}
-    \item If still fails:
-    \begin{enumerate}
-    	\item Try to identify which of the ROCs (in the Runcotrol GUI message window or in the individual ROC windows) has a problem. 
-        \item If only ONE of the TI, GTP or FADC indicates a problem, it may be possible to just restart it's process in Appendix~\ref{sec:codacommands}.  If more than one, just GOTO Section \ref{fixdaqbig}.
-	\item If TI, GTP or FADC are OK but any of the 'dpm' or 'dtm' has problem, this might mean only the SVT DAQ is in a bad state: GOTO Sec.~\ref{fixsvtdaq}
-    \end{enumerate}
-    \item GOTO Step \#9 in Section \ref{sec:startstop}.
+	\item Click through the three ROC tabs in the Run Control GUI to check on all of the ROC xterms. If any are showing command prompts at the bottom (for the xterms on the bottom row, you may have to hit Enter a few times in the xterm to make it scroll up), restart the command that was running in the xterm (Up, then Enter).
+	\item Log what CODA transition you had most recently done, and which (if any) xterms were dead. If you had just started a run, log how many events were in the run. 
+    \item In Run Control, click \textbf{Cancel} (click twice just to be sure), \textbf{Reset} (you will get a confirmation dialog). Then start the run as normal starting with \textbf{Download} (procedure in Section \ref{sec:startstop}, starting at step 8).
+    \item If the run fails for a second time, start this procedure from the beginning (including a log of the new failure). This time start the run starting with \textbf{Configure} (procedure in Section \ref{sec:startstop}, starting at step 6).
+    \item If the run fails for a second time, log the new failure, then reboot the DAQ (the TI and ECal DAQ, then the SVT DAQ) by following the procedure in \ref{fixdaqbig}. Then start the run as normal starting with \textbf{Connect} (procedure in Section \ref{sec:startstop}, starting at step 5).
+    \item If the run fails for a third time, reboot the DAQ again.
+    \item If the run fails for a fourth time, call the SVT DAQ expert (unless there are special instructions this is Pelle, whose phone number should be on the whiteboard in the counting house).
+%    \item If still fails:
+%    \begin{enumerate}
+%    	\item Try to identify which of the ROCs (in the Runcotrol GUI message window or in the individual ROC windows) has a problem. 
+%        \item If only ONE of the TI, GTP or FADC indicates a problem, it may be possible to just restart it's process in Appendix~\ref{sec:codacommands}.  If more than one, just GOTO Section \ref{fixdaqbig}.
+%	\item If TI, GTP or FADC are OK but any of the 'dpm' or 'dtm' has problem, this might mean only the SVT DAQ is in a bad state: GOTO Sec.~\ref{fixsvtdaq}
+%    \end{enumerate}
+%    \item GOTO Step \#9 in Section \ref{sec:startstop}.
 \end{enumerate}
 
-\subsubsection{What to do if you get an Error During Prestart}
 
-\begin{enumerate}
-	\item Try to identify which of the ROCs (in the Runcotrol GUI message window or in the individual ROC windows) has a problem.
-	\item Check specifically in the ROC windows for the 'dtm0' and 'dtm1'. If they are the only ROCs that got killed and they show an error saying that they cannot get "Run state" then
-	\begin{enumerate}
-	    	\item In the ROC xterm window: restart the roc process, typically hit up arrow on keyboard and press enter.
-		 \item In run control GUI: {\em Cancel} and then {\em Download} and continue from there.
-		 \item If it happens more than 3 times in a row, report the status of the roc window in dpm7 and contact SVT expert
-	 \end{enumerate}
-	 \item GOTO Step \#9 in Section \ref{sec:startstop}.
-\end{enumerate}
+
+%\subsubsection{What to do if you get an Error During Download}
+%
+%\begin{enumerate}
+%    \item In run control GUI: {\em Cancel}, {\em Reset} and then {\em Download}
+%    \item If still fails:
+%    \begin{enumerate}
+%    	\item Try to identify which of the ROCs (in the Runcotrol GUI message window or in the individual ROC windows) has a problem. 
+%        \item If only ONE of the TI, GTP or FADC indicates a problem, it may be possible to just restart it's process in Appendix~\ref{sec:codacommands}.  If more than one, just GOTO Section \ref{fixdaqbig}.
+%	\item If TI, GTP or FADC are OK but any of the 'dpm' or 'dtm' has problem, this might mean only the SVT DAQ is in a bad state: GOTO Sec.~\ref{fixsvtdaq}
+%    \end{enumerate}
+%    \item GOTO Step \#9 in Section \ref{sec:startstop}.
+%\end{enumerate}
+%
+%\subsubsection{What to do if you get an Error During Prestart}
+%
+%\begin{enumerate}
+%	\item Try to identify which of the ROCs (in the Runcotrol GUI message window or in the individual ROC windows) has a problem.
+%	\item Check specifically in the ROC windows for the 'dtm0' and 'dtm1'. If they are the only ROCs that got killed and they show an error saying that they cannot get "Run state" then
+%	\begin{enumerate}
+%	    	\item In the ROC xterm window: restart the roc process, typically hit up arrow on keyboard and press enter.
+%		 \item In run control GUI: {\em Cancel} and then {\em Download} and continue from there.
+%		 \item If it happens more than 3 times in a row, report the status of the roc window in dpm7 and contact SVT expert
+%	 \end{enumerate}
+%	 \item GOTO Step \#9 in Section \ref{sec:startstop}.
+%\end{enumerate}
 
 
 \subsubsection{Full DAQ Reboot}
 \label{fixdaqbig}
 
 \begin{enumerate}
-\item Reboot the master TI and ECal DAQ by executing this command in a terminal:
-\newline
+\item Exit Run Control using the procedure in Section \ref{sec:daqexit}.
+\item Reboot the master TI and ECal DAQ by executing this command in a terminal:\newline
 \centerline{\texttt{hpsRocRebootAll.sh}}
 This will reboot hps11, hps12, hps1, and hps2, and then wait for a ping response from hps2, meanwhile giving some progress messages.  When finished it will display ``DAQ FIXED'' in the terminal.
 
+\item You will need to restart the trigger scaler IOC (\texttt{iocjscalers}) --- this can be done while the SVT DAQ reboot (the next step) is in progress. To do this, click the \texttt{REBOOT} button in the lower right corner of the trigger scaler GUI, and follow the instructions that appear.
+
 \item Reboot the SVT DAQ: GOTO Sec.~\ref{fixsvtdaq}
 
+\item After reboot is done, start Run Control using the procedure in Section \ref{sec:daqstart}.
 \end{enumerate}
 
 %    \item These two commands can be done in parallel (simultaneously) in two different terminals and will gradually kill all the terminals in Figure~\ref{fig:coda}.  Do not wait for them to finish before proceeding to the next step.
@@ -380,50 +340,18 @@ This will reboot hps11, hps12, hps1, and hps2, and then wait for a ping response
 %\end{enumerate}
 
 
-\subsubsection{Debugging deadtime}
-
-
-\begin{verbatim} THIS NEEDS TO BE UPDATED \end{verbatim}
-
-
-
-If you start a run and see an event rate of under 1 Hz and a livetime of 0\%:
-\begin{enumerate}
-\item On any clon,\newline
-\texttt{> tcpClient hps11 tiStatus}\newline
-\item Look for ``BUSY input source'':
-
-\begin{tabular}{ l|l }
-  HFBR \# & ROC and system \\
-  1 & hps1 (ECal) \\
-  2 & hps2 (ECal) \\
-  3 & hps12 (ECal) \\
-  4 & SVT DAQ \\
-  5 & SVT DAQ \\
-\end{tabular}
-\item Do a full DAQ teardown, rebooting the problem ROC (if SVT DAQ, do a FIX SVT DAQ including \texttt{rem\_restart.sh})
-\end{enumerate}
-
-
-
-
-
-
-
-
-
 \subsubsection{FIX SVT DAQ}
 \label{fixsvtdaq}
 
-\textcolor{red}{
-Before following the below procedure, please record in a log entry the answer to these questions to help us debug and improve the DAQ:
-\begin{itemize}
-\item What is the status of CODA: Did any of the ECAL ROCs crash? Did the EB, ET or ER crash? 
-\item When did it fail: In state transition  'Download',  'Prestart'  or 'Go' or during a run?
-\item What is the status of the ROCs (There are 14 DPMs and 2 DTMs): did they crash or report any error message?
-\item Open the \texttt{/SVT/DAQ IOC Status} GUI and write down the status: which ones are red/green?
-\end{itemize}
-}
+%\textcolor{red}{
+%Before following the below procedure, please record in a log entry the answer to these questions to help us debug and improve the DAQ:
+%\begin{itemize}
+%\item What is the status of CODA: Did any of the ECAL ROCs crash? Did the EB, ET or ER crash? 
+%\item When did it fail: In state transition  'Download',  'Prestart'  or 'Go' or during a run?
+%\item What is the status of the ROCs (There are 14 DPMs and 2 DTMs): did they crash or report any error message?
+%\item Open the \texttt{/SVT/DAQ IOC Status} GUI and write down the status: which ones are red/green?
+%\end{itemize}
+%}
 
 
 
@@ -446,7 +374,7 @@ This may take up to 2 minutes.\newline
 After a successful finish, go to the the \texttt{SVT summary GUI}, and look for any errors following the check list starting from item~\ref{item:svt-checklist} in ~Sec~\ref{sec:startstop}.
 
 \item
-In case of failure, copy the output of the x terminal into a logbook post and call the expert.
+In case of failure, copy the output of the x terminal into a logbook post and call the SVT DAQ expert.
 
 
 %\begin{enumerate}
@@ -537,13 +465,34 @@ In \texttt{/SVT/DPM Status} GUI": check that all data DPMs are in the appropriat
 \newpage
 
 \appendix
-\section{Chaning Prescale Factors on the Fly}
-This script will change the prescale factors immediately (during a run) and update the EPICS prescales
-such that the trigger GUI always uses the active prescales:\newline
+\section{Changing Prescale Factors on the Fly}
+This script will change the prescale factors immediately (during a run) and update the EPICS prescales such that the trigger GUI always uses the active prescales:\newline
 \centerline{\texttt{hpsTiPrescale.sh TRIGGER PRESCALE}}
 
+\section{Debugging deadtime}
+%
+%
+%\begin{verbatim} THIS NEEDS TO BE UPDATED \end{verbatim}
+%
+%
 
-\appendix
+If you start a run and see an event rate of under 1 Hz and a livetime of 0\%:
+\begin{enumerate}
+\item On any clon,\newline
+\texttt{> tcpClient hps11 tiStatus}\newline
+\item Look for ``BUSY input source'' and see if any of the HFBR\#1-5 are labeled \texttt{BUSY}.
+
+%\begin{tabular}{ l|l }
+%  HFBR \# & ROC and system \\
+%  1 & hps1 (ECal) \\
+%  2 & hps2 (ECal) \\
+%  3 & hps12 (ECal) \\
+%  4 & SVT DAQ \\
+%  5 & SVT DAQ \\
+%\end{tabular}
+%\item Do a full DAQ teardown, rebooting the problem ROC (if SVT DAQ, do a FIX SVT DAQ including \texttt{rem\_restart.sh})
+\end{enumerate}
+
 \section{Rebooting an Individual ROC}\label{sec:rebootaroc}
 Execute this command (where \texttt{ROC} is one of \texttt{hps11, hps12, hps1, hps2}):\newline
 \centerline{\texttt{roc\_reboot ROC}}
