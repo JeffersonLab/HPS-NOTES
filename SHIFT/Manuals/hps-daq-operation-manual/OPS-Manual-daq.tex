@@ -15,7 +15,7 @@
 
 % See the ``Article customise'' template for come common customisations
 
-\title{HPS DAQ Operations Manual v2.4}
+\title{HPS DAQ Operations Manual v2.4.1}
 \author{Per Hansson Adrian, Omar Moreno, Sergey Boiarinov\thanks{Contact person for document.}, Nathan Baltzell, Sho Uemura }
 %\date{} % delete this line to display the current date
 
@@ -39,7 +39,8 @@ For the ECal, every VXS crate contains a Readout Controller (ROC) that collects 
 
 \begin{enumerate}
 \item 
-Log into \texttt{clondaq3} as \texttt{clasrun}.
+    Log into \texttt{clondaq3} as \texttt{clasrun}.
+    \subitem It is critical to get the hostname and username correct!
 \item 
 To start all DAQ processes, open a terminal and run:\newline
 \texttt{> runcontrol -rocs}\newline
@@ -316,7 +317,7 @@ Follow this procedure if:
 \item Exit Run Control using the procedure in Section \ref{sec:daqexit}.
 \item Reboot the master TI and ECal DAQ by executing this command in a terminal:\newline
 \centerline{\texttt{hpsRocRebootAll.sh}}
-This will reboot hps11, hps12, hps1, and hps2, and then wait for a ping response from hps2, meanwhile giving some progress messages.  When finished it will display ``DAQ FIXED'' in the terminal.
+This will reboot hps11, hps12, hps1, and hps2, and then wait for a ping response from them all, meanwhile giving some progress messages.  When finished and all rebooted rocs are again alive, it will display ``ROCS REBOOTED'' in the terminal.
 
 \item You will need to restart the trigger scaler IOC (\texttt{iocjscalers}) --- this can be done while the SVT DAQ reboot (the next step) is in progress. To do this, click the \texttt{REBOOT} button in the lower right corner of the trigger scaler GUI, and follow the instructions that appear.
 
@@ -474,6 +475,8 @@ In \texttt{/SVT/DPM Status} GUI": check that all data DPMs are in the appropriat
 \section{Changing Prescale Factors on the Fly}
 This script will change the prescale factors immediately (during a run) and update the EPICS prescales such that the trigger GUI always uses the active prescales:\newline
 \centerline{\texttt{hpsTiPrescale.sh TRIGGER PRESCALE}}
+Here the \texttt{TRIGGER} argument is 1-4, where 1 is singles-0, 2 is singles-1, 3 is pairs-0, and 4 is pairs-1.
+And the \texttt{PRESCALE} argument is $N$, a number between 0 and 15 inclusive, where the real prescale factor is $2^N$.
 
 \section{Debugging deadtime}
 %
