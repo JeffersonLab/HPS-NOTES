@@ -13,7 +13,7 @@
 \setlist[enumerate]{itemsep=0mm}
 
 \begin{document}
-\title{HPS Chicane Operations Manual v1.3}
+\title{HPS Chicane Operations Manual v1.4}
 \author{N. Baltzell}
 \affiliation{Jefferson Lab}
 \date{\today}
@@ -105,9 +105,16 @@ The ``Off'' button will initiate the procedure to turn the chicane off.  This wo
     \item display ``OFF'' in the main message box
 \end{enumerate}
 
-\newpage
 \section{Expert Operations}
-The expert gui is a work in progress, written mostly in anticipation of what may be needed in the future. 
+\subsection{Expert Screen}
+This expert screen, shown in Figure~\ref{fig:expert}, is accessible from the top right button in the main chicane screen (Figure~\ref{fig:guiChicaneOff}).  It was created after seeing what primary expert operations were done during the 2016 run:  manually tuning the magnets' current settings.  This can be done in the left column under ``Live''.  What should additionally be done in the future, after calibrating the settings manually, is to input those same settings in the ``Saved'' column such that they are restored the next time the chicane is turned on. 
+\begin{figure}[htbp]\centering
+    \includegraphics[height=5cm]{pics/expertA}
+    \caption{The Expert screen.  Here both power supplies are off and the ``Live'' setpoints are zero.  The ``Saved'' setpoints will take effect automatically the next time the chicane is turned on.\label{fig:expert}}
+\end{figure}
+
+\subsection{Super Expert Screen}
+The ``super expert'' screen (Figure~\ref{fig:superexpert}) was originally written in anticipation of what would be needed before people actually started using this new system.  It is accessible from a button in the top right of the ``Expert'' screen and has so far not been used during the 2016 run expect for setting the initial chicane currents based on MCC beam energy.
 \begin{enumerate}
 \item The topmost section is of most importance, calculating the magnet currents from the MCC beam energy.  This uses the relationship between beam energy and magnet currents given in~\cite{chicaneSettings}.
 \item
@@ -120,8 +127,8 @@ The fourth section just allows to manually input setopints to the power supplies
 The last section is some parameters on the sequencer: time to hold for saturation and tolerance to for the sequencer to think measured currents are acceptable.
 \end{enumerate}
 \begin{figure}[htbp]\centering
-    \includegraphics[height=18cm]{pics/expert}
-    \caption{\label{}}
+    \includegraphics[height=22cm]{pics/expert}
+    \caption{The ``Super Expert'' screen.\label{fig:superexpert}}
 \end{figure}
 
 
