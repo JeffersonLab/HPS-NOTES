@@ -473,6 +473,44 @@ There is a software limit (a minimum layer-1 distance) to prevent unsafe operati
 \section{General Procedures}
 \label{sec:proc_general_beamchecklist}
 
+\subsection{Powering the SVT}
+\label{sec:proc_voltages}
+
+\subsubsection{Turning the SVT power and bias ON}
+\label{sec:proc_voltages_allon}
+The SVT sensor bias (HV) and the low voltage (LV) needed to control and read out the detector are essentially independent.  However, the various components powered by the LV supplies; the Flanges, the FEBs and the Hybrids; depend upon one another, so they be powered on in proper order to operate the detector.  In particular, the Flanges must be powered to communicate with the FEBs and the FEBs must be powered in order to either power or communicate with the Hybrids. To power ON all of the SVT follow this procedure using the SVT summary GUI, shown in Figure~\ref{fig:svt_summary_gui}.
+%=======================
+\begin{figure}[htbp]
+\begin{center}
+    \includegraphics[width=\textwidth]{svt_summary_gui.png}
+\caption{SVT summary GUI.}
+\label{fig:svt_summary_gui}
+\end{center}
+\vspace*{-5mm}
+\end{figure}
+%=======================
+\begin{enumerate}
+\item Make sure that the SVT and FEB chillers are \textbf{ON} and \textbf{OK}, and the PLC interlock is \textbf{enabled} and \textbf{OK}. See Sec.~\ref{sec:proc_cooling} for operation of the cooling system.  Check that the SVT and FEB supply and return temperatures under \texttt{Temperature Status} are as expected.
+\item Turn on SVT Flange Power by pressing the \texttt{ALL SVT FLANGE} \textbf{ON} button and wait for the status indicator to turn green.
+\item Turn on the SVT FEB Power by pressing the \texttt{FEB ALL} \textbf{ON} buttong and wait for the status indicators to turn green and the FEB heartbeat to begin.
+\item Turn on the SVT Hybrids Power by pressing the \texttt{ALL HYBRIDS} \textbf{ON} button and wait for the status indicators to turn green.
+\item Turn on the SVT Sensor HV Power by pressing the \texttt{ALL SVT BIAS} \textbf{ON} button and wait for the status indicator to turn green.
+\item Reset the Beam Interlock by pressing the \texttt{BEAM INTERLOCK} \textbf{RESET} button under \texttt{ALL HV CONTROL}, then the \texttt{180V} button.
+\end{enumerate}
+
+If any status indicator fails to turn green during this procedure or any action results in an alarm, check that the \texttt{IOC Status} is green and call the SVT Expert.  More detailed information on the status of the system can be found in the various expert GUIs that can be opened from the summary GUI.
+
+\subsubsection{Turning the SVT power and bias OFF}
+\label{sec:proc_voltages_alloff}
+To power OFF all of the SVT follow this procedure:
+\begin{enumerate}
+\item Turn off the SVT Sensor HV Power by pressing the \texttt{ALL SVT BIAS} \textbf{OFF} button and wait for the status indicator to turn red.
+\item Turn off SVT Flange Power by pressing the \texttt{ALL SVT FLANGE} \textbf{OFF} button and wait for the status indicator to turn red.
+\item Turn off the SVT FEB Power by pressing the \texttt{FEB ALL} \textbf{OFF} button and wait for the status indicators for both the FEB and Hybrid power to turn red.
+\end{enumerate}
+
+If any status indicator fails to turn green during this procedure or any action results in an alarm, check that the \texttt{IOC Status} is green and call the SVT Expert.  More detailed information on the status of the system can be found in the various expert GUIs that can be opened from the summary GUI.
+
 \subsection{Bringing Beam to the Tagger Dump}
 Very often the SVT will be operating, running tests or calibration, during periods when there is no beam in Hall B. However, because of the potential for damaging sensitive SVT electronics with beam splash while bringing beam to the tagger dump after downtimes, power to the SVT must be turned off before beam is brought into the hall:  
 \begin{itemize}
@@ -612,146 +650,6 @@ Be ready to report what alarm has gone off.
 \end{verbatim}
 
 More information about the alarm handler can be found in the slow control manual. 
-
-\section{Voltages}
-\label{sec:proc_voltages}
-
-\subsection{Turning the SVT power and bias ON}
-\label{sec:proc_voltages_allon}
-To power ON all of the SVT follow this procedure using the SVT summary GUI, shown in Figure~\ref{fig:svt_summary_gui}.
-%=======================
-\begin{figure}[htbp]
-\begin{center}
-    \includegraphics[width=\textwidth]{svt_summary_gui.png}
-\caption{SVT summary GUI.}
-\label{fig:svt_summary_gui}
-\end{center}
-\vspace*{-5mm}
-\end{figure}
-%=======================
-\begin{enumerate}
-\item Make sure that the SVT and FEB chillers are \textbf{ON} and \textbf{OK}, and the PLC interlock is \textbf{enabled} and \textbf{OK}. See Sec.~\ref{sec:proc_cooling} for operation of the cooling system.  Check that the SVT and FEB supply and return temperatures under \texttt{Temperature Status} are as expected.
-\item Turn on SVT Flange Power by pressing the \texttt{ALL SVT FLANGE} \textbf{ON} button and wait for the status indicator to turn green.
-\item Turn on the SVT FEB Power by pressing the \texttt{FEB ALL} \textbf{ON} buttong and wait for the status indicators to turn green and the FEB heartbeat to begin.
-\item Turn on the SVT Hybrids Power by pressing the \texttt{ALL HYBRIDS} \textbf{ON} button and wait for the status indicators to turn green.
-\item Turn on the SVT Sensor HV Power by pressing the \texttt{ALL SVT BIAS} \textbf{ON} button and wait for the status indicator to turn green.
-\item Reset the Beam Interlock by pressing the \texttt{BEAM INTERLOCK} \textbf{RESET} button under \texttt{ALL HV CONTROL}, then the \texttt{180V} button.
-\end{enumerate}
-
-If any status indicator fails to turn green during this procedure or any action results in an alarm, check that the \texttt{IOC Status} is green and call the SVT Expert.  More detailed information on the status of the system can be found in the various expert GUIs that can be opened from the summary GUI.
-
-%\item
-%The flange power should be OFF. Go to the flange power GUI and turn if OFF (see below) .
-%\item
-%Open the the FEB Power GUI (svtFebMain.adl) shown in Fig.~\ref{fig:svtFebMain}. See~\ref{sec:monitoring_power} to restart GUI if not running.
-%\item
-%At the top of the GUI: press the \textbf{On} switch marked \textbf{DIGI}. Wait until the corresponding channel status indicator turns \textbf{GREEN} for all ten FEBs. 
-%\item
-%Repeat for \textbf{ANAP} and \textbf{ANAN}.
-%\end{enumerate}
-%
-%
-%\item Turn on SVT Flange Power
-%\begin{enumerate}
-%\item
-%Open the SVT Flange Power Control GUI, see Fig.~\ref{fig:svtFlange}  (see~\ref{sec:monitoring_power} to restart if not running).
-%\item
-%Press the \textbf{ON} switch for the \textbf{ALL SVT FLANGES} section at the bottom of the GUI. Wait until the status indicator turns {\color{green} \textbf{GREEN}}  for every one of the four flange boards, and check for alarms after currents stabilized. 
-%\end{enumerate}
-%
-%
-%
-%\item Checklist  that FEBs are powered correctly:
-%\begin{enumerate}
-%\item
-%Open the SVT DAQ IOC Status GUI (svtDaqIOCStatus.adl) and check that all IOC report OK status.
-%\item
-%Open the SVT temperature GUI (svtTemp.adl) and check that all 10 FEB show reasonable temperatures and that they are updating about every second.
-%\item
-%Open the DPM Link Status GUI (svtDpmLinkStatus.adl) and look for incrementing counters on any of the columns. \newline 
-%If there is a DPM that has a rate larger than one per minute recycle, try to recycle the flange power (waiting 10s before turning on again). You may need to recycle this up to four times.
-%\end{enumerate}
-%
-%
-%
-%
-%
-%\item Turn on SVT Hybrid Power
-%\begin{enumerate}
-%\item
-%Make sure the FEBs and flange are powered and OK following the above procedure.
-%\item 
-%Find the SVT Hybrid GUI (svtHybrid.adl) in Fig.~\ref{fig:svtHybrid}.
-%Wait until all status indicators turn \textbf{GREEN}, currents are seen updating and no alarms go off.\newline
-%NOTE: at this time this might take up to 1minute during which the SVT DAQ GUIs may be in a bad state. If it takes more than 1 minute call the SVT expert.
-%\item
-%Check hybrids currents and temperatures are within range and no alarms go off.
-%\end{enumerate}
-%
-%
-%
-%
-%
-%\item Turn on SVT High Voltage Bias
-%\begin{enumerate}
-%\item
-%Make sure that beam conditions and SVT position has granted permission to turn on HV. \textbf{ask the shift leader if you are not sure}.
-%\item
-%Find the SVT High Voltage Bias Control GUI (svtBiasMain.adl) shown in Fig.~\ref{fig:svtBias} (see~\ref{sec:monitoring_power} to restart if not running).
-%\item
-%Check that the \textbf{Voltage Setpoint Readback} column reads 180V for every channel. If not, call the SVT expert.
-%\item
-%Press the \textbf{On} switch marked \textbf{SVT BIAS ALL ON/OFF}.
-%\item
-%Wait until all status indicators turn {\color{green} \textbf{GREEN}} and no alarms go off.
-%\end{enumerate}
-
-
-%\end{enumerate}
-
-\subsection{Turning the SVT power and bias OFF}
-\label{sec:proc_voltages_alloff}
-To power OFF all of the SVT follow this procedure:
-\begin{enumerate}
-\item Turn off the SVT Sensor HV Power by pressing the \texttt{ALL SVT BIAS} \textbf{OFF} button and wait for the status indicator to turn red.
-\item Turn off SVT Flange Power by pressing the \texttt{ALL SVT FLANGE} \textbf{OFF} button and wait for the status indicator to turn red.
-\item Turn off the SVT FEB Power by pressing the \texttt{FEB ALL} \textbf{OFF} button and wait for the status indicators for both the FEB and Hybrid power to turn red.
-\end{enumerate}
-
-If any status indicator fails to turn green during this procedure or any action results in an alarm, check that the \texttt{IOC Status} is green and call the SVT Expert.  More detailed information on the status of the system can be found in the various expert GUIs that can be opened from the summary GUI.
-
-%\begin{enumerate}
-%\item 
-%Make sure that the SVT and FEB chillers are \textbf{ON} and \textbf{OK}, and the PLC interlock is enabled and OK. See Sec.~\ref{sec:proc_cooling} for operation of the cooling system.
-%\item
-%Find the SVT FEB Power Control GUI shown in Fig.~\ref{fig:svtFebMain} (see~\ref{sec:monitoring_power} to restart if not running)
-%\item
-%In the \textbf{ALL FEB CONTROL} section at the top, press the three \textbf{Off} switches marked \textbf{DIGI}, \textbf{ANAP} and \textbf{ANAN}.
-%Wait until all status indicators turn \textbf{RED} for every one of the ten FEBs, and no alarms go off.
-%\end{enumerate}
-%
-%\item Turn off SVT Flange Power
-%\begin{enumerate}
-%\item
-%Find the SVT Flange Power Control GUI, see Fig.~\ref{fig:svtFlange}  (see~\ref{sec:monitoring_power} to restart if not running).
-%\item
-%In the \textbf{ALL SVT FLANGES} section at the bottom, press the \textbf{Off} switch.
-%Wait until the status indicator turns \textbf{RED} for every one of the four flange boards, and no alarms go off.
-%\item
-%Check that currents are within range (see Sec.~\ref{sec:svt_power_monitoring_alarm_interlocks} below). If not, follow the procedure outlined in that section.
-%\end{enumerate}
-%
-%\item Turn off SVT High Voltage Bias
-%\begin{enumerate}
-%\item
-%Find the SVT High Voltage Bias Control GUI shown in Fig.~\ref{fig:svtBias} (see~\ref{sec:monitoring_power} to restart if not running).
-%\item
-%Press the \textbf{Off} switch marked \textbf{SVT BIAS ALL ON/OFF}.
-%\item
-%Wait until all status indicators turn \textbf{RED} and the \textbf{Measured Voltage} column reads 0V for evey channel, and no alarms go off.
-%If not, call the SVT expert.
-%\end{enumerate}
-
 
 \input{svt_chiller_procedures.tex}
 

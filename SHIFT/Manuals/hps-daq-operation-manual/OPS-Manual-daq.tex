@@ -72,7 +72,7 @@ Then, to ensure that all underlying processes are gone, log into \texttt{clondaq
 %\texttt{> roc\_xterms\_exit}\newline
 %This does not have to be done from the same terminal used for Section \ref{sec:daqstart}.  Do not proceed with DAQ operations until all the windows in Fig.~\ref{fig:coda} have disappeared.
 
-\subsection{Start and stop a run}
+\subsection{Start a run}
 \label{sec:startstop}
 
 \begin{enumerate}
@@ -93,7 +93,7 @@ ECal FADC scaler display is running.
 \end{enumerate}
 \item
 \label{item:svt-checklist}
-SVT Checklist \newline
+SVT Checklist (See the \textit{SVT Operations Manual} for details on \textit{Powering the SVT.})
 
 {\bf \textcolor{red}{
 For most of the steps below use the SVT summary GUI from Fig.~\ref{fig:svt_summary_gui} which can be started from the SVT sub-menu in the 
@@ -414,44 +414,44 @@ In case of failure, copy the output of the x terminal into a logbook post and ca
 
     
    
-\section{Detailed SVT checklist}
-
-\begin{enumerate}
-\item 
-SVT Flange boards (\texttt{SVT/Flange} GUI) and SVT Front end boards (\texttt{/SVT/FEB Main} GUI) are powered  with no alarms. 
-\newline
-{\bf IF ON:} check that currents are updating: if not, try to reboot the "iochvCaen" IOC.
-\newline
-{\bf IF OFF:} 
-\begin{enumerate}
-\item 
-Restart the FEBs turning on in the order: 1) 'DIGI', 2) 'ANAP' and then 3) 'ANAN'; buttons are at the top of the \texttt{/SVT/FEB Main} GUI.
-\item
-Power all the flange channels from   \texttt{SVT/Flange}  GUI. 
-\item 
-Go to the \texttt{/SVT/Link Status} GUI and check that no FEB link errors are stably incrementing. If they do, try to cycle the flange board power (wait 10-20s between cycles). You may need up to 4 cycles.
-\end{enumerate}
-\item 
-Bias high voltage is ON and at 180V (unless SVT expert has told you something different). 
-\newline If the the HV is OFF and won't come on you might need to go and reset the interlock by going to the \texttt{Devices/SVT Soft Interlocks} GUI and Reseting the MPOD interlock. This happens after a beam trip. 
-\newline {\bf \textcolor{red}{Important: Check that beam conditions for turning on bias voltage is OK before swiching on (see above)!}}
-
-\item
-SVT DAQ is in a state ready to run:
-\begin{enumerate}
-\item
-Check that all the Control and Data DPMs and DTMs in \texttt{SVT/DAQ IOC Status} GUI are OK. 
-\newline NOTE1: If there was a reboot of the SVT DAQ software or COB (see below) the data DPMs might not show green until after the 'Download' transition. 
-\newline NOTE2:The control DPM should be OK as soon as a single FEB (and flanges are powered). It might take up to 30s for it to become green.
-
-\item
-Check that error counts in the \texttt{SVT/svtDpmLinkStatus} GUI are zero and not updating.
-
-\item
-In \texttt{/SVT/DPM Status} GUI": check that all data DPMs are in the appropriate CODA Run state e.g. if you are in 'Download' all should be in that state, etc. 
-\newline NOTE: This may be not updated if there was a DAQ restart, e.g. the DPMs might be in 'End' as they doesn't know that CODA was restarted until 'Download' is initiated.
-\end{enumerate}
-\end{enumerate}
+%\section{Detailed SVT checklist}
+%
+%\begin{enumerate}
+%\item 
+%SVT Flange boards (\texttt{SVT/Flange} GUI) and SVT Front end boards (\texttt{/SVT/FEB Main} GUI) are powered  with no alarms. 
+%\newline
+%{\bf IF ON:} check that currents are updating: if not, try to reboot the "iochvCaen" IOC.
+%\newline
+%{\bf IF OFF:} 
+%\begin{enumerate}
+%\item 
+%Restart the FEBs turning on in the order: 1) 'DIGI', 2) 'ANAP' and then 3) 'ANAN'; buttons are at the top of the \texttt{/SVT/FEB Main} GUI.
+%\item
+%Power all the flange channels from   \texttt{SVT/Flange}  GUI. 
+%\item 
+%Go to the \texttt{/SVT/Link Status} GUI and check that no FEB link errors are stably incrementing. If they do, try to cycle the flange board power (wait 10-20s between cycles). You may need up to 4 cycles.
+%\end{enumerate}
+%\item 
+%Bias high voltage is ON and at 180V (unless SVT expert has told you something different). 
+%\newline If the the HV is OFF and won't come on you might need to go and reset the interlock by going to the \texttt{Devices/SVT Soft Interlocks} GUI and Reseting the MPOD interlock. This happens after a beam trip. 
+%\newline {\bf \textcolor{red}{Important: Check that beam conditions for turning on bias voltage is OK before swiching on (see above)!}}
+%
+%\item
+%SVT DAQ is in a state ready to run:
+%\begin{enumerate}
+%\item
+%Check that all the Control and Data DPMs and DTMs in \texttt{SVT/DAQ IOC Status} GUI are OK. 
+%\newline NOTE1: If there was a reboot of the SVT DAQ software or COB (see below) the data DPMs might not show green until after the 'Download' transition. 
+%\newline NOTE2:The control DPM should be OK as soon as a single FEB (and flanges are powered). It might take up to 30s for it to become green.
+%
+%\item
+%Check that error counts in the \texttt{SVT/svtDpmLinkStatus} GUI are zero and not updating.
+%
+%\item
+%In \texttt{/SVT/DPM Status} GUI": check that all data DPMs are in the appropriate CODA Run state e.g. if you are in 'Download' all should be in that state, etc. 
+%\newline NOTE: This may be not updated if there was a DAQ restart, e.g. the DPMs might be in 'End' as they doesn't know that CODA was restarted until 'Download' is initiated.
+%\end{enumerate}
+%\end{enumerate}
 
 
 

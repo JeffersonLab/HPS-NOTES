@@ -1,0 +1,60 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+%\usepackage{subfigure}
+\usepackage{color}
+\usepackage{fullpage}
+
+%\addtolength{\textwidth}{5cm}
+%\addtolength{\hoffset}{-2.5cm}
+%\addtolength{\textheight}{3.0cm}
+%\addtolength{\voffset}{-1.5cm}
+
+
+%\usepackage{geometry} % see geometry.pdf on how to lay out the page. There's lots.
+%\geometry{letterpaper} % or letter or a5paper or ... etc
+% \geometry{landscape} % rotated page geometry
+
+% See the ``Article customise'' template for come common customisations
+
+\title{FIX DAQ CHEAT SHEET v2.4.3}
+\author{Per Hansson Adrian, Omar Moreno, Sergey Boiarinov\thanks{Contact person for document.}, Nathan Baltzell, Sho Uemura }
+%\date{} % delete this line to display the current date
+
+%%% BEGIN DOCUMENT
+\begin{document}
+
+\begin{center}
+\textbf{FULL DAQ REBOOT CHEAT SHEET} \\
+
+\textit{condensed from the full DAQ Operations Manual v.2.4.3}
+\end{center}
+
+\begin{enumerate}
+
+\item In the \textbf{Run Control GUI}, \texttt{File -> Exit} \textit{(possibly twice)}.
+\item On \textbf{clondaq3}: \textit{(window is probably already open with these commands in history.)}\\
+
+\hspace*{0.5cm}\texttt{> killall rcServer} \textit{(twice to ensure the processes are really gone)}\\
+\hspace*{0.5cm}\texttt{> killall rocs} \textit{(twice to ensure the processes are really gone)}\\
+\hspace*{0.5cm}\texttt{> hpsRocRebootAll.sh}, wait for messages \texttt{ROCS REBOOTED} and \texttt{TRIGGER IOC RESTARTED}
+
+\hspace*{0.5cm}Repeat if necessary, but if this fails twice, \textbf{call the DAQ expert!!!!}
+
+\item In \textbf{SVT Summary GUI}: \\
+
+\hspace*{0.5cm}Click the \texttt{SVT DAQ Reboot} button.\\
+\hspace*{0.5cm}Enter the password for \texttt{clasrun} when prompted in the xterm that pops up. \\
+\hspace*{0.5cm}Close xterm after completion. \textit{(takes up to 2 minutes)}\\
+\hspace*{0.5cm}Check the \textbf{SVT Summary GUI} for errors.
+
+\hspace*{0.5cm}Repeat if necessary, but if this fails twice, \textbf{call the DAQ expert!!!!}
+
+\item On \textbf{clondaq3}: \textit{(open from step 2)} \\
+
+\hspace*{0.5cm}\texttt{> runcontrol -rocs} \\
+\hspace*{0.5cm}Check on all of the ROC xterms and ensure that all processes are running.
+\end{enumerate}
+
+This procedure should take less than ten minutes and may be repeated but, if this fails twice, \textbf{call the DAQ expert!!!!}
+
+\end{document}
