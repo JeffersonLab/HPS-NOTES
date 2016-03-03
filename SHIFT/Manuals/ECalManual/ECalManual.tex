@@ -335,12 +335,23 @@ This just counts threshold crossings in the discriminators, which is sufficient 
 
    \section{Taking a Pedestal Run}
 
+   \subsection{With Beam}
    Pedestals are calculated at running luminosity with DAQ configuration \begin{center}\texttt{ecalPedestal.trg}\end{center} and monitored and analyzed with HPS's hps-java monitoring app via the command:
        \begin{center}\texttt{startEcalPedestalCalculator}\end{center}
        In this monitoring app you can click on the event display to view the different channels' pedestal histograms as the data is acquired.  Once the statistics are sufficient, the app should be disconnected from the ET-ring and then output files for the DAQ and database will be generated in the directory:\begin{center}\texttt{\$HOME/EcalPedestals}\end{center}  The user will be asked if they want them put in the database automatically, and it requires two consecutive ``YES'' responses to make it happen.  An expert should make the trigger configuration use the new pedestal file.
 
+         \subsubsection{Installing the new pedestals}
+      To generate the pedestal file for the DAQ, run this script, where the last argument is the name of the file generated in the previous step:
+         \begin{center}\texttt{calibUtilHpsEcal.py -P -DAQ -N -b XYZ\_hpsDB.txt}\end{center}
+
+  \subsection{Without Beam}
+  Coming soon.
+
     \section{Taking a FEE Run for Gain Calibration}
-    {\bf TODO.  Uses new trigger mask.}
+Use the trigger file
+\begin{center}\texttt{HPS/Run2016/fee\_200nA.trg}\end{center}
+  The trigger rate should be about 30 kHz for 200 nA beam.  Along with the standard ECal monitoring app, there is a special one for FEE monitoing which allows to see the FEE spectra for each channel:
+\begin{center}\texttt{startEcalFeeData}\end{center}
 
 \newpage
 
