@@ -10,10 +10,10 @@
 
 % See the ``Article customise'' template for come common customisations
 
-\title{HPS SVT Operations Manual \\ v2.0}
+\title{HPS SVT Operations Manual \\ v2.0.1}
 \author{SVT On-Call Cell Phone: 757-541-7539 \\ 
 Authors: \\
-Per Hansson, John Jaros, Takashi Maruyama, Omar Moreno,\\ Tim Nelson\footnote{contact person for this document}, Marco Oriunno, Sho Uemura}
+Per Hansson, John Jaros, Takashi Maruyama, Omar Moreno,\\ Tim Nelson\footnote{contact person for this document}, Marco Oriunno, Matt Solt, Sho Uemura}
 \date{February 19, 2016} % delete this line to display the current date
 
 %%% BEGIN DOCUMENT
@@ -595,13 +595,14 @@ When running the SVT at 0.5 mm:
 If the beam is lost, the SVT software interlock \textbf{may} lower the HV and open the SVT.  In general, for beam trips:
 \begin{enumerate}
 \item Check the SVT shift instructions to see if any special actions are required.
-\item \textit{If the HV interlock was enabled:} \textbf{(default is enabled)} Look at the SVT Summary GUI and verify that \textbf{BIAS ALL V\_SET} column reads as expected \textbf{(default is 5V)} and the status indicator is red.
-\item \textit{If the motion interlock was enabled} \textbf{(default is disabled)}: Look at the Scaler GUI, and verify that the \textbf{Position} of the top and bottom read 0.0000.
 \item \textbf{If SVT is at 0.5 mm, check the FSD GUI to see if our halo counters were responsible. If so, follow the FSD trip procedure (below) instead of continuing with this one.}
+%\item \textit{If the HV interlock was enabled:} \textbf{(default is enabled)} Look at the SVT Summary GUI and verify that \textbf{BIAS ALL V\_SET} column reads as expected \textbf{(default is 5V)} and the status indicator is red.
+%\item \textit{If the motion interlock was enabled} \textbf{(default is disabled)}: Look at the Scaler GUI, and verify that the \textbf{Position} of the top and bottom read 0.0000.
+\item On the SVT Summary GUI, the \texttt{ALL SVT BIAS} status indicator should remain green as the bias voltage stays at 180V.
 \item When beam is restored, check that the BPM x and y values at 2H02 are as desired and that beam current is stable at our desired value.
-\item Reset the beam interlock by pressing the \texttt{BEAM INTERLOCK} \textbf{RESET} button.
-\item Press the \texttt{BIAS ALL V\_SET} \textbf{180V} button to turn on the SVT Sensor HV and wait for the \texttt{ALL SVT BIAS} status indicator to turn green.
-\item Reset the SVT monitoring plots (disconnect and connect). Check the SVT monitoring plots.
+%\item Reset the beam interlock by pressing the \texttt{BEAM INTERLOCK} \textbf{RESET} button.
+%\item Press the \texttt{BIAS ALL V\_SET} \textbf{180V} button to turn on the SVT Sensor HV and wait for the \texttt{ALL SVT BIAS} status indicator to turn green.
+%\item Reset the SVT monitoring plots (disconnect and connect). Check the SVT monitoring plots.
 \end{enumerate}
 
 \subsubsection{Response to beam trip (FSD trip)}
@@ -619,14 +620,15 @@ If the beam is lost, the SVT software interlock \textbf{may} lower the HV and op
 %\item If the HPS halo counters initiated the trip:
 %\begin{enumerate}
 \item Tell the MCC not to restore the beam. We will inform them when we want it.
-\item Retract the SVT to 1.5 mm, both top and bottom.
-\item Tell the MCC we are ready for beams
+%\item Retract the SVT to 1.5 mm, both top and bottom.
+\item On the SVT Summary GUI, the \texttt{ALL SVT BIAS} status indicator should turn yellow as the bias voltage is ramping down. It will turn red once the bias voltage is at 5V. If this does not happen after about 10 seconds, manually press the \texttt{BIAS ALL V\_SET} \textbf{5V} button.
+\item Once the status indicator turns red, tell the MCC we are ready for beam.
 \item When restored, check that the BPM x and y values at 2H02 are as defined in the orbit locks and that halo counter rates are the same as before the trip.
 \item Reset the beam interlock by pressing the \texttt{BEAM INTERLOCK} \textbf{RESET} button.
 \item Press the \texttt{BIAS ALL V\_SET} \textbf{180V} button to turn on the SVT Sensor HV and wait for the \texttt{ALL SVT BIAS} status indicator to turn green.
 \item Wait until beam current is stable at our desired value.
-\item Move SVT in by steps (to 1.0, then 0.7, then 0.5 mm). 
-\item At each step, watch the FSD signal scaler and the bias currents. If the FSD signal scaler rate rises by more than 10\% or any bias current rises by more than 1 uA above the levels at 1.5 mm, call the SVT expert.
+%\item Move SVT in by steps (to 1.0, then 0.7, then 0.5 mm). 
+%\item At each step, watch the FSD signal scaler and the bias currents. If the FSD signal scaler rate rises by more than 10\% or any bias current rises by more than 1 uA above the levels at 1.5 mm, call the SVT expert.
 \item Reset the SVT monitoring plots (disconnect and connect). Check the SVT monitoring plots.
 %\end{enumerate}
 \end{enumerate}
