@@ -14,7 +14,7 @@
 \author{SVT On-Call Cell Phone: 757-541-7539 \\ 
 Authors: \\
 Per Hansson, John Jaros, Takashi Maruyama, Omar Moreno,\\ Tim Nelson\footnote{contact person for this document}, Marco Oriunno, Matt Solt, Sho Uemura}
-\date{February 19, 2016} % delete this line to display the current date
+\date{March 22, 2016} % delete this line to display the current date
 
 %%% BEGIN DOCUMENT
 \begin{document}
@@ -494,8 +494,8 @@ The SVT sensor bias (HV) and the low voltage (LV) needed to control and read out
 \item Turn on SVT Flange Power by pressing the \texttt{ALL SVT FLANGE} \textbf{ON} button and wait for the status indicator to turn green.
 \item Turn on the SVT FEB Power by pressing the \texttt{FEB ALL} \textbf{ON} buttong and wait for the status indicators to turn green and the FEB heartbeat to begin.
 \item Turn on the SVT Hybrids Power by pressing the \texttt{ALL HYBRIDS} \textbf{ON} button and wait for the status indicators to turn green.
-\item Turn on the SVT Sensor HV Power by pressing the \texttt{ALL SVT BIAS} \textbf{ON} button and wait for the status indicator to turn green.
-\item Reset the Beam Interlock by pressing the \texttt{BEAM INTERLOCK} \textbf{RESET} button under \texttt{ALL HV CONTROL}, then the \texttt{180V} button.
+\item Turn on the SVT Sensor HV Power by pressing the \texttt{ALL SVT BIAS} \textbf{ON} button.
+\item Beam interlock (under \texttt{ALL HV CONTROL}): Reset the interlock by pressing the \textbf{RESET} button, then the \texttt{180V} button. Wait for the status indicator to turn green.
 \end{enumerate}
 
 If any status indicator fails to turn green during this procedure or any action results in an alarm, check that the \texttt{IOC Status} is green and call the SVT Expert.  More detailed information on the status of the system can be found in the various expert GUIs that can be opened from the summary GUI.
@@ -565,6 +565,7 @@ If this is the first run after setting up beam for HPS, follow this procedure fo
 \item Beam is centered with respect to the SVT, either using SVT wire scans (see procedure in Section \ref{sec:wirescan}) or by taking a 2H02 wire scan and comparing with 2H02 wire scan from the last time the beam was centered with respect to the SVT.
 \item Halo counter FSD is unmasked, and trip level is set appropriately for the current halo counter rate.
 \item HPS orbit locks are on, and orbit lock target positions are as specified in the run plan.
+\item Beam interlock is enabled (green \texttt{Normal}, not red \texttt{Bypass}). If not enabled, enable in the SVT software interlock GUI.
 \item MCC has been notified to not restore beam following a halo counter FSD trip.
 \end{itemize}
 \item Start new run.  Move in Bottom SVT 0.1 mm at a time.  Watch strip charts and record with each move:
@@ -592,7 +593,7 @@ When running the SVT at 0.5 mm:
 
 \subsection{Response to beam trip}
 \label{sec:proc_general_beamtrip}
-If the beam is lost, the SVT software interlock \textbf{may} lower the HV and open the SVT.  In general, for beam trips:
+If the beam is lost, the SVT beam interlock (if enabled) will lower the HV. In general, for beam trips:
 \begin{enumerate}
 \item Check the SVT shift instructions to see if any special actions are required.
 \item \textbf{If SVT is at 0.5 mm, check the FSD GUI to see if our halo counters were responsible. If so, follow the FSD trip procedure (below) instead of continuing with this one.}
