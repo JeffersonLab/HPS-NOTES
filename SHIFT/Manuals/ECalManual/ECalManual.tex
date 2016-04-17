@@ -203,6 +203,13 @@ Contact the ECAL expert on-call in case of uncertainty.
           \item \texttt{mya\_ecal\_voltage.sh}
       \end{itemize}
 
+\section{Monitoring App}
+The hps-java monitoring app is used to run full calorimeter reconstruction on live events from the daq on the ET ring.  It provides many plots to assess detector performance.  To start the monitoring app, in a terminal run:
+\begin{center}\texttt{startEcalMonitoring}\end{center}
+Then click the ``connect'' button to connect to the ET ring.
+
+At the start of every run, the monitoring app should be disconnected and reconnected to the ET ring.  After a few minutes of beam, the tabs should be cycled through and their plots compared to the reference.  Once sufficient statistics are accumulated, the plots should be saved as a pdf and uploaded to the logbook.
+
 \newpage
 
    \section{LED Monitoring}
