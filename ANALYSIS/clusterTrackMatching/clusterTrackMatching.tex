@@ -1,0 +1,73 @@
+\documentclass[amsmath,amssymb,notitlepage,12pt]{revtex4-1}
+\usepackage{graphicx}
+\usepackage{bm}% bold math
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\hypersetup{pdftex,colorlinks=true,allcolors=blue}
+\usepackage{hypcap}
+%\usepackage[small,compact]{titlesec}
+%\usepackage{showkeys}
+%\addtolength{\textheight}{0.3cm}
+%\addtolength{\topmargin}{-0.15cm}
+%\addtolength{\textwidth}{0.4cm}
+%\addtolength{\hoffset}{-0.2cm}
+\begin{document}
+%\hspace*{11.5cm}\texttt{HPS-NOTE 2016-XXX}
+
+\title{Cluster-Track Matching}
+\author{N. Baltzell, R. Paramezuryan}
+%\affiliation{Jefferson Lab}
+\date{\today}
+\begin{abstract}
+    For the HPS 2015 Engineering Run a simple geometrical matching algorithm was implemented based on cluster and extrapolated track $x/y$ positions at the front face of the calorimeter.  Matching quality is parameterized in terms of momentum separately for electrons and positrons, detector halves, and seed and GBL tracks.  The resulting normalized matching quality factor is saved in the reconstruction output with each \texttt{ReconParticle} for use in offline analyses.
+\end{abstract}
+\maketitle
+
+\section{Residual Measurements}
+\subsection{Event Selection}
+Events are selected that contain exactly one positively and one negatively charged track with good track quality, one in each half of the detector, and two clusters, again with one in each half of the detector.  The clusters' reconstructed positions are required to be at least $\frac{3}{4}$ of a crystal from the edge of the calorimeter to avoid the region where cluster reconstruction degrades rapidly.  The track trajectory is extrapolated to the front face of the calorimeter using swimming in hps-java and the full 3-D field map.
+
+\subsection{Parameterization}
+The residual between the cluster and exptrapolated track positions is modeled with a gaussian on a linear background and fit in momentum bins between 100 and 750 MeV.  The momentum dependence of the mean $\mu$ and width $\sigma$ of the gaussian are then fit with a 7$^{th}$ order polynomial.  This procedure is performed independently for the $x$ and $y$ coordinates, two detector halves, two particle charges, and seed and GBL tracks.
+
+\subsubsection{Features}
+\begin{itemize}
+    \item In all cases the resolution worsens at low energy due to multiple scattering and degradation of the calorimeter position resolution as the number of crystals in the cluster decreases.
+    \item The GBL tracks result in a noticeably better resolution than seed tracks.
+    \item When using a simple 1-D field, electrons and positrons showed different offsets at high momentum.  However, in the final parameterization described here after using full 3-D field extrapolation, $e^-e^+$  converge to the same offset.  
+    \item There was something about flatness of $\mu$, maybe with 3-D vs 1-D?
+\end{itemize}
+
+\section{Matching Algorithm}
+The parameterizations of the position residuals in the previous section are implemented in the hps-java reconstruction software and used to determine track-cluster matching quality with an $n_\sigma$ parameter,
+\begin{equation}
+    n_\sigma^2 = \left[\frac{\mu_x(p)-\delta_x}{\sigma_x(p)}\right]^2 + \left[\frac{\mu_y(p)-\delta_y}{\sigma_y(p)}\right]^2,
+    \label{eq:nsigma}
+\end{equation}
+where $\delta$ is the difference between a particular track's and cluster's measured positions $(x,y)$, and the parameterized residual $(\mu,\sigma)$ is evaluated at that track's momentum $p$.
+
+For each reconstructed track, all the clusters in the same detector half are considered and used to calculate their $n_\sigma$ for that track.
+The cluster with the smallest $n_\sigma$ less than 30 is then associated with that track.
+
+After all track and cluster combinations are exhausted, if a cluster is still not associated with a track it is assumed to be a photon.  
+The particle charge (-1,0,1) determined by track association is then used to perform position and energy corrections for each cluster.
+
+The class \texttt{ReconParticle} contains the matched cluster and tracks, as well as the $n_\sigma$ parameter accessible with the method \texttt{getGoodnessOfPid()}.  {\em For analyses interested in optimal matching criteria, some additional requirement on $n_\sigma$ should be applied after reconstruction, probably around $n_\sigma\sim 5$.}
+
+\subsection{Caveats}
+\subsubsection{Photons}
+Due to the cut at $n_\sigma=30$, the matching criteria applied for determining particle type for cluster corrections is very loose.  This was chosen in favor of flexible $e^+e^-$ analyses and not well suited for analyses where optimal photon energy and position reconstruction are needed.
+\subsubsection{Cluster Corrections}
+Matching quality is evaluated before cluster position corrections are applied.  Since the residual parameterizations were also extracted before cluster position corrections and are charge-dependent, the final matching determination is not significantly affected.  However, applying the corrections based on the corresponding track's charge before evaulating matching quality might narrow the residuals and resulting $n_\sigma$ distribution and allow to reduce the background under the $n_\sigma$ peak.
+\subsubsection{Edge Effects}
+Near the beam gap the cluster $y$-position resolution degrades rapidly and becomes just the crystal position when the particle enters much less than a half crystal from the edge.  This is not accounted for in this work.  The effect can be seen in Figure~\ref{} at small-$|y|$, and it is possible to account for this in analyses with a $|y|$-dependent requirement on $n_\sigma$.
+
+
+\section{Conclusion}
+yep.
+
+\bibliography{clusterTrackMatching}
+\end{document}
+
