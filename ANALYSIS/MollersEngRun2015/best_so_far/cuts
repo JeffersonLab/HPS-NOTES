@@ -1,0 +1,11 @@
+GBL tracks (type>32)
+
+0.00016 <= sin(T1)sin(T2) <= 0.00045
+
+T1+T2 <= 0.09 rad
+
+0.85 <= TrackE1 + TrackE2 <= 1.25 GeV
+
+|TrackE - ModelE| <= 0.2 GeV
+
+Theta <= 0.06 rad
