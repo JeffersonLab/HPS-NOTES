@@ -1,0 +1,102 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{placeins}
+\usepackage{harpoon}
+
+\usepackage{longtable}
+
+\usepackage[square,numbers]{natbib}
+
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+%\input{Macros.tex}
+\title{HPS Note:  Golden Run Selection in 2016 Data}
+\author{Sebouh Paul}
+\date{}                                           % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+\section{Preliminaries}
+The first step I took towards determining the golden runs was to look through the run spreadsheet to find a list of all of the production runs with version 7 or 8 trigger, 200 nA, and the 4 mm tungsten target in place.  I excluded the runs that the shift takers labeled as ``junk" in the spreadsheet (except for run \# 7807, where it appeared that the shift-taker meant to apply the word ``junk" to the previous run but clicked on the wrong cell.).  
+
+
+
+%\section{Ecal Peaks}
+%From these runs, I looked at the shapes of the FEE peaks
+
+\section{Runs excluded}
+There were a few runs in which the SVT was moved to/from the 1.5 mm position for part of the run.  These too, I excluded.  I may eventually add them to the golden-run list in the future, excluding the parts of the runs where the SVT is at the 1.5 mm position.  
+
+There were also a few runs in which mya-recorded unusual values for the DAQ livetime (such as -999).  This may be a symptom of a worse problem in the DAQ for these runs, so therefore these are excluded in the golden list.  In runs 7961 and 8038 and 8043, the mya values are nonsensical for all or most of the run.  Runs 7962 and 8039 also have this problem, but only for the first few minutes, so I included them in the ``salvageable" list.  
+
+Run 7989 had no hits in the layer 3 top axial part of the SVT, according to the DQM.  In the recon, there are virtually no tracks found in the top half of the SVT.  The cause of this is unknown, but this may have been caused by a DAQ problem.  
+
+Run 7973 is very likely junk, since it has only one file; and the bias was off for most of the run.  
+
+\section{Salvageable Runs Not Included in Golden Run list}
+There were several runs with 200 nA beam that I did not include in the golden runs list in the next section which have certain problems that may only affect a small fraction of the files in the run.  I could eventually include these runs after determining which file ranges are good and which ones are bad. 
+
+These runs are:
+
+\begin{table}[htp]
+\caption{200 nA runs with some problems in them}
+\begin{center}
+\begin{tabular}{|c|l|}
+run \# & problem \\
+\hline
+7779 & SVT out at start of run.  \\
+7795 & beam blocker removed for two minutes during run \\
+7799 & a few files missing \\
+7801 & ``      " \\
+7803 & ``      " \\
+7805 & ``      " \\
+7807 & ``      " \\
+7962 & Livetime in mya is -999 for first two minutes of run \\
+8043 & Livetime in mya is 0.326 for first two minutes of run \\
+
+\end{tabular}
+\end{center}
+\label{tab:salvageable}
+\end{table}%
+
+
+
+These 9 salvageable 200 nA runs with minor problems account for 5.737 mC of charge (4.965 mC of which has SVT bias on), and have 1459 million events.  
+
+Additionally, we can add the following runs that we took prior to the change from 150 nA to 200 nA.  
+
+7629, 7630, 7636, 7637, 7644, 7653
+
+The total gated beam charge of these 6  runs with 150 nA beam is 2.17 mC, with 445 million total events.  
+
+
+
+
+
+\section{Golden Runs (first pass)}
+I found none of the aforementioned problems in the following runs which have a 200 nA beam:
+
+7780, 7781, 7782, 7783, 7786, 7796, 7798, 7800, 7804, 7947, 7948, 7949, 7953, 7963, 7964, 7965, 7966, 7968, 7969, 7970, 7972, 7976, 7982, 7983, 7984, 7985, 7986, 7987, 7988, 8025, 8026, 8027, 8028, 8029, 8030, 8031, 8040, 8041, 8044, 8045, 8046, 8047, 8048, 8049, 8051, 8055, 8057, 8058, 8059, 8072, 8073, 8074, 8075, 8077, 8085, 8086, 8087, 8088, 8090, 8092, 8094, 8095, 8096, 8097, 8098, 8099
+
+This list of 66 runs encompasses 39.172 mC of beam charge (37.366 mC of which has bias on), and 5.718 billion events.  
+
+By expanding our golden run selection to include the salvageable 200 nA and 150 nA runs, we can increase the number of events available to use by 33\%, and the beam charge by 20\%.  I would consider this to be a worthwhile improvement on the amount of reach we could get in a bump hunt or a vertexing analysis.  
+
+
+%\section{Some results}
+%Figure \ref{fig:events_per_charge} shows the number of events per nC in each of the chosen golden runs and ``salvageable" runs as a function of run number.  This number seems to be consistent during the 2016 runs, with abrupt changes occurring only when the current and/or trigger conditions are changed.  
+
+
+
+\end{document}
