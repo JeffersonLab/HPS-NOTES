@@ -27,18 +27,18 @@
 \begin{document}
 \maketitle
 \section{Introduction}
-This investigation began when I found that the positions of the full energy electron (FEE) and two cluster energy sum (2CES) peaks, as measured by the Ecal in the 2016 dataset, did not remain constant as a function of time.   This prompted me to investigate further, and found that this phenomenon also occurred in the 2015 dataset as well.  This sort of behavior is not unique to HPS; such behavior has been found in the CLAS experiment as well, which uses the same type of electromagnetic calorimeter as well.  To remedy this issue, I have created a list of parameterizations to use for each run, which we can use to scale uniformly scale every cluster read out in the Ecal.  
+This investigation began when I found that the positions of the full energy electron (FEE) and two cluster energy sum (2CES) peaks, as measured by the Ecal in the 2016 dataset, did not remain constant as a function of time.   This prompted me to investigate further, and found that this phenomenon also occurred in the 2015 dataset as well.  This sort of behavior is not unique to HPS; such behavior has been found in the CLAS experiment as well, which uses the same type of electromagnetic calorimeter technology that we use in HPS.  To remedy this issue, I have created a list of parameterizations to use for each run, which we can use to uniformly scale the energy readout of every cluster in the Ecal.  
 
 \section{Outline of procedure}
-First I created histograms of the single cluster energies, and 2 cluster energy sums (with certain cuts to isolate the peaks, explained in detail in the next section) for the first file in each of the ``golden runs" in the 2015 and 2016 datasets.  For the 2015 golden run selection, I used the ones that Sho and Holly had posted in the 2015 run spreadsheet.  For the 2016 data, I used my own list of golden runs (which i describe in one of my other analysis notes).  Next, I fitted these histograms to a crystal ball function to find the peak energy for the 2CES and the FEE peak.  Then, I plotted these out as a function of run number and of the starting time of the run.  Finally, i determined a parameterization of the FEE peak position as a function of time.   
+First I created histograms of the single cluster energies, and 2 cluster energy sums (with certain cuts to isolate the peaks, explained in detail in the next section) for the first file in each of the ``golden runs" in the 2015 and 2016 datasets.  For the 2015 golden run selection, I used the lists that Sho and Holly had posted in the 2015 run spreadsheet.  For the 2016 data, I used my own list of golden runs (which i describe in one of my other analysis notes).  Next, I fitted these histograms to a crystal ball function to find the peak energy for the 2CES and the FEE peak.  Then, I plotted these out as a function of run number and of the starting time of the run, and fit this to a piecewise exponential function of time. 
 
-To test this parameterization for legitimacy, I plotted the 2CES peak position multiplied by the correction factor obtained by dividing the beam energy by the FEE peak position.  If this corrected peak position remains approximately constant after making these corrections, then this supports my hypothesis that the cluster energies were only off by a simple scaling factor.  
+The next stage was to test my hypothesis that the cluster energies can be corrected by multiplying them by a time-dependent scale.  So, I plotted the 2CES peak position multiplied by the correction factor obtained by dividing the beam energy by the FEE peak position.  If this corrected peak position remains approximately constant after making these corrections, that would become evidence to support my hypothesis, and we can multiply every Ecal cluster energy value by a time-dependent correction function in our next passes of the event reconstruction.
 
 \section{Cuts when making histograms}
 
-For the FEE's, the event must be single1 trigger; the cluster must have at least 3 hits in it, is not seeded on an edge crystal, and that it is matched to a track with at least 90\% of the beam energy (the track cluster matching criterion is to limit the amount of background under the peak and the size of the tail)
+For the FEE's, the event must have a single1 trigger; the cluster must have at least 3 hits in it, is not seeded on an edge crystal, and it must be matched to a track with at least 90\% of the beam energy (the track/cluster matching criterion is to limit the amount of background under the peak and the size of the tail)
 
-For the 2CES histogram, I require that the event be pair1 trigger, and that neither cluster's energy is more than 80\% of the beam energy, the two clusters be on opposite halves of the Ecal, and that neither of them are seeded on an edge crystal.   
+For the 2CES histogram, I require that the event have a pair1 trigger, and that neither cluster's energy is more than 80\% of the beam energy, that the two clusters be on opposite halves of the Ecal, and that neither of them are seeded on an edge crystal.   
 
 \section{Details of Histogram Fitting}
 The histograms are fit to a crystal ball function, which has a gaussian core and a power-law tail on the left-hand side.   The formula for a crystal ball function is:
@@ -51,7 +51,7 @@ A\left(B-\frac{x}{\alpha\sigma}\right)^{-n}, \frac{x}{\sigma} \le \alpha
 \label{eq:crystalball}
 \end{equation}
 
-where B and A are defined in terms of $n$, $\alpha$ such that the function and its derivatives are both continuous.
+where B and A are defined in terms of $n$ and $\alpha$ such that the function and its derivatives are both continuous.
 
 To make the fitting method more consistent between runs, I fixed the value for the parameter $n$ to be 4.5.    I choose to define the limits of the range of fitting relative to the position of the tallest bin, and I have tabulated the choices I used for these parameters in Table \ref{tab:fit_range_limits}.  Figures \ref{fig:one2016_fit_example} through \ref{fig:two2015_fit_example} show examples of these fits.  
 
@@ -227,7 +227,7 @@ To test this, I calculated the ``corrected" 2CES peak by multiplying the uncorre
 
 Before the corrections, the mean value of the 2CES peak among the 2016 runs was 2.259 GeV with a standard deviation of 22.6 MeV.  After the corrections, the mean becomes 2.313 GeV and the standard deviation becomes 6.8 MeV.  For the 2015 dataset, the mean and standard deviation of the uncorrected 2CES peaks are 1.046 GeV and 8.4 MeV, and these become 1.044 GeV and 8.4 MeV after the corrections.  
 
-In my opinion, the time dependent corrections are sufficient for the 2016 dataset, but they seem to make things worse in the 2015 dataset.  In \ref{{fig:2015_run}, it is already clear that the ratio of the 2CES peak to the FEE peak varies in an inconsistent manner.  This requires further investigation to determine the cause of this discrepency.  
+In my opinion, the time dependent corrections are sufficient for the 2016 dataset, but they seem to make things worse in the 2015 dataset.  In Figure \ref{fig:2015_run}, it is already clear that the ratio of the 2CES peak to the FEE peak moves around considerably.  This requires further investigation to determine the cause of this discrepency.  
 
 
 
