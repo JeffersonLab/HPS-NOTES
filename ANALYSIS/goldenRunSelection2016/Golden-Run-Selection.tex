@@ -15,6 +15,15 @@
 
 \usepackage{longtable}
 
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+%    filecolor=magenta,      
+    urlcolor=blue,
+}
+ 
+
 \usepackage[square,numbers]{natbib}
 
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
@@ -75,7 +84,7 @@ Table \ref{tbl:runs_used} lists the runs that I have selected.  Run numbers with
 %are corrected for livetime, periods where the SVT bias is off, and excludes data files with errors in the data acquisition and periods in which there were other unusual run conditions.}
 %  \begin{tabular}{||l|r r r r ||}
 
-\caption[List of ``golden" runs from the 2016 HPS physics run.]{List of ``golden" runs from the 2016 HPS physics run used in this analysis, corrected for livetime, excluding files with DAQ errors, and periods where the SVT bias was off and other unusual run conditions.  An asterisk next to a run number indicates that some of the files in the run are excluded from the list.  In this case, the numbers of events and luminosity listed are of the remaining files in the run.} \\
+\caption[List of ``golden" runs from the 2016 HPS physics run.]{List of ``golden" runs from the 2016 HPS physics run used in this analysis, corrected for livetime and SVT burst mode efficiency, excluding files with DAQ errors, and periods where the SVT bias was off and other unusual run conditions.  An asterisk next to a run number indicates that some of the files in the run are excluded from the list.  In this case, the numbers of events and luminosity listed are of the remaining files in the run.} \\
 \label{tbl:runs_used}
  %\hline 
   \hline
@@ -93,91 +102,91 @@ Table \ref{tbl:runs_used} lists the runs that I have selected.  Run numbers with
 
 \endfoot
 
-7629  &  48,445,040  &  37.44\\
-7630  &  60,975,330  &  46.48\\
-7636  &  148,219,610  &  111.61\\
-7637  &  12,100,110  &  9.47\\
-7644  &  150,288,740  &  122.42\\
-7653  &  25,128,650  &  19.42\\
-7779*  &  131,186,351  &  88.81\\
-7780  &  121,447,750  &  69.43\\
-7781  &  151,580,510  &  92.22\\
-7782  &  19,410,430  &  11.11\\
-7783  &  3,677,110  &  2.90\\
-7786  &  4,746,870  &  2.59\\
-7795*  &  112,039,662  &  76.45\\
-7796  &  150,763,230  &  86.26\\
-7798  &  167,693,140  &  113.94\\
-7799*  &  152,364,440  &  104.70\\
-7800  &  159,933,840  &  108.51\\
-7801*  &  152,350,620  &  84.37\\
-7803*  &  157,048,450  &  90.70\\
-7804  &  150,163,340  &  97.96\\
-7805*  &  152,117,190  &  84.48\\
-7807*  &  120,426,420  &  72.37\\
-7947  &  100,003,560  &  107.27\\
-7948  &  112,391,630  &  121.36\\
-7949  &  105,624,080  &  116.90\\
-7953  &  25,034,370  &  21.35\\
-7962*  &  23,444,541  &  24.52\\
-7963  &  100,690,930  &  109.08\\
-7964  &  100,426,760  &  103.67\\
-7965  &  47,883,630  &  51.25\\
-7966  &  102,294,530  &  104.05\\
-7968  &  100,021,800  &  97.10\\
-7969  &  9,593,000  &  10.02\\
-7970  &  100,430,650  &  93.80\\
-7972  &  72,335,630  &  82.01\\
-7976  &  25,210,890  &  28.57\\
-7982  &  16,805,500  &  19.70\\
-7983  &  100,237,730  &  115.49\\
-7984  &  105,389,430  &  122.87\\
-7985  &  103,263,260  &  120.52\\
-7986  &  102,740,620  &  120.07\\
-7987  &  104,291,800  &  122.51\\
-7988  &  100,041,960  &  114.68\\
-8025  &  100,257,350  &  112.84\\
-8026  &  100,229,880  &  114.00\\
-8027  &  103,477,890  &  115.85\\
-8028  &  119,665,800  &  132.01\\
-8029  &  100,850,170  &  111.75\\
-8030  &  68,263,790  &  75.75\\
-8031  &  58,215,590  &  64.57\\
-8039*  &  100,159,970  &  107.32\\
-8040  &  100,283,730  &  114.15\\
-8041  &  29,615,580  &  33.61\\
-8043*  &  28,089,049  &  32.17\\
-8044  &  100,089,230  &  115.04\\
-8045  &  101,535,140  &  104.51\\
-8046  &  101,280,500  &  99.83\\
-8047  &  100,918,360  &  109.15\\
-8048  &  100,013,000  &  113.79\\
-8049  &  22,101,030  &  24.83\\
-8051  &  29,492,890  &  32.59\\
-8055  &  54,455,460  &  65.89\\
-8057  &  100,049,810  &  120.42\\
-8058  &  100,069,290  &  115.98\\
-8059  &  110,092,750  &  127.94\\
-8072  &  108,117,590  &  131.55\\
-8073  &  103,940,210  &  109.11\\
-8074  &  88,071,400  &  102.49\\
-8075  &  34,367,160  &  42.05\\
-8077  &  57,189,610  &  69.26\\
-8085  &  59,817,680  &  80.03\\
-8086  &  97,369,240  &  123.91\\
-8087  &  109,983,980  &  119.70\\
-8088  &  27,287,810  &  35.38\\
-8090  &  31,698,590  &  39.12\\
-8092  &  99,450,940  &  120.41\\
-8094  &  100,575,040  &  123.66\\
-8095  &  105,290,240  &  106.32\\
-8096  &  100,177,890  &  106.45\\
-8097  &  99,131,050  &  112.06\\
-8098  &  101,838,720  &  126.29\\
-8099  &  128,774,050  &  157.58\\
+7629	&	48,445,040	&	56.47	\\
+7630	&	60,975,330	&	70.29	\\
+7636	&	148,219,610	&	168.67	\\
+7637	&	12,100,110	&	14.30	\\
+7644	&	150,288,740	&	184.30	\\
+7653	&	25,128,650	&	29.30	\\
+7779*	&	131,186,351	&	126.32	\\
+7780	&	121,447,750	&	104.23	\\
+7781	&	151,580,510	&	138.14	\\
+7782	&	19,410,430	&	16.76	\\
+7783	&	3,677,110	&	4.34	\\
+7786	&	4,746,870	&	3.94	\\
+7795*	&	116,023,039	&	37.38	\\
+7796	&	150,763,230	&	129.49	\\
+7798	&	167,693,140	&	171.32	\\
+7799*	&	149,954,553	&	160.63	\\
+7800	&	159,933,840	&	162.39	\\
+7801*	&	140,431,569	&	115.89	\\
+7803*	&	145,443,839	&	139.15	\\
+7804	&	150,163,340	&	146.10	\\
+7805*	&	130,983,413	&	129.61	\\
+7807*	&	110,738,242	&	111.03	\\
+7947	&	100,003,560	&	161.36	\\
+7948	&	112,391,630	&	182.72	\\
+7949	&	105,624,080	&	176.19	\\
+7953	&	25,034,370	&	32.30	\\
+7962*	&	23,011,403	&	37.21	\\
+7963	&	100,690,930	&	165.05	\\
+7964	&	100,426,760	&	156.40	\\
+7965	&	47,883,630	&	77.28	\\
+7966	&	102,294,530	&	156.65	\\
+7968	&	100,021,800	&	146.16	\\
+7969	&	9,593,000	&	15.06	\\
+7970	&	100,430,650	&	141.43	\\
+7972	&	72,335,630	&	124.09	\\
+7976	&	25,210,890	&	43.13	\\
+7982	&	16,805,500	&	29.89	\\
+7983	&	100,237,730	&	175.35	\\
+7984	&	105,389,430	&	186.27	\\
+7985	&	103,263,260	&	183.61	\\
+7986	&	102,740,620	&	182.61	\\
+7987	&	104,291,800	&	186.08	\\
+7988	&	100,041,960	&	174.62	\\
+8025	&	100,257,350	&	171.80	\\
+8026	&	100,229,880	&	173.34	\\
+8027	&	103,477,890	&	175.63	\\
+8028	&	119,665,800	&	200.79	\\
+8029	&	100,850,170	&	169.53	\\
+8030	&	68,263,790	&	114.83	\\
+8031	&	58,215,590	&	97.86	\\
+8039*	&	94,955,778	&	164.65	\\
+8040	&	100,283,730	&	173.74	\\
+8041	&	29,615,580	&	51.17	\\
+8043*	&	28,089,049	&	49.35	\\
+8044	&	100,089,230	&	174.74	\\
+8045	&	101,535,140	&	158.97	\\
+8046	&	101,280,500	&	152.38	\\
+8047	&	100,918,360	&	166.05	\\
+8048	&	100,013,000	&	172.99	\\
+8049	&	22,101,030	&	37.81	\\
+8051	&	29,492,890	&	49.83	\\
+8055	&	54,455,460	&	100.94	\\
+8057	&	100,049,810	&	183.98	\\
+8058	&	100,069,290	&	176.57	\\
+8059	&	110,092,750	&	194.64	\\
+8072	&	108,117,590	&	202.07	\\
+8073	&	103,940,210	&	167.06	\\
+8074	&	88,071,400	&	157.69	\\
+8075	&	34,367,160	&	64.42	\\
+8077	&	57,189,610	&	106.63	\\
+8085	&	59,817,680	&	123.96	\\
+8086	&	97,369,240	&	191.09	\\
+8087	&	109,983,980	&	184.81	\\
+8088	&	27,287,810	&	54.80	\\
+8090	&	31,698,590	&	60.13	\\
+8092	&	99,450,940	&	184.97	\\
+8094	&	100,575,040	&	189.27	\\
+8095	&	105,290,240	&	162.69	\\
+8096	&	100,177,890	&	163.48	\\
+8097	&	99,131,050	&	172.20	\\
+8098	&	101,838,720	&	193.62	\\
+8099	&	128,774,050	&	241.24	\\
 
 \hline
-Total &7,292,550,593 & 7089.78 \\
+Total	&	7,234,141,136	&	10685.27	\\
   \hline
   \hline
 %  \end{tabular}
@@ -260,7 +269,7 @@ Run Number \# & Excluded Range & Reason for Exclusion \\
 %\section{Some results}
 %Figure \ref{fig:events_per_charge} shows the number of events per nC in each of the chosen golden runs and ``salvageable" runs as a function of run number.  This number seems to be consistent during the 2016 runs, with abrupt changes occurring only when the current and/or trigger conditions are changed.  
 \section{Conclusions}
-This list contains 82 runs, with a total of 7,292,550,593 events and 7089.78 nb$^{-1}$ of luminosity which is equivalent to 2.56 PAC days.  
+This list contains 82 runs, with a total of 7,292,550,593 events and 10634.68 nb$^{-1}$ of luminosity.  This is equivalent to 3.85 days of runtime with 200 nA with no beam trips and 100\% livetime.  The beam charges that were used to calculate these numbers can be found in the \href{https://docs.google.com/spreadsheets/d/1X_TfOQyQBv9Ja1IQ5LYImk0sd00eN-d4zzkCwn-CSUM/edit#gid=43855609}{\underline{2016 run spreadsheet}}, in the golden runs sheet.
 
 
 \end{document}
