@@ -15,6 +15,15 @@
 
 \usepackage{longtable}
 
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+%    filecolor=magenta,      
+    urlcolor=blue,
+}
+ 
+
 \usepackage[square,numbers]{natbib}
 
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
@@ -97,7 +106,9 @@ Therefore, to convert a Faraday cup reading \textit{with} the beam blocker to nA
 \textrm{beam current} = \frac{\textrm{Faraday cup readout}-\textrm{offset}}{906.2}*61.98 \textrm{nA}
 \end{equation} 
 
-After determining the parameters for this formula, I modified Sho Uemura's SvtChargeIntegrator program, which calculate the beam charge per-run and per-file, with and also determines how much of this charge accumulated when the  SVT bias is on.   My modification was adding in the option to read in a text file which contains per-run values of the zeropoint offset and also the scaling factor between the Faraday cup measurement and the actual current.  I have placed the output of this program in the 2016 run spreadsheet, in the runsummary and filesummary sheets for the per-run and per-file beam charges respectively.  
+After determining the parameters for this formula, I ran a modified version of Sho Uemura's SvtChargeIntegrator program, which calculate the beam charge per-run and per-file, with and also determines how much of this charge accumulated when the  SVT bias is on.   My modification was adding in the option to read in a text file which contains per-run values of the zeropoint offset and also the scaling factor between the Faraday cup measurement and the actual current.  I have placed the output of this program in the \href{https://docs.google.com/spreadsheets/d/1X_TfOQyQBv9Ja1IQ5LYImk0sd00eN-d4zzkCwn-CSUM/edit#gid=43855609}{\underline{2016 run spreadsheet}}, in the runsummary and filesummary sheets for the per-run and per-file beam charges respectively.  
+
+There were several problems that we faced in the 2015 run that were not relevant in 2016.  For instance, we did not retract the SVT during beam trips, so it is not necessary to determine how much of the beam charge occurred while the SVT was at 0.5 mm is not relevant.  Secondly, we fixed the issue with the latency (which affected 2/6 trigger phases) prior to taking data in 2016.  Thirdly, we did not have errors in the headers of the files, since the bug that caused this was fixed.   Taking these things into consideration, I omitted the columns for beam charge "at nominal".   Additionally, I replaced the values of in the ``good beam charge" columns with the values in the  ``gated beam charge" columns, scaled by a factor of $1-f_{burst-mode}$, where $f_{burst-mode}$ is the fraction of the events affected by burst-mode noise (1.3\% in the 2016 data, as compared to 3.5\% in the 2015 dataset).  
 
 Note: In run 7795, the beam blocker was removed during file 142 and was put back in place during file 149.  Therefore, the values in those rows of the file summary page are incorrect and should not be used.  I therefore included an extra row in the run summary sheet for run 7795 (titled "7795*") with the values from these files subtracted out.  
 
