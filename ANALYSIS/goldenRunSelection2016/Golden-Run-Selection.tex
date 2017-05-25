@@ -50,14 +50,19 @@ The first step I took towards determining the golden runs was to look through th
 
 \section{Runs and Parts of Runs Excluded}
 \label{sec:exclude}
-There were a few runs in which the SVT was not at the 0.5 mm position for part of the run.  This generally occurred when we started up the beam for the first time each weekend, and we first checked to see if the beam was stable before moving the SVT to its nominal position.  Among the runs where this happened, only run 7779 had a large enough amount of data at 0.5 mm that I decided to keep the part of this run with the SVT at 0.5 mm.  
-
+There were a few runs in which the SVT was not at the 0.5 mm position for part of the run.  This generally occurred when we started up the beam for the first time each weekend, and we first checked to see if the beam was stable before moving the SVT to its nominal position.  For instance, the first $\approx$ 15\% of 7779 was with the SVT retract.  Additionally, a few runs had a beam trip from our own detectors and thus we retracted the SVT for a short period of time.  I did not exclude these runs from the golden run selection, however, runs where the SVT was retracted for most of the run were excluded.  
  
 %I may eventually add them to the golden-run list in the future, excluding the parts of the runs where the SVT is at the 1.5 mm position.  
 
 There were also a few runs in which MYA recorded unusual values for the DAQ livetime (such as -999).  This may be a symptom of a worse problem in the DAQ for these runs, so therefore these are excluded in the golden list.  In runs 7961 and 8038, the mya values are nonsensical for all or a large portion of the run.  Runs 7962 and 8039 also have this problem, but only for the first few minutes, so I included these runs, but removed with the portions where the livetime from MYA was unacceptable.  Run 8043 had this problem for the first 2/3 of the run, but since the remaining third of the run had acceptable livetime, I decided to keep that part of the run.  
 
-The beam blocker just upstream of the Faraday cup was removed during 2 minutes of run 7795.  This made the measurement of the beam charge during that run to be much higher than it actually was (the attenuation factor of the beam blocker is $\approx$ 50).   It is unlikely that this would have any effect on the data taken during that time.  However, I decided to remove that range of files without the beam blocker, to make the normalization easier.  
+%The beam blocker just upstream of the Faraday cup was removed during 2 minutes of run 7795.  This made the measurement of the beam charge during that run to be much higher than it actually was (the attenuation factor of the beam blocker is $\approx$ 50).   It is unlikely that this would have any effect on the data taken during that time.    
+
+The beam blocker just upstream of the Faraday cup was removed during 2 minutes of run 7795.  
+%This made the measurement of the beam charge during that run to be much higher than it actually was (the attenuation factor of the beam blocker is $\approx$ 50).  .  
+While this gave me some problems while calculating the luminosity for the run (which I have fixed), it is unlikely that this would have any effect on the data taken during that time.    Therefore I did not exclude run 7795, but kept it in its entirety.  
+
+
 
 Run 7989 had no hits in the layer 3 top axial part of the SVT, according to the DQM.  In the recon, there are virtually no tracks found in the top half of the SVT.  The cause of this is unknown, but this may have been caused by a DAQ problem.  
 
@@ -102,91 +107,91 @@ Table \ref{tbl:runs_used} lists the runs that I have selected.  Run numbers with
 
 \endfoot
 
-7629	&	48,445,040	&	56.47	\\
-7630	&	60,975,330	&	70.29	\\
-7636	&	148,219,610	&	168.67	\\
+7629	&	48,445,040	&	57.28	\\
+7630	&	60,975,330	&	70.92	\\
+7636	&	148,219,610	&	170.48	\\
 7637	&	12,100,110	&	14.30	\\
-7644	&	150,288,740	&	184.30	\\
-7653	&	25,128,650	&	29.30	\\
-7779*	&	131,186,351	&	126.32	\\
-7780	&	121,447,750	&	104.23	\\
-7781	&	151,580,510	&	138.14	\\
-7782	&	19,410,430	&	16.76	\\
-7783	&	3,677,110	&	4.34	\\
-7786	&	4,746,870	&	3.94	\\
-7795*	&	116,023,039	&	37.38	\\
-7796	&	150,763,230	&	129.49	\\
-7798	&	167,693,140	&	171.32	\\
-7799*	&	149,954,553	&	160.63	\\
-7800	&	159,933,840	&	162.39	\\
-7801*	&	140,431,569	&	115.89	\\
-7803*	&	145,443,839	&	139.15	\\
-7804	&	150,163,340	&	146.10	\\
-7805*	&	130,983,413	&	129.61	\\
-7807*	&	110,738,242	&	111.03	\\
-7947	&	100,003,560	&	161.36	\\
-7948	&	112,391,630	&	182.72	\\
-7949	&	105,624,080	&	176.19	\\
-7953	&	25,034,370	&	32.30	\\
-7962*	&	23,011,403	&	37.21	\\
-7963	&	100,690,930	&	165.05	\\
-7964	&	100,426,760	&	156.40	\\
-7965	&	47,883,630	&	77.28	\\
-7966	&	102,294,530	&	156.65	\\
-7968	&	100,021,800	&	146.16	\\
-7969	&	9,593,000	&	15.06	\\
-7970	&	100,430,650	&	141.43	\\
-7972	&	72,335,630	&	124.09	\\
-7976	&	25,210,890	&	43.13	\\
-7982	&	16,805,500	&	29.89	\\
-7983	&	100,237,730	&	175.35	\\
-7984	&	105,389,430	&	186.27	\\
-7985	&	103,263,260	&	183.61	\\
-7986	&	102,740,620	&	182.61	\\
-7987	&	104,291,800	&	186.08	\\
-7988	&	100,041,960	&	174.62	\\
-8025	&	100,257,350	&	171.80	\\
-8026	&	100,229,880	&	173.34	\\
-8027	&	103,477,890	&	175.63	\\
-8028	&	119,665,800	&	200.79	\\
-8029	&	100,850,170	&	169.53	\\
-8030	&	68,263,790	&	114.83	\\
-8031	&	58,215,590	&	97.86	\\
-8039*	&	94,955,778	&	164.65	\\
-8040	&	100,283,730	&	173.74	\\
-8041	&	29,615,580	&	51.17	\\
-8043*	&	28,089,049	&	49.35	\\
-8044	&	100,089,230	&	174.74	\\
-8045	&	101,535,140	&	158.97	\\
-8046	&	101,280,500	&	152.38	\\
-8047	&	100,918,360	&	166.05	\\
-8048	&	100,013,000	&	172.99	\\
-8049	&	22,101,030	&	37.81	\\
-8051	&	29,492,890	&	49.83	\\
-8055	&	54,455,460	&	100.94	\\
-8057	&	100,049,810	&	183.98	\\
-8058	&	100,069,290	&	176.57	\\
-8059	&	110,092,750	&	194.64	\\
-8072	&	108,117,590	&	202.07	\\
-8073	&	103,940,210	&	167.06	\\
-8074	&	88,071,400	&	157.69	\\
-8075	&	34,367,160	&	64.42	\\
-8077	&	57,189,610	&	106.63	\\
-8085	&	59,817,680	&	123.96	\\
-8086	&	97,369,240	&	191.09	\\
-8087	&	109,983,980	&	184.81	\\
-8088	&	27,287,810	&	54.80	\\
-8090	&	31,698,590	&	60.13	\\
-8092	&	99,450,940	&	184.97	\\
-8094	&	100,575,040	&	189.27	\\
-8095	&	105,290,240	&	162.69	\\
-8096	&	100,177,890	&	163.48	\\
-8097	&	99,131,050	&	172.20	\\
-8098	&	101,838,720	&	193.62	\\
-8099	&	128,774,050	&	241.24	\\
+7644	&	150,288,740	&	187.59	\\
+7653	&	25,128,650	&	29.68	\\
+7779*	&	131,186,351	&	130.49	\\
+7780	&	121,447,750	&	106.64	\\
+7781	&	151,580,510	&	142.13	\\
+7782	&	19,410,430	&	17.01	\\
+7783	&	3,677,110	&	4.24	\\
+7786	&	4,746,870	&	3.91	\\
+7795*	&	119,559,730	&	234.82	\\
+7796	&	150,763,230	&	132.44	\\
+7798	&	167,693,140	&	174.72	\\
+7799*	&	149,954,553	&	164.51	\\
+7800	&	159,933,840	&	167.17	\\
+7801*	&	140,431,569	&	117.33	\\
+7803*	&	145,443,839	&	142.55	\\
+7804	&	150,163,340	&	151.63	\\
+7805*	&	130,983,413	&	134.32	\\
+7807*	&	110,738,242	&	114.52	\\
+7947	&	100,003,560	&	164.41	\\
+7948	&	112,391,630	&	186.06	\\
+7949	&	105,624,080	&	177.60	\\
+7953	&	25,034,370	&	32.58	\\
+7962*	&	23,011,403	&	37.58	\\
+7963	&	100,690,930	&	166.44	\\
+7964	&	100,426,760	&	158.62	\\
+7965	&	47,883,630	&	78.44	\\
+7966	&	102,294,530	&	159.30	\\
+7968	&	100,021,800	&	148.71	\\
+7969	&	9,593,000	&	15.33	\\
+7970	&	100,430,650	&	143.56	\\
+7972	&	72,335,630	&	125.13	\\
+7976	&	25,210,890	&	43.62	\\
+7982	&	16,805,500	&	29.93	\\
+7983	&	100,237,730	&	167.36	\\
+7984	&	105,389,430	&	187.04	\\
+7985	&	103,263,260	&	182.40	\\
+7986	&	102,740,620	&	182.09	\\
+7987	&	104,291,800	&	185.95	\\
+7988	&	100,041,960	&	173.63	\\
+8025	&	100,257,350	&	170.86	\\
+8026	&	100,229,880	&	172.84	\\
+8027	&	103,477,890	&	176.24	\\
+8028	&	119,665,800	&	200.13	\\
+8029	&	100,850,170	&	169.84	\\
+8030	&	68,263,790	&	115.31	\\
+8031	&	58,215,590	&	98.33	\\
+8039*	&	94,955,778	&	164.82	\\
+8040	&	100,283,730	&	172.91	\\
+8041	&	29,615,580	&	50.97	\\
+8043*	&	28,089,049	&	49.46	\\
+8044	&	100,089,230	&	174.61	\\
+8045	&	101,535,140	&	149.92	\\
+8046	&	101,280,500	&	150.71	\\
+8047	&	100,918,360	&	165.40	\\
+8048	&	100,013,000	&	172.62	\\
+8049	&	22,101,030	&	37.61	\\
+8051	&	29,492,890	&	49.18	\\
+8055	&	54,455,460	&	99.06	\\
+8057	&	100,049,810	&	181.69	\\
+8058	&	100,069,290	&	175.69	\\
+8059	&	110,092,750	&	193.91	\\
+8072	&	108,117,590	&	197.67	\\
+8073	&	103,940,210	&	164.48	\\
+8074	&	88,071,400	&	153.78	\\
+8075	&	34,367,160	&	63.35	\\
+8077	&	57,189,610	&	103.81	\\
+8085	&	59,817,680	&	119.24	\\
+8086	&	97,369,240	&	185.47	\\
+8087	&	109,983,980	&	178.96	\\
+8088	&	27,287,810	&	52.69	\\
+8090	&	31,698,590	&	58.73	\\
+8092	&	99,450,940	&	180.94	\\
+8094	&	100,575,040	&	186.33	\\
+8095	&	105,290,240	&	160.32	\\
+8096	&	100,177,890	&	159.82	\\
+8097	&	99,131,050	&	168.27	\\
+8098	&	101,838,720	&	190.14	\\
+8099	&	128,774,050	&	237.01	\\
 
 \hline
-Total	&	7,234,141,136	&	10685.27	\\
+Total	&	7,237,677,827	&	10867.62	\\
   \hline
   \hline
 %  \end{tabular}
@@ -200,8 +205,8 @@ Total	&	7,234,141,136	&	10685.27	\\
 \begin{tabular}{l l l}
 Run Number \# & Excluded Range & Reason for Exclusion \\
 \hline
-7779 & 0 - 58  & SVT position not at 0.5 mm\\
-7795 & 135 - 150 & beam blocker not in place \\
+%7779 & 0 - 58  & SVT position not at 0.5 mm\\
+%7795 & 135 - 150 & beam blocker not in place \\
 7799 & * & 3 files missing \\
 7801 & * & 16 files missing \\
 7803 & * & 14 files missing \\
@@ -269,7 +274,7 @@ Run Number \# & Excluded Range & Reason for Exclusion \\
 %\section{Some results}
 %Figure \ref{fig:events_per_charge} shows the number of events per nC in each of the chosen golden runs and ``salvageable" runs as a function of run number.  This number seems to be consistent during the 2016 runs, with abrupt changes occurring only when the current and/or trigger conditions are changed.  
 \section{Conclusions}
-This list contains 82 runs, with a total of 7,292,550,593 events and 10634.68 nb$^{-1}$ of luminosity.  This is equivalent to 3.85 days of runtime with 200 nA with no beam trips and 100\% livetime.  The beam charges that were used to calculate these numbers can be found in the \href{https://docs.google.com/spreadsheets/d/1X_TfOQyQBv9Ja1IQ5LYImk0sd00eN-d4zzkCwn-CSUM/edit#gid=43855609}{\underline{2016 run spreadsheet}}, in the golden runs sheet.
+This list contains 82 runs, with a total of 7,237,677,827 events and 10867.62 nb$^{-1}$ of luminosity.  This is equivalent to 3.93 days of runtime with 200 nA with no beam trips and 100\% livetime.  The beam charges that were used to calculate these numbers can be found in the \href{https://docs.google.com/spreadsheets/d/1X_TfOQyQBv9Ja1IQ5LYImk0sd00eN-d4zzkCwn-CSUM/edit#gid=43855609}{\underline{2016 run spreadsheet}}, in the golden runs sheet.
 
 
 \end{document}
