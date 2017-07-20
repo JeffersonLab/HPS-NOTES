@@ -1,0 +1,55 @@
+This is BibTeX, Version 0.99d (TeX Live 2016)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: cosmicNote.aux
+The style file: unsrt.bst
+Database file #1: biblio.bib
+Warning--entry type for "szumila-vance_hps_2016" isn't style-file defined
+--line 2 of file biblio.bib
+Warning--entry type for "charles_2014" isn't style-file defined
+--line 13 of file biblio.bib
+Warning--entry type for "baltzell_ecal_2015" isn't style-file defined
+--line 24 of file biblio.bib
+Warning--empty journal in balossino_hps_2016
+Warning--empty year in balossino_hps_2016
+You've used 4 entries,
+            1791 wiz_defined-function locations,
+            464 strings with 4674 characters,
+and the built_in function-call counts, 963 in all, are:
+= -- 34
+> -- 123
+< -- 0
++ -- 43
+- -- 39
+* -- 82
+:= -- 186
+add.period$ -- 8
+call.type$ -- 4
+change.case$ -- 4
+chr.to.int$ -- 0
+cite$ -- 6
+duplicate$ -- 23
+empty$ -- 69
+format.name$ -- 39
+if$ -- 184
+int.to.chr$ -- 0
+int.to.str$ -- 4
+missing$ -- 1
+newline$ -- 19
+num.names$ -- 4
+pop$ -- 27
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 16
+stack$ -- 0
+substring$ -- 0
+swap$ -- 3
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 2
+while$ -- 4
+width$ -- 5
+write$ -- 33
+(There were 5 warnings)
