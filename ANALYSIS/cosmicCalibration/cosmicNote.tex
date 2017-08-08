@@ -63,7 +63,7 @@
 \title{\vspace{-15mm}\fontsize{20pt}{10pt}\selectfont\textbf{Implementation of pulse fitting cosmic signals to calibrate the HPS ECal}} % Article title
 \author[1]{Luca Marsicano\thanks{luca.marsicano@ge.infn.it}}
 \author[2]{Holly Szumila-Vance\thanks{hszumila@jlab.org}}
-\affil[1]{Instituto Nazionale di Fisica Nucleare, Sezione di Genova, Genova, Italy}
+\affil[1]{Istituto Nazionale di Fisica Nucleare, Sezione di Genova, Genova, Italy}
 \affil[2]{Old Dominion University, Norfolk, VA}
 \renewcommand\Authands{ and }
 \date{}
@@ -193,7 +193,14 @@ While no clear improvement is achieved for the overall ECal using pulse-fitting,
   \label{fig:compareResults}
 \end{figure}
 
-\indent From Monte Carlo simulation, the energy found to be deposited in the crystals using the prescribed geometric cuts was 16.7~MeV. After using this value for initial calibrations without pulse-fitting for the 2014 HPS run, the energy point was found to be too low when compared to the resulting peak position for elastically-scattered beam energy electrons. The energy for calibration point was increased to 18.3~MeV and appeared to provide a consistent calibration for all other energies as there was no longer a systematic offset with respect to the cosmic calibration. From this analysis, it is clear that pulse-fitting results in a systematically higher calibration point in cosmics. In order to establish gains that would be consistent with those seen from the elastically-scattered electron calibration from previous runs, the pulse-fitting cosmic calibration should using the previously found lower energy of 16.7~MeV for the gains. 
+\indent From Monte Carlo simulation, the energy found to be deposited in the crystals using the prescribed geometric cuts was 16.1~MeV. As shown in~\cite{szumila-vance_hps_2016}, the deposited energy per crystal for cosmic ray muons passing vertically through the calorimeter is relatively constant as a function a position. The deposited energy peak is shown in Figure~\ref{mcedep}.
+\begin{figure}[htb]
+  \centering
+      \includegraphics[width=0.5\textwidth]{pics/mip_mc.png}
+  \caption{The Monte Carlo deposited energy in all crystals is shown. This distribution is fit with the Landau-Gaussian convoluation, and the peak is found numerically to be 16.1~MeV.}
+  \label{mcedep}
+\end{figure}
+The energy deposited in all crystals in Figure~\ref{mcedep} is fit with the typical Landau-Gaussian convolution, and the peak of the distribution is found, numerically, to be 16.1~MeV. After using this value for initial calibrations without pulse-fitting for the 2014 HPS run, the energy point was found to be too low when compared to the resulting peak position for elastically-scattered beam energy electrons. The energy for calibration point was increased to 18.3~MeV and appeared to provide a consistent calibration for all other energies as there was no longer a systematic offset with respect to the cosmic calibration. From this analysis, it is clear that pulse-fitting results in a systematically higher calibration point in cosmics. In order to establish gains that would be consistent with those seen from the elastically-scattered electron calibration from previous runs, the pulse-fitting cosmic calibration should use the previously found energy from simulation of 16.1~MeV for the gains. 
 
 %If time, re-calibrate using elastically-scattered electrons and see if there is any improvement to the overally energy resolution
 
@@ -203,8 +210,7 @@ The selection criteria for choosing crystals with good cosmic events is the same
 \indent The initialization of the fit parameters and the thresholds were thoroughly studied and discussed here. While pulse-fitting does not appear to improve the energy resolution of the ECal as a whole, there is improvement to some crystals that responded poorly when simply integrating the raw FADC spectrum. Pulse-fitting provides an improvement in the calibration of these crystals and is consistent with the HPS ECal reconstruction framework.\\
 
 \section{Software packages}
-The software is in the hps-java framework. Information for running the analysis can be found at https://github.com/JeffersonLab/HPS-CODE/tree/master/CALIBRATION/COSMIC.
-%Can add in further description here of where the relevant steering file is in hps-java
+The software is in the hps-java framework.The raw evio files can be used for a cosmic calibration by using the steering file /org/hps/steering/analysis/CosmicCalibration.lcsim. This steering file will produce the output histograms of the energy measured in each crystal. The scripts to run the hps-java codes on ifarm is located at /u/group/hps/production/data/cosmic. These distributions can then be analyzed and fit using the instructions and codes at https://github.com/JeffersonLab/HPS-CODE/tree/master/CALIBRATION/COSMIC.
 
 
 %----------------------------------------------------------------------------------------
