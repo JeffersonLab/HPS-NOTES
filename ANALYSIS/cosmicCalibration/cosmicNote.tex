@@ -115,14 +115,14 @@ The calibration procedure that follows was tuned and developed on the cosmic ray
   \caption{Cosmic ray signal as seen when passing vertically through a column of ten crystals in the ECal.}
   \label{rawColumn}
 \end{figure}	
-In order to use the relatively small signals from cosmic rays in the ECal, cuts are applied to isolate the peak. The goal of the cuts is to ensure that the signal is from a cosmic ray muon (as opposed to a fluctuation in the FADC channel spectra) and that the hit passes cleanly through the crystal of interest such that the energy is not shared between crystals in the same row. From Figure~\ref{rawColumn}, it is clear that the signals are very close to the pedestal, but a threshold can be chosen from this raw spectrum to identify when a signal is visible in a crystal. With the splitters installed in the HPS detector setup, this threshold was 2.5~FADC mV. After removal of the splitters, the threshold was increased to XX~FADC mV. \\
+In order to use the relatively small signals from cosmic rays in the ECal, cuts are applied to isolate the peak. The goal of the cuts is to ensure that the signal is from a cosmic ray muon (as opposed to a fluctuation in the FADC channel spectra) and that the hit passes cleanly through the crystal of interest such that the energy is not shared between crystals in the same row. From Figure~\ref{rawColumn}, it is clear that the signals are very close to the pedestal, but a threshold can be chosen from this raw spectrum to identify when a signal is visible in a crystal. With the splitters installed in the HPS detector setup, this threshold was 2.5~FADC mV. After removal of the splitters, the threshold was increased to 3.5~FADC mV. \\
 \indent The threshold was used when applying geometric cuts to ensure that the cosmic ray muon passed vertically through the ECal. The geometric cuts were optimized from Monte Carlo to ensure that the signal is clearly visible in the crystal of interest. The analysis seeks crystals that have a threshold crossing in the optimal time window as prescribed from the DAQ. If there is a threshold crossing, then a threshold crossing is also required in the crystals immediately above and below the crystal of interest. A threshold crossing must not exist in the crystals to the immediate left and right of the crystal of interest in the same row. For edge crystals, the requirement to have a hit immediately above or below is altered such that the two subsequent crystals in the same column away from the edge have a hit above threshold.\\ 
 \indent From previous work~\cite{charles_2014}, the ECal response is described by the sum of the pedestal and a {\em 3-pole} function:
 \begin{equation}
   P\ +\ \frac{A}{2\tau^3}\ (t-t_0)^2\ e^{-(t-t_0)/\tau}
   \label{eqn:3pole}
 \end{equation}
-This function was further studied and implemented into the HPS calorimeter reconstruction software as described by~\cite{baltzell_ecal_2015}. Previously, the cosmic signals were integrated from the raw FADC spectra and not from a fit to the raw FADC spectra. Here, Equation~\eqref{eqn:3pole} is applied to the cosmic signals as shown in Figure~\ref{fig:rawFits}. The pedestals, $P$, for each fit are averaged over the bins at the front of the FADC timing window for each event. The widths, $\tau$, for each each fit are fixed from those previously found by~\cite{baltzell_ecal_2015}. The $t_0$ is initialized from the bin time at threshold crossing. The integral $A$ is initialized from XX.\\ 
+This function was further studied and implemented into the HPS calorimeter reconstruction software as described by~\cite{baltzell_ecal_2015}. Previously, the cosmic signals were integrated from the raw FADC spectra and not from a fit to the raw FADC spectra. Here, Equation~\eqref{eqn:3pole} is applied to the cosmic signals as shown in Figure~\ref{fig:rawFits}. The pedestals, $P$, for each fit are averaged over the bins at the front of the FADC timing window for each event. The widths, $\tau$, for each each fit are fixed from those previously found by~\cite{baltzell_ecal_2015}. The $t_0$ is initialized from the bin time at threshold crossing. The integral $A$ is initialized to the area of the peak, evaluated summing the FADC samples in the signal region.\\ 
 \begin{figure}[H]
 \begin{minipage}{0.5\textwidth}
  \includegraphics[width=\textwidth]{pics/rawfit2.pdf}
@@ -134,7 +134,7 @@ This function was further studied and implemented into the HPS calorimeter recon
 \end{minipage}\hfill\begin{minipage}{0.5\textwidth}
  \includegraphics[width=\textwidth]{pics/rawfit4.pdf}
  \end{minipage}
-  \caption{Fits applied to cosmic ray signals in four different crystals using Equation~\eqref{eqn:3pole}. The noise errors shown here are estimated to be XX~FADC mV per time bin.}
+  \caption{Fits applied to cosmic ray signals in four different crystals using Equation~\eqref{eqn:3pole}. The noise errors shown here are estimated to be 0.75~FADC mV per time bin.}
   \label{fig:rawFits}
 \end{figure}
 After applying the pulse-fitting procedure to the raw FADC spectra for each crystal, the peak position of the distribution of the pulse-integral per crystal is used to calibrate the gain. The pulse-integral distribution for a single crystal is shown in Figure~\ref{pulseIntFit}. The fit applied to Figure~\ref{pulseIntFit} is a Landau-Gaussian convolution where the Landau part arises from the scintillation response in the crystal, and the Gaussian component comes from the statistical noise component of the electronics in readout. 
@@ -144,7 +144,7 @@ After applying the pulse-fitting procedure to the raw FADC spectra for each crys
   \caption{The pulse-integral distribution obtained from pulse-fitting applied to the raw FADC spectrum of each crystal is shown for a single crystal. The distribution is then fit with a Landau-Gaussian convolution, and the peak of this fit is obtained numerically to provide the calibration point.}
   \label{pulseIntFit}
 \end{figure}	
-The overall gain is obtained from numerically determining the peak position as shown in Figure~XXX and dividing into the expected energy deposition in the crystal as obtained from Monte Carlo. The formula is described by Equation~\eqref{eqn:gain}.
+The overall gain is obtained from numerically determining the peak position as shown in Figure~\ref{pulseIntFit} and dividing into the expected energy deposition in the crystal as obtained from Monte Carlo. The formula is described by Equation~\eqref{eqn:gain}.
 \begin{equation}
   \textrm{Gain} = \dfrac{\textrm{Energy }MeV}{\textrm{FADC pulse-integral}}
   \label{eqn:gain}
@@ -152,7 +152,7 @@ The overall gain is obtained from numerically determining the peak position as s
 
 %------------------------------------------------
 \section{Results}
-From the fits shown in Figure~\ref{fig:rawFits}, the $\chi^2$ distribution is shown in Figure~\ref{fig:chi2}. Here, the noise per bin is estimated to be XX~FADC mV. The resulting $\chi^2$ from these fits appears to be reasonable and is slightly worse than the quality described by~\cite{baltzell_ecal_2015}. The decrease in fit quality is most likely due to the low energy of the signals when compared to the signals in~\cite{baltzell_ecal_2015}.
+From the fits shown in Figure~\ref{fig:rawFits}, the $\chi^2$ distribution is shown in Figure~\ref{fig:chi2}. Here, the noise per bin is estimated to be 0.75~FADC mV. The resulting $\chi^2$ from these fits appears to be reasonable and is slightly worse than the quality described by~\cite{baltzell_ecal_2015}. The decrease in fit quality is most likely due to the low energy of the signals when compared to the signals in~\cite{baltzell_ecal_2015}.
 \begin{figure}[hbt]
 \begin{minipage}{0.5\textwidth}
  \includegraphics[width=\textwidth]{pics/chi2.pdf}
@@ -162,7 +162,7 @@ From the fits shown in Figure~\ref{fig:rawFits}, the $\chi^2$ distribution is sh
   \caption{Shown on the left is the raw $\chi^2$ distribution from the pulse-fits applied to cosmic ray signals in the ECal. The $\chi^2/dof$ is shown on the right. The distribution on the right looks reasonable, but is slightly worse than the distribution obtained~\cite{baltzell_ecal_2015} due to the low energy of the signals.}
   \label{fig:chi2}
 \end{figure}
-We compare the fits to the pulse-integral distributions to understand the differences when obtaining the pulse-integral from the integral of the fit to the raw FADC spectra versus the integration of the raw FADC spectra without fitting. As shown in Figure~\ref{compare} on the left, the resulting Gaussian widths are relatively unchanged for the overall ECal response. This is not a truly accurate metric for comparison because the Gaussian widths are also strongly affected by the Landau part of the fit and this is mainly responsible for the outliers. However, it can be seen that there is generally no overall systematic difference or improvement. The peak of the pulse-integral distribution from pulse-fitting is shifted to larger values as shown in Figure~\ref{fig:compare} on the right. This larger value probably results from the visible dips in the FADC spectra that can be seen in Figure~\ref{fig:rawFits}. These dips would not significantly affect the integral of the distribution when fitting as they would when integrating the raw FADC spectrum.
+We compare the fits to the pulse-integral distributions to understand the differences when obtaining the pulse-integral from the integral of the fit to the raw FADC spectra versus the integration of the raw FADC spectra without fitting. As shown in Figure~\ref{fig:compare} on the left, the resulting Gaussian widths are relatively unchanged for the overall ECal response. This is not a truly accurate metric for comparison because the Gaussian widths are also strongly affected by the Landau part of the fit and this is mainly responsible for the outliers. However, it can be seen that there is generally no overall systematic difference or improvement. The peak of the pulse-integral distribution from pulse-fitting is shifted to larger values as shown in Figure~\ref{fig:compare} on the right. This larger value probably results from the visible dips in the FADC spectra that can be seen in Figure~\ref{fig:rawFits}. These dips would not significantly affect the integral of the distribution when fitting as they would when integrating the raw FADC spectrum.
 \begin{figure}[hbt]
 \begin{minipage}{0.5\textwidth}
  \includegraphics[width=\textwidth]{pics/cosmicGdiff.pdf}
@@ -172,24 +172,34 @@ We compare the fits to the pulse-integral distributions to understand the differ
   \caption{A comparison of the Gaussian $\sigma$ from the convolution fit to the distribution of the pulse-integrals is compared for the pulse-integrals obtained from fitting and non-fitting procedures on the left. A comparison between the peak position from the distributions is shown on the right. While the resolution appears to be roughly the same, the peak position is systematically higher when the pulse-integral is obtained using pulse-fitting.}
   \label{fig:compare}
 \end{figure}
-While no clear improvement is achieved for the overall ECal using pulse-fitting, crystals that had relatively noisy distributions tended to produce much cleaner distributions with pulse-fitting. A more typical improvement is shown in Figure~\ref{fig:compareResults}.\\
-%It would be good to find the Crystal 45,6 from earlier runs that had a more marked improvement. Maybe we can find a different crystal for this.
+While no clear improvement is achieved for the overall ECal using pulse-fitting, crystals that had relatively noisy distributions tended to produce much cleaner distributions with pulse-fitting, as shown in Figure~\ref{fig:compareResultsMarked}. A more typical improvement is shown in Figure~\ref{fig:compareResults}.\\
+
+\begin{figure}[hbt]
+\begin{minipage}{0.5\textwidth}
+ \includegraphics[width=\textwidth]{pics/Cry_45_3.png}
+\end{minipage}\hfill\begin{minipage}{0.5\textwidth}
+ \includegraphics[width=\textwidth]{pics/Cry_45_3_Fit.png}
+ \end{minipage}
+  \caption{Shown on the left is the resulting pulse-integral distribution and fit for integration with no pulse-fitting. The right plot shows the resulting pulse-integral distribution for the same crystal whose pulse-integral was obtained with pulse-fitting. For this specific crystal, which is relatively noisy, the pulse-fitting produces a cleaner distribution. }
+  \label{fig:compareResultsMarked}
+\end{figure}
 \begin{figure}[hbt]
 \begin{minipage}{0.5\textwidth}
  \includegraphics[width=\textwidth]{pics/Cry_45_6.png}
 \end{minipage}\hfill\begin{minipage}{0.5\textwidth}
  \includegraphics[width=\textwidth]{pics/Cry_45_6_Fit.png}
  \end{minipage}
-  \caption{Shown on the left is the resulting pulse-integral distribution and fit for integration with no pulse-fitting. The right plot shows the resulting pulse-integral distribution for the same crystal whose pulse-integral was obtained with pulse-fitting.}
+  \caption{A comparison of the pulse-integral distribution and fit for integration with (right) and without (left) pulse-fitting, for the same crystal. In this case, the pulse-fitting did not  substantially improve the distribution.}
   \label{fig:compareResults}
 \end{figure}
+
 \indent From Monte Carlo simulation, the energy found to be deposited in the crystals using the prescribed geometric cuts was 16.7~MeV. After using this value for initial calibrations without pulse-fitting for the 2014 HPS run, the energy point was found to be too low when compared to the resulting peak position for elastically-scattered beam energy electrons. The energy for calibration point was increased to 18.3~MeV and appeared to provide a consistent calibration for all other energies as there was no longer a systematic offset with respect to the cosmic calibration. From this analysis, it is clear that pulse-fitting results in a systematically higher calibration point in cosmics. In order to establish gains that would be consistent with those seen from the elastically-scattered electron calibration from previous runs, the pulse-fitting cosmic calibration should using the previously found lower energy of 16.7~MeV for the gains. 
 
 %If time, re-calibrate using elastically-scattered electrons and see if there is any improvement to the overally energy resolution
 
 %------------------------------------------------
 \section{Conclusion}
-The selection criteria for choosing crystals with good cosmic events is the same as determined previously and still requires a significant time collecting signals. While the overall trigger rate for signals is apprixomately 7~Hz from the DAQ, the rates per crystal after all cuts are applied are XX~mHz. In order to accomplish a confident calibration of the ECal, it is necessary to run for at least XX~hours. A good calibration using the ECal is important in establishing preliminary gains for use in the DAQ and is critical to the calibration of crystals that are not within the acceptance for elastically-scattered beam energy electrons. No improvement to the time spent collecting cosmic signals is found using this method.\\
+The selection criteria for choosing crystals with good cosmic events is the same as determined previously and still requires a significant time collecting signals. While the overall trigger rate for signals is apprixomately 7~Hz from the DAQ, the rates per crystal after all cuts are applied are 3~mHz. In order to accomplish a confident calibration of the ECal, it is necessary to run for at least 24~hours. A good calibration using the ECal is important in establishing preliminary gains for use in the DAQ and is critical to the calibration of crystals that are not within the acceptance for elastically-scattered beam energy electrons. No improvement to the time spent collecting cosmic signals is found using this method.\\
 \indent The initialization of the fit parameters and the thresholds were thoroughly studied and discussed here. While pulse-fitting does not appear to improve the energy resolution of the ECal as a whole, there is improvement to some crystals that responded poorly when simply integrating the raw FADC spectrum. Pulse-fitting provides an improvement in the calibration of these crystals and is consistent with the HPS ECal reconstruction framework.\\
 
 \section{Software packages}
