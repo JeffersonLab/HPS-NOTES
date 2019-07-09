@@ -10,8 +10,8 @@
 
 % See the ``Article customise'' template for come common customisations
 
-\title{HPS SVT Operations Manual \\ v2.0.1}
-\author{SVT On-Call Cell Phone: 757-541-7539 \\ 
+\title{HPS SVT Operations Manual \\ v2.1}
+\author{SVT On-Call Cell Phone: 757-310-7198 \\ 
 Authors: \\
 Per Hansson, John Jaros, Takashi Maruyama, Omar Moreno,\\ Tim Nelson\footnote{contact person for this document}, Marco Oriunno, Matt Solt, Sho Uemura}
 \date{March 22, 2016} % delete this line to display the current date
@@ -33,46 +33,46 @@ Per Hansson, John Jaros, Takashi Maruyama, Omar Moreno,\\ Tim Nelson\footnote{co
 System & Experts \\
 \hline
 General expert & Tim Nelson \\
-Motion and wire scanner & Takashi Maruyama \\
-SVT DAQ & Pelle Hansson \\
-SVT EPICS controls & Pelle Hansson, Wesley Moore \\
-MPOD power supply & Sho Uemura \\
+Motion and wire scanner & Matt Solt, Tim Nelson \\
+SVT DAQ & Cameron Bravo, Omar Moreno \\
+SVT EPICS controls & Omar Moreno, Matt Solt \\
+MPOD power supply & Omar Moreno \\
 PLC interlocks & Brian Eng \\
-Cooling & Sho Uemura \\
+Cooling & Tim Nelson, Matt Solt \\
  \hline \hline
 \end{tabular}
 \end{center}
 
 \chapter{System Description}
 
-The SVT, shown in Figure~\ref{fig:SVT}, uses 6 layers of silicon extending from 10 cm to 90 cm downstream of the target inside of the PS vacuum chamber to measure charged particle trajectories.  
+The SVT, shown in Figure~\ref{fig:SVT}, uses 7 layers of silicon extending from 5~cm to 90~cm downstream of the target inside of the PS vacuum chamber to measure charged particle trajectories.  
 %=======================
 \begin{figure}[htbp]
 \begin{center}
     \includegraphics[width=7cm]{SVT}\includegraphics[width=7cm]{SVT_top}
-\caption{The SVT shown inside of the pair spectrometer vacuum chamber.  The beam enters through the flange in the front of the vacuum box extension that houses services for the SVT. }
+\caption{The SVT shown inside of the pair spectrometer vacuum chamber.  The beam enters through the flange in the front of the vacuum box extension that houses services for the SVT.  These images show the detector before the addition of Layer 0 and upgrade of Layer 1.}
 \label{fig:SVT}
 \end{center}
 \vspace*{-5mm}
 \end{figure}
 %=======================
-To accommodate the passage of the beam, the SVT is built in two halves, top and bottom, so that each layer consists of a pair of modules, one above and one below the beam plane.  Each module uses silicon microstrip sensors placed back-to-back with a small stereo angle between sides to provide 3-d space points for the hits in a module.  Modules for layer 1-3 have a single sensor on each side with readout at one end, while those for layers 4-6 are longer, with a pair of sensors on each side and readout at both ends.
+To accommodate the passage of the beam, the SVT is built in two halves, top and bottom, so that each layer consists of a pair of modules, one above and one below the beam plane.  Each module uses silicon microstrip sensors placed back-to-back with a small stereo angle between sides to provide 3-d space points for the hits in a module.  Modules for Layers 0 and 1 have a single sensor on each side with readout at both ends, where the sense strips are split along the midline of the sensor into pairs of striplets. These new modules use slim-edge silicon which allows them to be placed closer to the beam than during previous runs. Modules for layers 2 and 3 have a single sensor on each side with readout at one end, while those for layers 4-6 are longer, with a pair of sensors on each side and readout at both ends.
 
-Modules are supported in groups of three by a set of four support plates, as shown in Figure~\ref{fig:L1-3_bottom}. The top and bottom support plates for the back half of the SVT (layers 4-6) are stationary.  However, the supports for layers 1-3 can be opened and closed vertically around the beam, rotating around hinges behind layer 3 and moved by levers extending upstream to a pair of linear shifts outside of the magnet. The support plates are kinematically mounted inside a support box that installs into the pair spectrometer (PS) vacuum chamber, shown in Figure~\ref{fig:SVT_Box}.
+Modules are supported in groups of three by a set of four support plates, as shown in Figure~\ref{fig:L1-3_bottom}. The top and bottom support plates for the back half of the SVT (layers 4-6) are stationary.  However, the supports for layers 0-3 can be opened and closed vertically around the beam, rotating around hinges behind layer 3 and moved by levers extending upstream to a pair of linear shifts outside of the magnet. The support plates are kinematically mounted inside a support box that installs into the pair spectrometer (PS) vacuum chamber, shown in Figure~\ref{fig:SVT_Box}.
 %=======================
 \begin{figure}[htpb]
-\subfigure[\label{fig:L1-3_bottom}The lower support plate for Layers 1-3, showing the silicon (red) and readout electronics (green) of the modules, as well as the motion lever for opening and closing the SVT and the SVT beam scan wires.]
+\subfigure[\label{fig:L1-3_bottom}The lower support plate for Layers 0-3, showing the silicon (red) and readout electronics (green) of the modules, as well as the motion lever for opening and closing the SVT and the SVT beam scan wires.  This image shows the detector before the addition of Layer 0 and upgrade of Layer 1.]
 {\includegraphics[width=6.5cm]{L1-3_bottom}}
 \hspace{0.5cm}
-\subfigure[\label{fig:SVT_Box}The SVT support box which contains the upper and lower support plates for Layers 1-3 and Layers 4-6, as well as the cooling plate housing the Front End Boards of the SVT DAQ.]
+\subfigure[\label{fig:SVT_Box}The SVT support box which contains the upper and lower support plates for Layers 0-3 and Layers 4-6, as well as the cooling plate housing the Front End Boards of the SVT DAQ.]
 {\includegraphics[width=6.5cm]{SVT_Box}}
 \caption{Key sub-assemblies of the SVT.}
 \end{figure}
 %=======================
 
-The first stage of readout electronics is located on a hybrid circuit board at the end of each sensor.  Multiplexed analog signals from these boards are digitized by a set of 10 Front End Boards (FEBs) mounted to a separate cooling plate inside the SVT support box. Each FEB can control 4 hybrid/sensor units: a single module in layers 4-6 and either one or two modules in layers 1-3. The FEBs also control the hybrids, provide regulated low-voltage power from a single input, and pass externally generated bias voltages (HV) through to the sensors.   The FEBs communicate with a set of 4 Signal Flange Boards (SFB), up to three per SFB, which transmit digital signals through the vacuum penetration.  The exterior side of each flange board converts digital to optical signals for communication with the RCE DAQ.  Power to the FEB are routed through a pair of Power Flange Boards, one for LV and one for HV, supplied by Wiener MPOD power supply modules in a crate on the pie-tower.
+The first stage of readout electronics is located on a hybrid circuit board at the end of each sensor.  Multiplexed analog signals from these boards are digitized by a set of 10 Front End Boards (FEBs) mounted to a separate cooling plate inside the SVT support box. Each FEB can control 4 hybrid/sensor units: a single module in layers 4-6 and two modules in layers 0-3. The FEBs also control the hybrids, provide regulated low-voltage power from a single input, and pass externally generated bias voltages (HV) through to the sensors.   The FEBs communicate with a set of 4 Signal Flange Boards (SFB), up to three per SFB, which transmit digital signals through the vacuum penetration.  The exterior side of each flange board converts digital to optical signals for communication with the RCE DAQ.  Power to the FEB are routed through a pair of Power Flange Boards, one for LV and one for HV, supplied by Wiener MPOD power supply modules in a crate on the pie-tower.
 
-Cooling for the SVT is provided by a pair of chillers; one for the hybrids and sensors that operate at -20 $^\circ$C and one for the FEBs that operates at room temperature.  The FEBs have a single cooling loop, while the hybrids and sensors have two loops, one for the top and one for the bottom half of the SVT, where each of these loops runs first through the support structure for layers 1-3 and then through the structure for layers 4-6.  There are temperature sensors on every hybrid as well as sensors in the FEBs. The linear shifts, the cooling penetrations, and the signal/power penetrations are all located on a set of flanges on an extension vacuum box mounted to the upstream end of the PS vacuum chamber and which connects to the upstream beam line.
+Cooling for the SVT is provided by a pair of chillers; one for the hybrids and sensors that operate at -20 $^\circ$C and one for the FEBs that operates at room temperature.  The FEBs have a single cooling loop, while the hybrids and sensors have two loops, one for the top and one for the bottom half of the SVT, where each of these loops runs first through the support structure for layers 0-3 and then through the structure for layers 4-6.  There are temperature sensors on every hybrid as well as sensors in the FEBs. The linear shifts, the cooling penetrations, and the signal/power penetrations are all located on a set of flanges on an extension vacuum box mounted to the upstream end of the PS vacuum chamber and which connects to the upstream beam line.
 
 Since the SVT sensors are close to the beam, some attention to beam conditions is required prior to turning the SVT on and taking data. A number of systems provide the information used to assess whether beam conditions allow SVT operation. These systems include beam position monitors along the beamline, wire scanners located upstream of the HPS chicane, the wire attached to the SVT itself, a protection collimator located just upstream of the HPS chicane, and beam halo counters located along the beamline downstream of the collimator and signals from the HPS ECal which serve together as beam background monitors.  A detailed description of these systems and their operation can be found in the Beamline Operations Manual.
 
@@ -91,7 +91,7 @@ The crate is located in a rack in the pie tower with PTFE (teflon) insulated twi
 The low voltage power is supplied by Wiener MPV8008I low voltage power supply modules. Each module has 8 output channels (floating, with sense lines).
 Each of the five modules supplies power to two FEBs. 
 
-ISEG EHS F201p\_805F high precision high voltage modules provide the reverse bias voltage to the silicon sensors of the SVT. Each module has 16 output channels (floating). The three modules each supply bias to 12 sensors: SVT L1-3, L4-6 top or L4-6 bottom.  
+ISEG EHS F201p\_805F high precision high voltage modules provide the reverse bias voltage to the silicon sensors of the SVT. Each module has 16 output channels (floating). The three modules each supply bias to 12 sensors: SVT L0-3, L4-6 top or L4-6 bottom.  The bias supply to Layer 0 and Layer 1 are ganged, so that a single supply provides bias voltage to the sensors on both sides of the modules.  All other sensors in the detector have individual bias supply.
 
 The last two slots in the crate are occupied by spare modules (one LV and one HV).
 
@@ -114,11 +114,11 @@ The SVT cooling system, summarized in Table~\ref{tab:cooling} and Figure~\ref{fi
 \hline \hline 
 Location & Set Point & Resistive Load & Radiative Load \\      
 \hline
-SVT modules & -10 $^\circ$C & 75 W & 10 W  \\
-Piping to SVT modules & -20 $^\circ$C & 100 W & 0 \\
-Set point, SVT chiller & -20 $^\circ$C & - & - \\
-Front End Boards & 25 $^\circ$C & 100 W & 0  \\
-Set point, FEB chiller & 20 $^\circ$C & - & - \\
+SVT modules & -5 $^\circ$C & 75 W & 10 W  \\
+Piping to SVT modules & -10 $^\circ$C & 100 W & 0 \\
+Set point, SVT chiller & -10 $^\circ$C & - & - \\
+Front End Boards & 10 $^\circ$C & 100 W & 0  \\
+Set point, FEB chiller & 4 $^\circ$C & - & - \\
  \hline \hline
 \end{tabular}
 \caption[]{SVT cooling design parameters.}
@@ -135,18 +135,18 @@ Set point, FEB chiller & 20 $^\circ$C & - & - \\
 \end{center}
 \end{figure}
 %=======================
-Since the SVT is in vacuum, the cooling system is key for the safety and performance of the detector. The main heat sources are the sensor modules and their hybrid circuit boards and the Front End Boards (FEBs) which distribute power and DAQ to reduce the number of wires that must penetrate the vacuum flanges. An additional heat load results from the radiative heat exchange between the SVT U-support and the detector vacuum. The sensor modules need to be controlled to a sub-zero temperature, while the FEBs needs to be only thermally managed, removing the heat dissipated and keeping the active components to safe temperature, slightly above room temperature. For this reason it has been decided to have two separate chillers with independent loops and controls. The dew point in Hall B is expected to be at $\sim$18 $^\circ$C. The cold line from the sensor chiller to the vacuum box is insulated with 1 inch thick, non-flammable Armaflex.
+Since the SVT is in vacuum, the cooling system is key for the safety and performance of the detector. The main heat sources are the sensor modules and their hybrid circuit boards and the Front End Boards (FEBs) which distribute power and DAQ to reduce the number of wires that must penetrate the vacuum flanges. An additional heat load results from the radiative heat exchange between the SVT U-support and the detector vacuum. The sensor modules need to be controlled to a sub-zero temperature, while the FEBs only need to be thermally managed to remove heat produced by their operation. While the FEBs have typically been operated close to room temperature, the degradation of some components on the FEBs requires them to be cooled to 10-15~$^\circ$C in order to maintain operability of some parts of the detector.  To maintain the ability to set the silicon and FEB temperatures separately, there are two separate chillers with independent loops and controls. The dew point in Hall B is typically  $\sim$15 $^\circ$C. The cold lines from the chillers to the vacuum box is insulated with pipe insulation.
 
 All the instrumentation to control the cooling system will be placed in air, close to the chillers, with an identical layout for the two, as shown in Figures~\ref{fig:cooling_diagram}. 
 
-The cooling loop for the sensor modules is connected to a Julabo Chiller, Model Presto A80, which is set at -20 $^\circ$C. The heat transfer fluid is HFE-7000, a Fluorinert engineered fluid long used as heat transfer media for cooling applications.
+The cooling loop for the sensor modules is connected to a Julabo Chiller, Model Presto A80, which is set at -10~$^\circ$C, but may be lowered to  -20 $^\circ$C if necessary to reduce bias currents. The heat transfer fluid is HFE-7000, a Fluorinert engineered fluid long used as heat transfer media for cooling applications.  However, according to availability, HFE-7100 or HFE-7500 may also be used: all of these are cross-compatible.
 The inlet and the outlet lines are split to provide cooling in parallel to the top and the bottom parts of the detector.
-They then pass through flanges on the detector vacuum box, where they provide cooling in series to the L1-3 and L4-6 parts of the detector. The cooling pipes in vacuum are flexible metal hoses from the vacuum feed through to the detector, while the cooling lines built in the detector are 0.25" rigid copper pipe. The flexible lines are brazed on one end to the rigid copper pipes of the detectors and connected with VCR fittings to the vacuum feedthroughs on the other end. The cooling feed through have a ceramic transition spool to insulate electrically the cooling line from the vacuum box. Dielectric fittings to break the electrical continuity of the cooling loop are placed outside the vacuum.
+They then pass through flanges on the detector vacuum box, where they provide cooling in series to the L0-3 and L4-6 parts of the detector. The cooling pipes in vacuum are flexible metal hoses from the vacuum feed through to the detector, while the cooling lines built in the detector are 0.25" rigid copper pipe. The flexible lines are brazed on one end to the rigid copper pipes of the detectors and connected with VCR fittings to the vacuum feedthroughs on the other end. The cooling feed through have a ceramic transition spool to insulate electrically the cooling line from the vacuum box. Dielectric fittings to break the electrical continuity of the cooling loop are placed outside the vacuum.
 The estimated operating mass flow of the system is $\sim$10 g/s, providing 5 g/s per cooling channel with a pressure drop $\sim$1 bar.  The cooling loop inside vacuum is pneumatically tested up to 20 bars without showing any sign of failure.
 
 For the SVT chiller: Two Pt100 temperature sensors are located at the supply and return sides of the SVT manifold (glued to the tee junctions). Two mechanical pressure gauges are located at the supply and return sides of the SVT manifold, just before the tee junctions. A piston flow switch at the return side of the chiller (fixed setpoint of 0.25 GPM) checks that the flow going to the detector is acceptable. A check valve after the flow switch prevents a leak in the cooling loop from draining the chiller. A servo-actuated ball valve at the outlet of the chiller stops the cooling flow when requested by the slow control system (this valve takes $\sim$5 seconds to open or close). A pulsation dampener at the outlet of the chiller absorbs vibrations from the pump. The temperature sensors and the flow meter are interfaced with the Slow Control as diagnostic, while the actuated ball valve valve is interlocked. Additional diagnostics are available through the temperature sensors built into the SVT modules and the functional parameters of the chiller like set point temperature and pump pressure, which are controlled through an RS232 software interface.
 
-The FEB cooling plate has a similar cooling loop, which connects to a similar vacuum feedthrough on the front face of the vacuum chamber. The cooling fluid is deionized water. Two Pt100 temperature sensors are glued to the cooling lines next to the feedthrough. A paddlewheel flow switch (adjustable setpoint, normally 6-15 GPH) at the return side of the chiller checks that the flow going to the detector is acceptable; a rotameter is connected in series to measure the flow rate. A check valve after the flow switch prevents a leak in the cooling loop from draining the chiller. A solenoid valve at the outlet of the chiller stops the cooling flow when requested by the slow control system. The temperature sensors and the flow meter are interfaced with the Slow Control as diagnostic, while the solenoid valve is interlocked. Additional diagnostics are available through the temperature sensors built into the FEBs and the functional parameters of the chiller like set point temperature, which are controlled through an RS232 software interface.
+The FEB cooling plate has a similar cooling loop, which connects to a similar vacuum feedthrough on the front face of the vacuum chamber. The cooling fluid is deionized water. Two Pt100 temperature sensors are glued to the cooling lines next to the feedthrough. A paddlewheel flow switch (adjustable setpoint, normally 6-15 GPH) at the return side of the chiller checks that the flow going to the detector is acceptable. A check valve after the flow switch prevents a leak in the cooling loop from draining the chiller. A solenoid valve at the outlet of the chiller stops the cooling flow when requested by the slow control system. The temperature sensors and the flow meter are interfaced with the Slow Control as diagnostic, while the solenoid valve is interlocked. Additional diagnostics are available through the temperature sensors built into the FEBs and the functional parameters of the chiller like set point temperature, which are controlled through an RS232 software interface.
 
 \subsection{Sensors and inputs}
 \subsubsection*{FEB cooling loop}
@@ -155,7 +155,6 @@ The FEB cooling plate has a similar cooling loop, which connects to a similar va
     \item To PLC: 2x RTD on supply and return, near vacuum feedthroughs
     \item Through SVT DAQ: temperature sensors on FEBs
     \item From FEB chiller (via RS-232): temperature readout, status
-    \item Local readout only: flow meter, next to flow switch
 \end{itemize}
 \subsubsection*{SVT cooling loop}
 \begin{itemize}
@@ -258,23 +257,23 @@ If the beam is lost, the SVT should automatically go to a safe configuration unt
 \label{fig:motion}
 \end{figure}
 
-Figure~\ref{fig:motion} shows the SVT Motion System schematically. The top/bottom of each SVT support plate has three sensor layers (L1, L2, L3) and a wire frame, supported on a bearing at one end and connected to a rod attached to a linear stage at the other end. The linear stage is moved by a stepper motor through the EPICS slow controls system. In the nominal run position, the support plates are parallel to the beam and the Silicon physical edge is at 0.5 (L1), 2.0 (L2), and 3.5 mm (L3) from the beam. The support plates can be retracted by 1.3 degrees. Figure~\ref{fig:beam} shows the beam's eye view of the wires and the L1 sensor edge in the nominal run position and in the fully retracted position.
+Figure~\ref{fig:motion} shows the SVT Motion System schematically. The top/bottom of each SVT support plate has three sensor layers (L1, L2, L3) and a wire frame, supported on a bearing at one end and connected to a rod attached to a linear stage at the other end. The linear stage is moved by a stepper motor through the EPICS slow controls system. In the nominal run position, the support plates are parallel to the beam and the Silicon physical edges are at 0.5 (L0), 0.85 (L1), 2.0 (L2), and 3.5 mm (L3) from the beam. The support plates can be retracted by 1.3 degrees. Figure~\ref{fig:beam} shows the beam's eye view of the wires and the L0 sensor edge in the nominal run position and in the fully retracted position.
 
-The stepper motor controller is Newport XPS controller, and is different from the stepper motor controllers found in Hall B. The motor control is based on an optical encoder. Stage movement is precisely calibrated, and re-calibration is not necessary. Since the encoder has no knowlege of the actual stage position when the controller power is turned on, the linear stage must move to a reference point to establish its calibration (called ``homing''). A switch is located at the fully retracted position for this purpose. 
+The stepper motor controller is Newport XPS controller, and is different from the stepper motor controllers found in Hall B. The motor control is based on an optical encoder. Stage movement is precisely calibrated, and re-calibration is not necessary. Since the encoder has no knowledge of the actual stage position when the controller power is turned on, the linear stage must move to a reference point to establish its calibration (called ``homing''). A switch is located at the fully retracted position for this purpose. 
 
 Three vertical coordinates are used to locate the stage, the horizontal wire and the layer 1 sensor physical edge. The stage coordinate is y(stage) = 0~mm at the fully retracted position and y(top stage) = 18.136 mm  and y(bottom stage) = 18.212 mm at the nominal run position with the silicon 0.5~mm from the nominal beam plane. The wire and sensor edge coordinates are measured relative to the nominal beam position (positive y is up), and are given in terms of y(stage) as,
 
-When the beam is first delivered to Hall B, the vertical position of the beam is known to about 1 mm. Since we want to place the SVT layer 1 physical edge at 0.5 mm from the beam, SVT Wire Scanner is used to measure the beam position relative to the sensor edge with a precision of about 50~$\mu$m. The wire scanner has a 20 $\mu$m diameter gold-plated tungsten horizontal wire and a 30 $\mu$m diameter gold-plated tungsten angled wire. The angled wire is at 8.904 degrees to the horizontal wire, and is separated by y=1.98 mm at the nominal beam position. The Y position of the beam can be measured directly from the horizontal wire. If $\Delta$Y is the apparent Y position difference of the measured beam ``gaussian'' centers, the X position of the beam can be obtained from X = ($\Delta$Y - 1.98)/tan(8.904).   
+When the beam is first delivered to Hall B, the vertical position of the beam is known to about 1 mm. Since we want to place the SVT layer 0 physical edge at 0.5 mm from the beam, SVT Wire Scanner is used to measure the beam position relative to the sensor edge with a precision of about 50~$\mu$m. The wire scanner has a 20 $\mu$m diameter gold-plated tungsten horizontal wire and a 30 $\mu$m diameter gold-plated tungsten angled wire. The angled wire is at 8.904 degrees to the horizontal wire, and is separated by y=1.98 mm at the nominal beam position. The Y position of the beam can be measured directly from the horizontal wire. If $\Delta$Y is the apparent Y position difference of the measured beam ``gaussian'' centers, the X position of the beam can be obtained from X = ($\Delta$Y - 1.98)/tan(8.904).   
 
 \begin{itemize}
 \item
-y(top-wire) = -0.482 $\cdot$ y(stage) + 1.218 mm,
+y(top-wire) = -0.4816 $\cdot$ y(stage) + 1.0516 mm,
 \item
-y(top-si) = -0.391 $\cdot$ y(stage) + 7.472 mm,
+y(top-si) = -0.4509 $\cdot$ y(stage) + 8.6242 mm,
 \item
-y(bottom-wire) = +0.463 $\cdot$ y(stage) - 0.684 mm,
+y(bottom-wire) = +0.4648 $\cdot$ y(stage) - 1.0730 mm,
 \item
-y(bottom-si) = +0.363 $\cdot$ y(stage) - 6.815 mm.
+y(bottom-si) = +0.4227 $\cdot$ y(stage) - 8.2150 mm.
 \end{itemize}
 
 As the coordinate transformation is done automatically, all you need to specify is the position of the wire or Si sensor edge to operate the SVT Mover and the SVT Wire Scanner. 
@@ -282,7 +281,7 @@ As the coordinate transformation is done automatically, all you need to specify 
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=15cm]{WireFrame2.pdf}
-\caption{Beam's eye view of wires and and L1 sensor edge}
+\caption{Beam's eye view of wires and and L0 sensor edge}
 \label{fig:beam}
 \end{figure}
 
