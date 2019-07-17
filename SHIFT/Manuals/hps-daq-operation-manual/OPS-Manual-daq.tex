@@ -15,8 +15,10 @@
 
 % See the ``Article customise'' template for come common customisations
 
-\title{HPS DAQ Operations Manual v2.4.3}
-\author{Per Hansson Adrian, Omar Moreno, Sergey Boiarinov\thanks{Contact person for document.}, Nathan Baltzell, Sho Uemura }
+\title{HPS DAQ Operations Manual v3.0.0}
+\author{Omar Moreno\thanks{SVT DAQ contact person.}, 
+        Sergey Boiarinov\thanks{TDAQ contact person.},
+        Nathan Baltzell, Cameron Bravo }
 %\date{} % delete this line to display the current date
 
 %%% BEGIN DOCUMENT
@@ -26,8 +28,17 @@
 
 \tableofcontents
 
+\newpage
 \section{System Description}
-The HPS experiment data acquisition (DAQ) handles the acquisition of data for the two sub-detectors: the SVT,  and the ECal. HPS employs two DAQ architectures: the SVT is readout with Advanced Telecom Communications Architecture (ATCA) hardware while the ECal use VXS based hardware. The trigger system receives input from the ECal, and distributes a trigger signal to all detector subsystems to read out a selected event. Figure~\ref{fig:daq} gives a schematic block diagram of the DAQ system.
+The HPS experiment data acquisition (DAQ) handles the acquisition of data for
+three sub-detectors: the silicon vertex tracker (SVT), electromagnetic calorimeter
+(ECal) and hosdoscope. HPS employs two DAQ architectures: the SVT is readout 
+with the Advanced Telecom Communications Architecture (ATCA) hardware while the
+ECal uses VXS based hardware. The trigger system receives input from the ECal
+and hodoscope, and distributes a trigger signal to all detector subsystems to
+read out a selected event. 
+%Figure~\ref{fig:daq} gives a schematic block diagram
+%of the DAQ system.
 
 For the ECal, every VXS crate contains a Readout Controller (ROC) that collects digitized information, processes it, and sends it on to the Event Builder (EB). The ROC is a single blade Intel-based CPU module running DAQ software under CentOS Linux OS. For the SVT ATCA system, a multi-ROC setup runs on embedded processors situated on the ATCA main board. The EB assembles information from the SVT and ECal ROCs into a single event which is passed to the Event Recorder (ER) that writes it to a RAID5-based data storage system. The DAQ network system is a Foundry router providing high-speed connections between the DAQ components and to the JLab computing facility. 
 
@@ -35,21 +46,30 @@ For the ECal, every VXS crate contains a Readout Controller (ROC) that collects 
 \section{DAQ Control}
 \label{sec:daq_control}
 
-\subsection{Starting the DAQ from scratch}\label{sec:daqstart}
+\subsection{Starting the CODA Run Control}\label{sec:daqstart}
 
-\begin{enumerate}
-\item 
-    Log into \texttt{clondaq3} as \texttt{clasrun}.
-    \subitem It is critical to get the hostname and username correct!
-\item 
-To start all DAQ processes, open a terminal and run:\newline
-\texttt{> runcontrol -rocs}\newline
-\end{enumerate}
+The HPS experiment uses the CODA software framework for its DAQ run control. 
+During the 2019 Physics Run, CODA will be run in a VNC viewer running on a 
+VNC server started on \texttt{clondaq3}.  This allows the use of CODA remotely
+in the event that offsite support is required.  Accessing CODA can be done 
+from any of the clon machines in the counting house by issuing the following
+command from a terminal: \newline
 
-This opens up all windows needed on the current workspace. The workspace should look like Fig.~\ref{fig:coda}.
+    \texttt{> daqvnc}\newline
 
-It is important to be able to see all the roc terminals.  To do so it may be necessary to click on the {\bf rocs} button in the top right corner to make the roc terminals visible.
+\noindent
+In the case that CODA is not running within the VNC, it can be started by 
+opening a terminal and issuing the following command:\newline
 
+    \texttt{> runcontrol -rocs}\newline
+
+\noindent
+This opens up all windows needed on the current workspace. The workspace should
+look like Fig.~\ref{fig:coda}. It is important to be able to see all the roc 
+terminals.  To do so it may be necessary to click on the {\bf rocs} button in 
+the top right corner to make the roc terminals visible. \newline
+
+\noindent
 {\em Note:  if the roc terminals are oddly sized or not displaying properly, try slightly resizing the window.}
 %=======================
 \begin{figure}[htbp]
@@ -63,16 +83,20 @@ It is important to be able to see all the roc terminals.  To do so it may be nec
 %=======================
 
 \subsection{Killing the DAQ}\label{sec:daqexit}
-First, in the runcontrol GUI, click ``File''$\to``$Exit''.  You may have to do that twice.
 
-Then, to ensure that all underlying processes are gone, log into \texttt{clondaq3} as \texttt{clasrun}, {\em being sure you are on the correct host}, and then execute the two commands:\newline
-\texttt{> killall rcServer}\newline
-\texttt{> killall rocs}\newline
+\noindent
+First, in the runcontrol GUI, click ``File''$\to``$Exit''.  You may have to do
+that twice. Then, to ensure that all underlying processes are gone, open a terminal within
+the VNC viewer and execute the two commands:\newline
+    
+    \texttt{> killall rcServer}\newline
+
+    \texttt{> killall rocs}\newline
 %\texttt{> hps\_exit}\newline
 %\texttt{> roc\_xterms\_exit}\newline
 %This does not have to be done from the same terminal used for Section \ref{sec:daqstart}.  Do not proceed with DAQ operations until all the windows in Fig.~\ref{fig:coda} have disappeared.
 
-\subsection{Start a run}
+\subsection{Starting a run}
 \label{sec:startstop}
 
 \begin{enumerate}
@@ -114,7 +138,7 @@ main EPICS control GUI.}}
 SVT position is appropriate for the run. 
 
 \item 
-High voltage bias is ON and at  180V (unless SVT expert  or run coordinator has told you something different). 
+    High voltage bias is ON (at 60V for layers 0/1 and 180V for the rest). 
 \newline NOTE: If the the HV is OFF and won't come on you might need to go and reset the interlock by going to the \texttt{Devices/SVT Soft Interlocks} GUI and Reseting the MPOD interlock. This happens after a beam trip. 
 \newline {\bf \textcolor{red}{Important: Check that beam conditions for turning on bias voltage is OK before switching on!}}
 
@@ -122,17 +146,17 @@ High voltage bias is ON and at  180V (unless SVT expert  or run coordinator has 
 \item FEB Status
 \begin{enumerate}
 \item Under section \texttt{"ALL FEB CONTROL"} check that the status of \texttt{FEB ALL} is GREEN.
-\item Under section \texttt{"ALL FEB CONTROL"} check that the status of \texttt{FEB Hearbeat} is GREEN.
+\item Under section \texttt{"ALL FEB CONTROL"} check that the status of \texttt{FEB Link Status} is GREEN.
 \end{enumerate}
 
 \item IOC status
 \begin{enumerate}
-\item Under section \texttt{"IOC Status"} check that the status of \texttt{ALL IOCs} is GREEN.
+\item Under section \texttt{"IOC Status"} check that the status of \texttt{svtDAQRogue} is GREEN.
 \end{enumerate}
 
 \item Hybrid status
 \begin{enumerate}
-\item Under section \texttt{"ALL HYBRID CONTROL"} check that the status of \texttt{ALL HYBRIDS} is GREEN.
+\item Under section \texttt{"HYBRID CONTROL"} check that the status of \texttt{ALL HYBRIDS} is GREEN.
 \end{enumerate}
 
 \end{enumerate}
@@ -141,7 +165,7 @@ High voltage bias is ON and at  180V (unless SVT expert  or run coordinator has 
 
 \item In the \texttt{RunControl} GUI: click \texttt{connect}, the GUI should update with new windows. 
 
-\item Click on \texttt{Configure} in the transition section, choose configuration \texttt{'HPS35}. Click OK.
+\item Click on \texttt{Configure} in the transition section, choose configuration \texttt{PROD66}. Click OK.
 \item
 \begin{enumerate}
 \item
@@ -158,14 +182,14 @@ Press \texttt{Download}.
 \begin{enumerate}
 \item A popup window should appear to choose the trigger file, which should be defined in the run plan in the short term schedule on the HPS Run Wiki and/or the whiteboard in the counting house.
 
-\item Wait until the \texttt{Prestart} button appears and Run Control GUI reports that Download was completed. This might take up to 1 minute to complete.
+\item Wait until the \texttt{Prestart} button appears and Run Control GUI reports that Download was completed. This may take a few minutes to complete.
 
 \end{enumerate}
 
 \item Check SVT status
 
 \begin{enumerate}
-\item In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS} and check that both \texttt{DPM(0) RUNSTATE} and \texttt{DTM(0) RUNSTATE}  are saying \texttt{Download}.
+\item In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS}, check that \texttt{DPM(0) CODA State} is saying \texttt{Download}.
 \item In the \texttt{SVT summary GUI} under section \texttt{ALL HYBRID CONTROL}, check that \texttt{ALL HYBRIDS} status is \texttt{GREEN}.
 \end{enumerate}
 
@@ -174,8 +198,8 @@ Press \texttt{Download}.
 Press \texttt{Prestart}.
 
 \begin{enumerate}
-\item Fill out the popup GUI for the run log.  See Figure~\ref{fig:runlog}.
-\item Wait for the message of \texttt{Prestart succeeded} in Run Control GUI. This can take up to 1 minute.
+%\item Fill out the popup GUI for the run log.  See Figure~\ref{fig:runlog}.
+\item Wait for the message of \texttt{Prestart succeeded} in Run Control GUI. This can take a few minutes to complete.
 \item The \texttt{Go} button should appear.
 
 \item Check ECAL status
@@ -187,18 +211,18 @@ Press \texttt{Prestart}.
 
 \item Check SVT status
 \begin{enumerate}
-\item In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS}, check that both \texttt{DPM(0) RUNSTATE} and \texttt{DTM(0) RUNSTATE}  are saying \texttt{Prestart}.
+\item In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS}, check that \texttt{DTM(0) CODA State} is saying \texttt{Prestart}.
 \item In the \texttt{SVT summary GUI} under section \texttt{HYBRID SYNC}, check that status is \texttt{GREEN}.
 \end{enumerate}
 
 \end{enumerate}
 
 
-\begin{figure}[htbp]\centering
-    \includegraphics[width=8cm]{runlog}
-    \includegraphics[height=5.4cm,width=8cm]{runlog2}
-    \caption{The gui used for input to the run log database.  This pops up during Prestart (and again during End), and pressing ``Done'' is a requirement before moving forward.  Filling it out appropriately is very useful, but note that it is only entries in a database and does not directly affect what happens to the data.  Appropriate ``Run' Type'' could be production, calibration, etc.  And do complete the ``Comment'' section with anything you might deem relevant.\label{fig:runlog}}
-\end{figure}
+%\begin{figure}[htbp]\centering
+%    \includegraphics[width=8cm]{runlog}
+%    \includegraphics[height=5.4cm,width=8cm]{runlog2}
+%    \caption{The gui used for input to the run log database.  This pops up during Prestart (and again during End), and pressing ``Done'' is a requirement before moving forward.  Filling it out appropriately is very useful, but note that it is only entries in a database and does not directly affect what happens to the data.  Appropriate ``Run' Type'' could be production, calibration, etc.  And do complete the ``Comment'' section with anything you might deem relevant.\label{fig:runlog}}
+%\end{figure}
 
 
 \item
@@ -207,13 +231,12 @@ Press \texttt{Go} to start the run.
 
 \begin{enumerate}
 
-\item Wait for \texttt{transition Go succeeded}' message in the Run Control GUI. This can take about 10 seconds.
+\item Wait for \texttt{transition Go succeeded} message in the Run Control GUI. This can take about 10 seconds.
 \item The \textbf{End Run} button should appear.
 
 \item Check that the run status is \texttt{running} and that triggers are issued at the expected rate.
 
-\item In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS}, check that both \texttt{DPM(0) RUNSTATE}  and \texttt{DTM(0) RUNSTATE}  are saying \texttt{Go}, and both \texttt{DPM(0) TRIGGERCOUNT} and   \texttt{DTM(0) TRIG1COUNT}  are incrementing.
-
+\item In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS}, check that the \texttt{DTM(0) CODA State} and the \texttt{DTM(0) Trigger Count} are incrementing.
 
 \item Reset the ECal and SVT monitoring plots (disconnect+connect). 
 
@@ -234,9 +257,9 @@ Press \texttt{End Run} in the \texttt{RunControl}  GUI to stop data taking.
 
 \begin{enumerate}
 \item Wait for \texttt{End run succeeded} message in RunControl window. This can take about 15 seconds.
-\item Confirm the run log gui by pressing ``Done'' (see Figure~\ref{fig:runlog}).  Here you have an opportunity to update and overwrite the info given during ``Prestart''.  
+%\item Confirm the run log gui by pressing ``Done'' (see Figure~\ref{fig:runlog}).  Here you have an opportunity to update and overwrite the info given during ``Prestart''.  
 \item The \texttt{Prestart} button should appear.
-\item In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS} and check that both \texttt{DPM RUNSTATE}  and \texttt{DTM RUNSTATE}  are saying \texttt{Stopped}.
+\item In the \texttt{SVT summary GUI} under section \texttt{SVT DAQ STATUS} and check that \texttt{DTM(0) CODA State} is saying \texttt{Prestart}.
 \end{enumerate}
 \end{enumerate}
 
@@ -265,13 +288,13 @@ Follow this procedure if:
 \item Any of the ROC xterms in the Run Control GUI has died (the xterm is showing a command prompt)
 \end{itemize}
 \begin{enumerate}
-	\item Click through the three ROC tabs in the Run Control GUI to check on all of the ROC xterms. If any are showing command prompts at the bottom (for the xterms on the bottom row, you may have to hit Enter a few times in the xterm to make it scroll up), restart the command that was running in the xterm (Up, then Enter).
+    \item If any of the ROC xterms are showing command prompts at the bottom (for the xterms on the bottom row, you may have to hit Enter a few times in the xterm to make it scroll up), restart the command that was running in the xterm (Up, then Enter).
 	\item Log what CODA transition you had most recently done, and which (if any) xterms were dead. If you had just started a run, log how many events were in the run. 
     \item In Run Control, click \textbf{Cancel} (click twice just to be sure), \textbf{Reset} (you will get a confirmation dialog). Then start the run as normal starting with \textbf{Download} (procedure in Section \ref{sec:startstop}, starting at step 8).
     \item If the run fails for a second time, start this procedure from the beginning (including a log of the new failure). This time start the run starting with \textbf{Configure} (procedure in Section \ref{sec:startstop}, starting at step 6).
-    \item If the run fails for a second time, log the new failure, then reboot the DAQ (the TI and ECal DAQ, then the SVT DAQ) by following the procedure in \ref{fixdaqbig}. Then start the run as normal starting with \textbf{Connect} (procedure in Section \ref{sec:startstop}, starting at step 5).
-    \item If the run fails for a third time, reboot the DAQ again.
-    \item If the run fails for a fourth time, call the SVT DAQ expert (unless there are special instructions this is Pelle, whose phone number should be on the whiteboard in the counting house).
+    \item If the run fails more than once due to either clonfarm2 or clonfarm3 crashing, reboot the SVT DAQ by following the procedure in \ref{fixdaqbig}. Then start the run as normal starting with \textbf{Connect} (procedure in Section \ref{sec:startstop}, starting at step 5).
+    \item If the run fails for a third time, reboot the DAQ.
+    \item If the run fails for a fourth time, call the SVT DAQ expert
 %    \item If still fails:
 %    \begin{enumerate}
 %    	\item Try to identify which of the ROCs (in the Runcotrol GUI message window or in the individual ROC windows) has a problem. 
@@ -310,19 +333,19 @@ Follow this procedure if:
 %\end{enumerate}
 
 
-\subsubsection{Full DAQ Reboot}
-\label{fixdaqbig}
+%\subsubsection{Full DAQ Reboot}
+%\label{fixdaqbig}
 
-\begin{enumerate}
-\item Exit Run Control using the procedure in Section \ref{sec:daqexit}.
-\item Reboot the master TI and ECal DAQ by executing this command in a terminal:\newline
-\centerline{\texttt{hpsRocRebootAll.sh}}
-This will reboot hps11, hps1, and hps2, and then wait for a ping response from them all, meanwhile giving some progress messages.  When finished and all rebooted rocs are again alive, it will then restart the trigger scaler IOC, causing a popup about disconnected channels, and then finally display ``ROCS REBOOTED and TRIGGER IOC RESTARTED'' in the terminal.
+%\begin{enumerate}
+%\item Exit Run Control using the procedure in Section \ref{sec:daqexit}.
+%\item Reboot the master TI and ECal DAQ by executing this command in a terminal:\newline
+%\centerline{\texttt{hpsRocRebootAll.sh}}
+%This will reboot hps11, hps1, and hps2, and then wait for a ping response from them all, meanwhile giving some progress messages.  When finished and all rebooted rocs are again alive, it will then restart the trigger scaler IOC, causing a popup about disconnected channels, and then finally display ``ROCS REBOOTED and TRIGGER IOC RESTARTED'' in the terminal.
 
-\item Reboot the SVT DAQ: GOTO Sec.~\ref{fixsvtdaq}
+%\item Reboot the SVT DAQ: GOTO Sec.~\ref{fixsvtdaq}
 
-\item After reboot is done, start Run Control using the procedure in Section \ref{sec:daqstart}.
-\end{enumerate}
+%\item After reboot is done, start Run Control using the procedure in Section \ref{sec:daqstart}.
+%\end{enumerate}
 
 %    \item These two commands can be done in parallel (simultaneously) in two different terminals and will gradually kill all the terminals in Figure~\ref{fig:coda}.  Do not wait for them to finish before proceeding to the next step.
 %      \subitem \texttt{hps\_exit}
@@ -345,8 +368,8 @@ This will reboot hps11, hps1, and hps2, and then wait for a ping response from t
 %\end{enumerate}
 
 
-\subsubsection{FIX SVT DAQ}
-\label{fixsvtdaq}
+%\subsubsection{FIX SVT DAQ}
+%\label{fixsvtdaq}
 
 %\textcolor{red}{
 %Before following the below procedure, please record in a log entry the answer to these questions to help us debug and improve the DAQ:
@@ -360,26 +383,26 @@ This will reboot hps11, hps1, and hps2, and then wait for a ping response from t
 
 
 
-The procedure below is a full reboot of the SVT DAQ and may take up to 2 minutes to finish. 
+%The procedure below is a full reboot of the SVT DAQ and may take up to 2 minutes to finish. 
 
-\begin{enumerate}
+%\begin{enumerate}
 
-\item
-In the \texttt{SVT summary GUI}, bottom left section, click the \texttt{SVT DAQ REBOOT} button.
+%\item
+%In the \texttt{SVT summary GUI}, bottom left section, click the \texttt{SVT DAQ REBOOT} button.
 
-\item
-A new x terminal should popup. If it asks for a password it's the same as for user \texttt{clasrun} or \texttt{hpsrun}.
+%\item
+%A new x terminal should popup. If it asks for a password it's the same as for user \texttt{clasrun} or \texttt{hpsrun}.
 
-\item
-The terminal will print out status of the reboot and will not close after finishing. You have to manually close it. \newline
-This may take up to 2 minutes.\newline
-\textcolor{red}{While rebooting the SVT crate the ssh process can hang while halting DAQ nodes. If this happens it will get stuck one one or a few nodes in the beginning of the process. If it happens, wait 15 seconds before hitting {\em Cntrl-c} and the process should continue to the next. }
+%\item
+%The terminal will print out status of the reboot and will not close after finishing. You have to manually close it. \newline
+%This may take up to 2 minutes.\newline
+%\textcolor{red}{While rebooting the SVT crate the ssh process can hang while halting DAQ nodes. If this happens it will get stuck one one or a few nodes in the beginning of the process. If it happens, wait 15 seconds before hitting {\em Cntrl-c} and the process should continue to the next. }
 
-\item 
-After a successful finish, go to the the \texttt{SVT summary GUI}, and look for any errors following the check list starting from item~\ref{item:svt-checklist} in ~Sec~\ref{sec:startstop}.
+%\item 
+%After a successful finish, go to the the \texttt{SVT summary GUI}, and look for any errors following the check list starting from item~\ref{item:svt-checklist} in ~Sec~\ref{sec:startstop}.
 
-\item
-In case of failure, copy the output of the x terminal into a logbook post and call the SVT DAQ expert.
+%\item
+%In case of failure, copy the output of the x terminal into a logbook post and call the SVT DAQ expert.
 
 
 %\begin{enumerate}
@@ -409,7 +432,7 @@ In case of failure, copy the output of the x terminal into a logbook post and ca
 %\end{enumerate}
 
 
-\end{enumerate}
+%\end{enumerate}
 
 
     
@@ -469,25 +492,25 @@ In case of failure, copy the output of the x terminal into a logbook post and ca
 
 \newpage
 
-\appendix
-\section{Changing Prescale Factors on the Fly}
-This script will change the prescale factors immediately (during a run) and update the EPICS prescales such that the trigger GUI always uses the active prescales:\newline
-\centerline{\texttt{hpsTiPrescale.sh TRIGGER PRESCALE}}
-Here the \texttt{TRIGGER} argument is 1-4, where 1 is singles-0, 2 is singles-1, 3 is pairs-0, and 4 is pairs-1.
-And the \texttt{PRESCALE} argument is $N$, a number between 0 and 15 inclusive, where the real prescale factor is $2^N$.
+%\appendix
+%\section{Changing Prescale Factors on the Fly}
+%This script will change the prescale factors immediately (during a run) and update the EPICS prescales such that the trigger GUI always uses the active prescales:\newline
+%\centerline{\texttt{hpsTiPrescale.sh TRIGGER PRESCALE}}
+%Here the \texttt{TRIGGER} argument is 1-4, where 1 is singles-0, 2 is singles-1, 3 is pairs-0, and 4 is pairs-1.
+%And the \texttt{PRESCALE} argument is $N$, a number between 0 and 15 inclusive, where the real prescale factor is $2^N$.
 
-\section{Debugging deadtime}
+%\section{Debugging deadtime}
 %
 %
 %\begin{verbatim} THIS NEEDS TO BE UPDATED \end{verbatim}
 %
 %
 
-If you start a run and see an event rate of under 1 Hz and a livetime of 0\%:
-\begin{enumerate}
-\item On any clon,\newline
-\texttt{> tcpClient hps11 tiStatus}\newline
-\item Look for ``BUSY input source'' and see if any of the HFBR\#1-5 are labeled \texttt{BUSY}.
+%If you start a run and see an event rate of under 1 Hz and a livetime of 0\%:
+%\begin{enumerate}
+%\item On any clon,\newline
+%\texttt{> tcpClient hps11 tiStatus}\newline
+%\item Look for ``BUSY input source'' and see if any of the HFBR\#1-5 are labeled \texttt{BUSY}.
 
 %\begin{tabular}{ l|l }
 %  HFBR \# & ROC and system \\
@@ -498,7 +521,7 @@ If you start a run and see an event rate of under 1 Hz and a livetime of 0\%:
 %  5 & SVT DAQ \\
 %\end{tabular}
 %\item Do a full DAQ teardown, rebooting the problem ROC (if SVT DAQ, do a FIX SVT DAQ including \texttt{rem\_restart.sh})
-\end{enumerate}
+%\end{enumerate}
 
 \section{Rebooting an Individual ROC}\label{sec:rebootaroc}
 Execute this command (where \texttt{ROC} is one of \texttt{hps11, hps1, hps2}):\newline
@@ -519,14 +542,14 @@ After rebooting any or all the above ROCs, you must reboot the trigger scalers G
     \end{enumerate}
         
 
-\section{Restarting Individual CODA Processes}\label{sec:codacommands}
-If a CODA command dies (returns to prompt in the corresponding terminal) or a ROC must be rebooted, the CODA command for that ROC must be restarted.  The command can be manually executed again in the same terminal it was initally running in without a full DAQ restart.
+%\section{Restarting Individual CODA Processes}\label{sec:codacommands}
+%If a CODA command dies (returns to prompt in the corresponding terminal) or a ROC must be rebooted, the CODA command for that ROC must be restarted.  The command can be manually executed again in the same terminal it was initally running in without a full DAQ restart.
 
-If the ROC was not rebooted and only the CODA command died, the command should be the most recent in the shell history.  In this case you you should be able to press {\em up} in the terminal and re-execute the command.
+%If the ROC was not rebooted and only the CODA command died, the command should be the most recent in the shell history.  In this case you you should be able to press {\em up} in the terminal and re-execute the command.
 
-Alternatively, this command will start the appropriate CODA process for the host it is run on:
+%Alternatively, this command will start the appropriate CODA process for the host it is run on:
 
-\centerline{\texttt{hpsRocStart.sh}}
+%\centerline{\texttt{hpsRocStart.sh}}
 
 %Otherwise, here is a list of the CODA commands to be run on each ROC.  These should be executed in a terminal that is logged into the appropriate ROC (\texttt{hps1, hps2, hps11, hps12, hps1gtp,or hps2gtp}) as user \texttt{clasrun}.
 %\begin{itemize}
