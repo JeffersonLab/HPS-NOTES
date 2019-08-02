@@ -16,9 +16,9 @@
 % See the ``Article customise'' template for come common customisations
 
 \title{HPS DAQ Operations Manual v3.0.0}
-\author{Omar Moreno\thanks{SVT DAQ contact person.}, 
-        Sergey Boiarinov\thanks{TDAQ contact person.},
-        Nathan Baltzell, Cameron Bravo }
+\author{Nathan Baltzell, Sergey Boiarinov\thanks{TDAQ contact person.},
+        Cameron Bravo, Ryan Herbst, \\ Omar Moreno\thanks{SVT DAQ contact person.}, 
+        Ben Raydo, Ben Reese}
 %\date{} % delete this line to display the current date
 
 %%% BEGIN DOCUMENT
@@ -32,7 +32,7 @@
 \section{System Description}
 The HPS experiment data acquisition (DAQ) handles the acquisition of data for
 three sub-detectors: the silicon vertex tracker (SVT), electromagnetic calorimeter
-(ECal) and hosdoscope. HPS employs two DAQ architectures: the SVT is readout 
+(ECal) and hodoscope. HPS employs two DAQ architectures: the SVT is read out 
 with the Advanced Telecom Communications Architecture (ATCA) hardware while the
 ECal uses VXS based hardware. The trigger system receives input from the ECal
 and hodoscope, and distributes a trigger signal to all detector subsystems to
@@ -51,17 +51,19 @@ For the ECal, every VXS crate contains a Readout Controller (ROC) that collects 
 The HPS experiment uses the CODA software framework for its DAQ run control. 
 During the 2019 Physics Run, CODA will be run in a VNC viewer running on a 
 VNC server started on \texttt{clondaq3}.  This allows the use of CODA remotely
-in the event that offsite support is required.  Accessing CODA can be done 
+in the event that off-site support is required.  Accessing CODA can be done 
 from any of the clon machines in the counting house by issuing the following
-command from a terminal: \newline
+command from a terminal as user \texttt{hpsrun}: \newline
 
-    \texttt{> daqvnc}\newline
+    \noindent
+    \texttt{\hspace*{1cm} > daqvnc}\newline
 
 \noindent
 In the case that CODA is not running within the VNC, it can be started by 
 opening a terminal and issuing the following command:\newline
 
-    \texttt{> runcontrol -rocs}\newline
+    \noindent
+    \texttt{\hspace*{1cm} > runcontrol -rocs}\newline
 
 \noindent
 This opens up all windows needed on the current workspace. The workspace should
@@ -74,7 +76,7 @@ the top right corner to make the roc terminals visible. \newline
 %=======================
 \begin{figure}[htbp]
 \begin{center}
-    \includegraphics[width=\textwidth]{runcontrol_start.png}
+    \includegraphics[width=.8\textwidth]{runcontrol_start.png}
 \caption{CODA workspace.}
 \label{fig:coda}
 \end{center}
@@ -82,19 +84,67 @@ the top right corner to make the roc terminals visible. \newline
 \end{figure}
 %=======================
 
-\subsection{Killing the DAQ}\label{sec:daqexit}
+\subsection{Killing the CODA Run Control}\label{sec:daqexit}
 
 \noindent
 First, in the runcontrol GUI, click ``File''$\to``$Exit''.  You may have to do
 that twice. Then, to ensure that all underlying processes are gone, open a terminal within
 the VNC viewer and execute the two commands:\newline
     
-    \texttt{> killall rcServer}\newline
+    \noindent
+    \texttt{\hspace*{1cm} > killall rcServer} \\
+    \texttt{\hspace*{1cm} > killall rocs}
 
-    \texttt{> killall rocs}\newline
-%\texttt{> hps\_exit}\newline
-%\texttt{> roc\_xterms\_exit}\newline
-%This does not have to be done from the same terminal used for Section \ref{sec:daqstart}.  Do not proceed with DAQ operations until all the windows in Fig.~\ref{fig:coda} have disappeared.
+\subsection{Starting Rogue (SVT Experts Only)}\label{sec:rogue}
+
+Before taking a run, the SVT data acquisition software (Rogue) also needs to be 
+started.  During the 2019 Physics Run, Rogue will be running on a VNC server 
+started on \texttt{clonfarm2}. This will allow SVT experts access to Rogue
+in the event that off-site support is needed. Accessing the VNC containing the
+Rogue GUI can be done from any of the clon machines in the counting house
+by issuing the following command from a terminal as user \texttt{hpsrun}: \\ 
+
+    \noindent
+    \texttt{\hspace*{1cm} > svtvnc} \\
+
+\noindent
+Once open, the Rogue GUI should be visible as shown in Fig.~\ref{fig:svtvnc}. 
+\begin{figure}[htbp]
+\begin{center}
+    \includegraphics[width=.7\textwidth]{svtvnc.png}
+\caption{Rogue GUI running inside a VNC viewer.}
+\label{fig:svtvnc}
+\end{center}
+\end{figure}
+
+\noindent
+In the case that Rogue isn't running within the VNC, it can be started by 
+opening two terminals and issuing the following commands: \\
+
+\noindent
+In the first terminal \\
+
+    \noindent
+    \texttt{\hspace*{1cm} > cd /usr/clas12/release/1.4.0/slac\_svt/} \\
+    \texttt{\hspace*{1cm} > bash} \\
+    \texttt{\hspace*{1cm} > source setup\_rogue\_server.sh} \\
+    \texttt{\hspace*{1cm} > cd heavy-photon-daq/software/scripts/} \\
+    \texttt{\hspace*{1cm} > python SvtCodaRun.py} \\
+
+\noindent
+In the second terminal \\
+
+    \noindent
+    \texttt{\hspace*{1cm} > ssh clonfarm3} \\
+    \texttt{\hspace*{1cm} > cd /usr/clas12/release/1.4.0/slac\_svt/} \\
+    \texttt{\hspace*{1cm} > bash} \\
+    \texttt{\hspace*{1cm} > source setup\_rogue\_server.sh} \\
+    \texttt{\hspace*{1cm} > cd heavy-photon-daq/software/scripts/} \\
+    \texttt{\hspace*{1cm} > python SvtCodaDummy.py} \\
+
+Note, that before doing an SVT DAQ reboot, the two Rogue processes will need to 
+be killed.  The two processes can be restarted after the SVT DAQ has rebooted
+successfully. 
 
 \subsection{Starting a run}
 \label{sec:startstop}
@@ -139,8 +189,8 @@ SVT position is appropriate for the run.
 
 \item 
     High voltage bias is ON (at 60V for layers 0/1 and 180V for the rest). 
-\newline NOTE: If the the HV is OFF and won't come on you might need to go and reset the interlock by going to the \texttt{Devices/SVT Soft Interlocks} GUI and Reseting the MPOD interlock. This happens after a beam trip. 
-\newline {\bf \textcolor{red}{Important: Check that beam conditions for turning on bias voltage is OK before switching on!}}
+        \newline NOTE: If the the HV is OFF and won't come on you might need to go and reset the interlock by opening the  \texttt{HV Bias Expert GUI} from the \texttt{Summary GUI} and reseting the MPOD interlock. This happens after a beam trip. 
+\newline {\bf \textcolor{red}{Important: Before resetting the interlock, call the SVT expert!}}
 
 
 \item FEB Status
@@ -161,9 +211,11 @@ SVT position is appropriate for the run.
 
 \end{enumerate}
 
-\item \textcolor{red}{ {\bf If continuing with same the same run configuration from a stopped run continue to \ref{item:prestart}.}}
+\item \textcolor{red}{ {\bf If continuing with the same run configuration from a stopped run continue to \ref{item:prestart}.}}
 
-\item In the \texttt{RunControl} GUI: click \texttt{connect}, the GUI should update with new windows. 
+\item Check the \texttt{svtvnc} VNC and make sure Rogue is running.
+
+\item In the \texttt{RunControl} GUI: click \texttt{connect}, the GUI should update with new windows.
 
 \item Click on \texttt{Configure} in the transition section, choose configuration \texttt{PROD66}. Click OK.
 \item
@@ -288,13 +340,19 @@ Follow this procedure if:
 \item Any of the ROC xterms in the Run Control GUI has died (the xterm is showing a command prompt)
 \end{itemize}
 \begin{enumerate}
-    \item If any of the ROC xterms are showing command prompts at the bottom (for the xterms on the bottom row, you may have to hit Enter a few times in the xterm to make it scroll up), restart the command that was running in the xterm (Up, then Enter).
-	\item Log what CODA transition you had most recently done, and which (if any) xterms were dead. If you had just started a run, log how many events were in the run. 
-    \item In Run Control, click \textbf{Cancel} (click twice just to be sure), \textbf{Reset} (you will get a confirmation dialog). Then start the run as normal starting with \textbf{Download} (procedure in Section \ref{sec:startstop}, starting at step 8).
-    \item If the run fails for a second time, start this procedure from the beginning (including a log of the new failure). This time start the run starting with \textbf{Configure} (procedure in Section \ref{sec:startstop}, starting at step 6).
-    \item If the run fails more than once due to either clonfarm2 or clonfarm3 crashing, reboot the SVT DAQ by following the procedure in \ref{fixdaqbig}. Then start the run as normal starting with \textbf{Connect} (procedure in Section \ref{sec:startstop}, starting at step 5).
-    \item If the run fails for a third time, reboot the DAQ.
-    \item If the run fails for a fourth time, call the SVT DAQ expert
+    \item If any of the ROC xterms are showing command prompts at the bottom 
+          (for the xterms on the bottom row, you may have to hit \texttt{Enter}
+          a few times in the xterm to make it scroll up), log what CODA 
+          transition you had most recently done, and which (if any) xterms were
+          dead. If you had just started a run, log how many events were in the
+          run. 
+    \item Before restarting the run, take a screenshot of the DPM status and DPM 
+          Link Status and log it.
+    \item In Run Control, click \textbf{Cancel} (click twice just to be sure), \textbf{Reset} (you will get a confirmation dialog). Then start the run as normal starting with \textbf{Configure} (procedure in Section \ref{sec:startstop}, starting at step 7).
+    \item If the run fails more than once due to either clonfarm2 or clonfarm3 crashing, call the SVT expert.
+    %reboot the SVT DAQ by following the procedure in \ref{fixdaqbig}. Then start the run as normal starting with \textbf{Connect} (procedure in Section \ref{sec:startstop}, starting at step 5).
+    %\item If the run fails for a third time, reboot the DAQ.
+    %\item If the run fails for a fourth time, call the SVT DAQ expert
 %    \item If still fails:
 %    \begin{enumerate}
 %    	\item Try to identify which of the ROCs (in the Runcotrol GUI message window or in the individual ROC windows) has a problem. 
@@ -355,10 +413,10 @@ Follow this procedure if:
 %      \subitem \texttt{roc\_reboot hps1}
 %      \subitem \texttt{roc\_reboot hps2}
 %      \subitem \texttt{roc\_reboot hps12}
-%    \item Confirm Successfull Login to all ROCs (and logout afterwards): 
+%    \item Confirm Successful Login to all ROCs (and logout afterwards): 
 %        \subitem\texttt{ssh hps11, hps12, hps1, hps2, hps1gtp, hps2gtp}
-%        \subitem This will not work instataneously; keep trying until all the ROCs are fully alive.  Should not be more than a couple minutes.  Pings will work before sshes.  If any fail to ssh successfully without error after 5 minutes, reboot the culprit ROC.  {\em If you need to rereboot hps11 here, GOTO STEP \#2}.
-%    \item After all 6 sshs are succesful and Step \#1 has completed, do the following.  These can be done in parallel in two different terminals:
+%        \subitem This will not work instantaneously; keep trying until all the ROCs are fully alive.  Should not be more than a couple minutes.  Pings will work before sshes.  If any fail to ssh successfully without error after 5 minutes, reboot the culprit ROC.  {\em If you need to reboot hps11 here, GOTO STEP \#2}.
+%    \item After all 6 sshs are successful and Step \#1 has completed, do the following.  These can be done in parallel in two different terminals:
 %    \subitem \texttt{hps\_start}
 %    \subitem \texttt{roc\_xterms\_start}
 %    \item After rebooting ROCs, you may have to reboot the trigger scalers GUI (REBOOT button at the bottom right).
@@ -457,7 +515,7 @@ Follow this procedure if:
 %\item 
 %Bias high voltage is ON and at 180V (unless SVT expert has told you something different). 
 %\newline If the the HV is OFF and won't come on you might need to go and reset the interlock by going to the \texttt{Devices/SVT Soft Interlocks} GUI and Reseting the MPOD interlock. This happens after a beam trip. 
-%\newline {\bf \textcolor{red}{Important: Check that beam conditions for turning on bias voltage is OK before swiching on (see above)!}}
+%\newline {\bf \textcolor{red}{Important: Check that beam conditions for turning on bias voltage is OK before switching on (see above)!}}
 %
 %\item
 %SVT DAQ is in a state ready to run:
@@ -543,7 +601,7 @@ After rebooting any or all the above ROCs, you must reboot the trigger scalers G
         
 
 %\section{Restarting Individual CODA Processes}\label{sec:codacommands}
-%If a CODA command dies (returns to prompt in the corresponding terminal) or a ROC must be rebooted, the CODA command for that ROC must be restarted.  The command can be manually executed again in the same terminal it was initally running in without a full DAQ restart.
+%If a CODA command dies (returns to prompt in the corresponding terminal) or a ROC must be rebooted, the CODA command for that ROC must be restarted.  The command can be manually executed again in the same terminal it was initially running in without a full DAQ restart.
 
 %If the ROC was not rebooted and only the CODA command died, the command should be the most recent in the shell history.  In this case you you should be able to press {\em up} in the terminal and re-execute the command.
 
