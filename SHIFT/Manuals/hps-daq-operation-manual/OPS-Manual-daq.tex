@@ -2,11 +2,12 @@
 \usepackage{graphicx}
 %\usepackage{subfigure}
 \usepackage{color}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
 
-\addtolength{\textwidth}{3cm}
-\addtolength{\hoffset}{-1.5cm}
-\addtolength{\textheight}{3.0cm}
-\addtolength{\voffset}{-1.5cm}
+\addtolength{\textwidth}{3.4cm}
+\addtolength{\hoffset}{-1.7cm}
+\addtolength{\textheight}{3.4cm}
+\addtolength{\voffset}{-1.7cm}
 
 
 %\usepackage{geometry} % see geometry.pdf on how to lay out the page. There's lots.
@@ -59,7 +60,7 @@ command from a terminal as user \texttt{hpsrun}: \newline
     \texttt{\hspace*{1cm} > daqvnc}\newline
 
 \noindent
-In the case that CODA is not running within the VNC, it can be started by 
+If there are problems with the VNC server, see Appendix \ref{sec:vnc}.  In the case that CODA is not running within the VNC, it can be started by 
 opening a terminal and issuing the following command:\newline
 
     \noindent
@@ -618,5 +619,22 @@ Execute this command (where \texttt{ROC} is one of \texttt{hps11, hps1, hps2}):\
 %    \item \texttt {coda\_roc -s clashps -o $''$hps1gtp ROC$''$}
 %    \item \texttt {coda\_roc -s clashps -o $''$hps2gtp ROC$''$}
 %\end{itemize}
+
+\begin{appendix}
+    \section{VNC}\label{sec:vnc}
+In rare situations the VNC server may have issues and need to be restarted from scratch.  First, contact the DAQ and/or slow controls expert for guidance.  If unreponsive, the command \texttt{daqvnc.py} can be used to restart VNC from scratch.  These commands will work on any clon machine and will do the right thing in terms of which host the VNC server and client run on. 
+\begin{itemize}
+    \item To kill the VNC server ({\em and anything running inside it, e.g. runcontrol!}):
+
+        \noindent\texttt{\hspace*{1cm} > daqvnc.py stop}\newline
+    \item To start a fresh VNC server (after killing the old one):
+    
+        \noindent\texttt{\hspace*{1cm} > daqvnc.py start}\newline
+    \item To connect the client vncviewer to the existing server (note, this is the same as the alias \texttt{daqvnc} in Section \ref{sec:daqstart}):
+
+        \noindent\texttt{\hspace*{1cm} > daqvnc.py connect}\newline
+\end{itemize}
+This uses a single configuration file for the VNC setup (e.g. host, port, geometry), located at: \texttt{\$CLON\_PARMS/vnc/daqvnc.json}
+\end{appendix}
 
 \end{document}
